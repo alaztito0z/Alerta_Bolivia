@@ -1,15 +1,15 @@
 const CACHE_NAME = 'alerta-bolivia-v1.0.0';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/educacion.html',
-  '/denuncias.html',
-  '/mapa.html',
-  '/contactos.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  'logo.jpg',
+  'https://alaztito0z.github.io/Alerta_Bolivia/',
+  'https://alaztito0z.github.io/Alerta_Bolivia/index.html',
+  'https://alaztito0z.github.io/Alerta_Bolivia/educacion.html',
+  'https://alaztito0z.github.io/Alerta_Bolivia/denuncias.html',
+  'https://alaztito0z.github.io/Alerta_Bolivia/mapa.html',
+  'https://alaztito0z.github.io/Alerta_Bolivia/contactos.html',
+  'https://alaztito0z.github.io/Alerta_Bolivia/manifest.json',
+  'https://alaztito0z.github.io/Alerta_Bolivia/icon-192.png',
+  'https://alaztito0z.github.io/Alerta_Bolivia/icon-512.png',
+  'https://alaztito0z.github.io/Alerta_Bolivia/logo.jpg',
   'https://formspree.io/f/xblzaejj'
 ];
 
@@ -65,7 +65,7 @@ self.addEventListener('fetch', (event) => {
             }
             
             if (event.request.headers.get('accept').includes('text/html')) {
-              return caches.match('/index.html');
+              return caches.match('https://alaztito0z.github.io/Alerta_Bolivia/index.html');
             }
             
             return new Response('Recurso no disponible en modo offline', {
@@ -75,10 +75,4 @@ self.addEventListener('fetch', (event) => {
           });
       })
   );
-});
-
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
 });
