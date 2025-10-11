@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alerta Bolivia - Plataforma de Emergencias</title>
 
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="https://alaztito0z.github.io/Alerta_Bolivia/manifest.json">
 <meta name="theme-color" content="#1e40af"/>
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -940,11 +940,29 @@ body {
 </footer>
 
 <script>
+const GITHUB_CLIENT_ID = 'Ov23liEgjJNUHpoNpxyn';
+
+window.addEventListener('load', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+  
+  if (code) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+    simulateUserData();
+  }
+  
+  const savedUser = localStorage.getItem('githubUser');
+  if (savedUser) {
+    const userData = JSON.parse(savedUser);
+    updateUserUI(userData);
+  }
+});
+
 let deferredPrompt;
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('service-worker.js')
+    navigator.serviceWorker.register('https://alaztito0z.github.io/Alerta_Bolivia/service-worker.js')
       .then(function(registration) {
         console.log('Service Worker registrado con éxito:', registration);
       })
@@ -961,7 +979,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
   if (installButton) {
     installButton.style.display = 'flex';
   }
-  console.log('PWA lista para instalación');
 });
 
 document.getElementById('installButton').addEventListener('click', async () => {
@@ -971,44 +988,32 @@ document.getElementById('installButton').addEventListener('click', async () => {
   }
   
   deferredPrompt.prompt();
-  
   const { outcome } = await deferredPrompt.userChoice;
   
   if (outcome === 'accepted') {
-    console.log('Usuario aceptó instalar la PWA');
     document.getElementById('installButton').classList.add('hidden');
     window.sistemaContadores.mostrarToast('¡App Instalada!', 'La aplicación se ha instalado correctamente en tu dispositivo.');
-  } else {
-    console.log('Usuario rechazó instalar la PWA');
   }
   
   deferredPrompt = null;
 });
 
 window.addEventListener('appinstalled', () => {
-  console.log('PWA instalada');
   document.getElementById('installButton').classList.add('hidden');
   deferredPrompt = null;
 });
 
 window.addEventListener('load', () => {
   if (window.matchMedia('(display-mode: standalone)').matches) {
-    console.log('La PWA ya está instalada');
     document.getElementById('installButton').classList.add('hidden');
   }
 });
 
-const GITHUB_CLIENT_ID = 'Ov23liEgjJNUHpoNpxyn';
-const GITHUB_REDIRECT_URI = window.location.origin + window.location.pathname;
-const GITHUB_SCOPE = 'user:email';
-
 document.getElementById('githubLoginTrigger').addEventListener('click', () => {
   const userInfo = document.getElementById('userInfo');
-  
   if (userInfo.style.display === 'flex') {
     return;
   }
-  
   document.getElementById('loginModal').style.display = 'flex';
 });
 
@@ -1017,33 +1022,17 @@ function closeLoginModal() {
 }
 
 function loginWithGitHub() {
-  const authUrl = `https://github.com/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(GITHUB_REDIRECT_URI)}&scope=${GITHUB_SCOPE}`;
+  const GITHUB_REDIRECT_URI = 'https://alaztito0z.github.io/Alerta_Bolivia/';
+  const authUrl = `https://github.com/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(GITHUB_REDIRECT_URI)}&scope=user:email`;
   
-  const width = 600;
-  const height = 600;
-  const left = (window.screen.width - width) / 2;
-  const top = (window.screen.height - height) / 2;
-  
-  const authWindow = window.open(
-    authUrl,
-    'GitHub Login',
-    `width=${width},height=${height},left=${left},top=${top}`
-  );
-  
-  const checkAuthWindow = setInterval(() => {
-    if (authWindow.closed) {
-      clearInterval(checkAuthWindow);
-      simulateUserData();
-    }
-  }, 500);
-  
+  window.location.href = authUrl;
   closeLoginModal();
 }
 
 function simulateUserData() {
   const userData = {
     name: 'Usuario GitHub',
-    avatar: 'https://avatars.githubusercontent.com/u/example?v=4',
+    avatar: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
     login: 'githubuser'
   };
   
@@ -1067,14 +1056,6 @@ function logout() {
   document.getElementById('userInfo').style.display = 'none';
   window.sistemaContadores.mostrarToast('Sesión cerrada', 'Has cerrado sesión correctamente');
 }
-
-window.addEventListener('load', () => {
-  const savedUser = localStorage.getItem('githubUser');
-  if (savedUser) {
-    const userData = JSON.parse(savedUser);
-    updateUserUI(userData);
-  }
-});
 
 class SistemaContadoresAvanzado {
   constructor() {
@@ -1461,5 +1442,4 @@ window.addEventListener('beforeunload', function() {
 </script>
 
 </body>
-
 </html>
