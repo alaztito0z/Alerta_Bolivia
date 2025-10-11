@@ -941,14 +941,14 @@ body {
 
 <script>
 const GITHUB_CLIENT_ID = 'Ov23liEgjJNUHpoNpxyn';
+const GITHUB_CLIENT_SECRET = '74cf6525fa2bd375feb0538cb00e3affa270bab9';
 
 window.addEventListener('load', function() {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
   
   if (code) {
-    window.history.replaceState({}, document.title, window.location.pathname);
-    simulateUserData();
+    exchangeCodeForToken(code);
   }
   
   const savedUser = localStorage.getItem('githubUser');
@@ -957,6 +957,64 @@ window.addEventListener('load', function() {
     updateUserUI(userData);
   }
 });
+
+async function exchangeCodeForToken(code) {
+  try {
+    const response = await fetch('https://github.com/login/oauth/access_token', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        client_id: GITHUB_CLIENT_ID,
+        client_secret: GITHUB_CLIENT_SECRET,
+        code: code,
+        redirect_uri: 'https://alaztito0z.github.io/Alerta_Bolivia/'
+      })
+    });
+
+    const data = await response.json();
+    
+    if (data.access_token) {
+      await getUserInfo(data.access_token);
+    } else {
+      console.error('Error obteniendo access token:', data);
+      simulateUserData();
+    }
+    
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } catch (error) {
+    console.error('Error en la autenticación:', error);
+    simulateUserData();
+  }
+}
+
+async function getUserInfo(accessToken) {
+  try {
+    const response = await fetch('https://api.github.com/user', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Accept': 'application/json'
+      }
+    });
+
+    const userData = await response.json();
+    
+    const userInfo = {
+      name: userData.name || userData.login,
+      avatar: userData.avatar_url,
+      login: userData.login
+    };
+    
+    localStorage.setItem('githubUser', JSON.stringify(userInfo));
+    updateUserUI(userInfo);
+    window.sistemaContadores.mostrarToast('¡Bienvenido!', `Has iniciado sesión como ${userInfo.name}`);
+  } catch (error) {
+    console.error('Error obteniendo información del usuario:', error);
+    simulateUserData();
+  }
+}
 
 let deferredPrompt;
 
