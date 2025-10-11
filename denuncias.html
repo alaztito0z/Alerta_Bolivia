@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denuncias - Alerta Bolivia</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #f1f5f9;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.header {
+  background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+  border-bottom: 3px solid #60a5fa;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 1.7rem;
+}
+
+.logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #60a5fa;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+  transform: rotate(10deg);
+}
+
+.menu {
+  display: flex;
+  gap: 8px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+}
+
+.menu a:hover {
+  background: rgba(96, 165, 250, 0.9);
+  transform: translateY(-2px);
+}
+
+.menu a.active {
+  background: #60a5fa;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+}
+
+.menu a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #60a5fa;
+  border-radius: 50%;
+}
+
+.main {
+  padding: 3rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  color: #f1f5f9;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  position: relative;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.page-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #60a5fa, #a855f7);
+  margin: 1rem auto;
+  border-radius: 2px;
+}
+
+.last-update {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.last-update .highlight {
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  padding: 1.5rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  border: 1px solid #334155;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #60a5fa, #a855f7);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(96, 165, 250, 0.3);
+  border-color: #60a5fa;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #f1f5f9;
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-container {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+  border: 1px solid #374151;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #60a5fa, #a855f7);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  font-size: 1rem;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid #374151;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: #1e293b;
+  color: #f1f5f9;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 8px 25px rgba(96, 165, 250, 0.3);
+  transform: translateY(-2px);
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.coordinates-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.location-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(96, 165, 250, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(96, 165, 250, 0.6);
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:active {
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #94a3b8, #64748b);
+  box-shadow: 0 4px 15px rgba(148, 163, 184, 0.4);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 8px 25px rgba(148, 163, 184, 0.6);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.reports-section {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+  border: 1px solid #374151;
+  position: relative;
+}
+
+.reports-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.section-title {
+  color: #f1f5f9;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.filter-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filter-select {
+  padding: 0.5rem 1rem;
+  border: 2px solid #374151;
+  border-radius: 8px;
+  background: #1e293b;
+  font-size: 0.9rem;
+  color: #f1f5f9;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.reports-list {
+  list-style: none;
+  padding: 0;
+}
+
+.report-item {
+  background: linear-gradient(135deg, #1e293b80, #33415580);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 16px;
+  border-left: 4px solid #60a5fa;
+  transition: all 0.3s ease;
+  border: 1px solid #374151;
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.report-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  border-color: #60a5fa;
+}
+
+.report-item.emergency {
+  border-left-color: #ef4444;
+  background: linear-gradient(135deg, #7f1d1d80, #991b1b80);
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.report-type {
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+}
+
+.report-type.emergency {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.report-location {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.report-description {
+  color: #e2e8f0;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.report-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-top: 0.5rem;
+}
+
+.report-priority {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.priority-high {
+  background: linear-gradient(135deg, #ef444430, #dc262650);
+  color: #fca5a5;
+  border: 1px solid #ef444450;
+}
+
+.priority-medium {
+  background: linear-gradient(135deg, #f59e0b30, #d9770650);
+  color: #fcd34d;
+  border: 1px solid #f59e0b50;
+}
+
+.priority-low {
+  background: linear-gradient(135deg, #16a34a30, #15803d50);
+  color: #86efac;
+  border: 1px solid #16a34a50;
+}
+
+.empty-state {
+  text-align: center;
+  color: #94a3b8;
+  padding: 3rem;
+  font-style: italic;
+}
+
+.emergency-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.6);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse-emergency 2s infinite;
+}
+
+.emergency-btn:hover {
+  transform: scale(1.15) rotate(10deg);
+  box-shadow: 0 12px 35px rgba(239, 68, 68, 0.8);
+}
+
+@keyframes pulse-emergency {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.notification-toast {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  background: linear-gradient(135deg, #1e293b, #334155);
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border-left: 4px solid #60a5fa;
+  z-index: 2001;
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+  max-width: 300px;
+  backdrop-filter: blur(10px);
+}
+
+.notification-toast.show {
+  transform: translateX(0);
+}
+
+.notification-title {
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+}
+
+.notification-message {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.footer {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #cbd5e1;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  margin-top: 4rem;
+  border-top: 3px solid #60a5fa;
+}
+
+.footer-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.no-results {
+  text-align: center;
+  color: #94a3b8;
+  padding: 3rem;
+  font-style: italic;
+  display: none;
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .main {
+    padding: 2rem 1rem;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .form-container, .reports-section {
+    padding: 2rem 1.5rem;
+  }
+  
+  .coordinates-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .emergency-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-controls {
+    justify-content: space-between;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .location-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .form-container, .reports-section {
+    padding: 1.5rem;
+  }
+  
+  .report-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .location-actions {
+    flex-direction: column;
+  }
+
+  .filter-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.menu a:focus,
+.btn:focus,
+.emergency-btn:focus,
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    <img src="logo.jpg" alt="Alerta Bolivia" class="logo-img">
+    <span>🇧🇴 Alerta Bolivia</span>
+  </div>
+  <nav class="menu">
+    <a href="index.html">Inicio</a>
+    <a href="educacion.html">Educación</a>
+    <a href="denuncias.html" class="active">Denuncias</a>
+    <a href="mapa.html">Mapa</a>
+    <a href="contactos.html">Contactos</a>
+  </nav>
+</header>
+
+<main class="main">
+  <h1 class="page-title">Reportar Incidente</h1>
+
+  <div class="last-update">
+    🔄 Última actualización: <span class="highlight" id="lastUpdateTime">Cargando...</span>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-number" id="total-reports">0</span>
+      <span class="stat-label">Reportes Totales</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="today-reports">0</span>
+      <span class="stat-label">Hoy</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="emergency-reports">0</span>
+      <span class="stat-label">Emergencias</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="response-time">0h</span>
+      <span class="stat-label">Tiempo Respuesta</span>
+    </div>
+  </div>
+  
+  <section class="form-container">
+    <form id="report-form">
+      <div class="form-group">
+        <label class="form-label">Nombre completo</label>
+        <input type="text" name="nombre" class="form-input" placeholder="Ingresa tu nombre completo" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" name="_replyto" class="form-input" placeholder="tu.correo@ejemplo.com" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Tipo de incidente</label>
+        <select name="tipo" class="form-select" required>
+          <option value="">Selecciona el tipo de incidente</option>
+          <option value="sismo">Sismo / Terremoto</option>
+          <option value="inundacion">Inundación</option>
+          <option value="deslizamiento">Deslizamiento de tierra</option>
+          <option value="incendio">Incendio forestal o urbano</option>
+          <option value="emergencia">Emergencia médica</option>
+          <option value="otro">Otro tipo de emergencia</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Nivel de urgencia</label>
+        <select name="urgencia" class="form-select" required>
+          <option value="baja">Baja - Situación controlada</option>
+          <option value="media" selected>Media - Requiere atención</option>
+          <option value="alta">Alta - Necesita intervención inmediata</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Ubicación del incidente</label>
+        <input type="text" name="lugar" class="form-input" placeholder="Ej: La Paz - Zona Sur, Calle Principal #123" required>
+        <div class="location-actions">
+          <button type="button" class="btn btn-secondary" onclick="obtenerUbicacionActual()">
+            📍 Obtener ubicación actual
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="abrirMapa()">
+            🗺️ Seleccionar en mapa
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group coordinates-group">
+        <div>
+          <label class="form-label">Latitud</label>
+          <input type="number" step="0.000001" name="lat" class="form-input" placeholder="-16.500000" id="lat-input">
+        </div>
+        <div>
+          <label class="form-label">Longitud</label>
+          <input type="number" step="0.000001" name="lon" class="form-input" placeholder="-68.150000" id="lon-input">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Descripción detallada</label>
+        <textarea name="descripcion" class="form-textarea" placeholder="Describe con detalle lo sucedido, la gravedad de la situación y cualquier información relevante..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-full">
+        📨 Enviar Reporte
+      </button>
+    </form>
+  </section>
+
+  <section class="reports-section">
+    <div class="section-header">
+      <h2 class="section-title">Reportes Recientes</h2>
+      <div class="filter-controls">
+        <select class="filter-select" id="type-filter">
+          <option value="all">Todos los tipos</option>
+          <option value="sismo">Sismos</option>
+          <option value="inundacion">Inundaciones</option>
+          <option value="deslizamiento">Deslizamientos</option>
+          <option value="incendio">Incendios</option>
+          <option value="emergencia">Emergencias</option>
+        </select>
+        <select class="filter-select" id="urgency-filter">
+          <option value="all">Todas las urgencias</option>
+          <option value="alta">Alta urgencia</option>
+          <option value="media">Media urgencia</option>
+          <option value="baja">Baja urgencia</option>
+        </select>
+      </div>
+    </div>
+    <ul class="reports-list" id="report-list">
+      <li class="empty-state">No hay reportes guardados localmente</li>
+    </ul>
+  </section>
+</main>
+
+<form id="emergency-form" action="https://formspree.io/f/xblzaejj" method="POST" style="display: none;">
+  <input type="hidden" name="nombre" value="Alerta Rápida">
+  <input type="hidden" name="_replyto" value="usuario@correo.com">
+  <input type="hidden" name="tipo" value="Emergencia">
+  <input type="hidden" name="urgencia" value="alta">
+  <input type="hidden" name="lugar" value="Mi comunidad">
+  <input type="hidden" name="lat" value="-16.5">
+  <input type="hidden" name="lon" value="-68.15">
+  <textarea name="descripcion" style="display: none;">🚨 Hay un desastre en mi comunidad. Se requiere intervención inmediata de los servicios de emergencia.</textarea>
+</form>
+
+<button class="emergency-btn" title="Enviar alerta rápida de emergencia" aria-label="Botón de emergencia">
+  🚨
+</button>
+
+<div class="notification-toast" id="notificationToast">
+  <div class="notification-title" id="toastTitle">Reporte Enviado</div>
+  <div class="notification-message" id="toastMessage">Tu reporte ha sido registrado correctamente</div>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>© 2025 Plataforma de Alerta y Educación Ambiental de Bolivia</p>
+    <p style="margin-top: 0.5rem; opacity: 0.8; font-size: 0.9rem;">Sistema de monitoreo y alerta temprana - Última actualización: <span id="lastUpdate"></span></p>
+  </div>
+</footer>
+
+<script>
+class SistemaDenuncias {
+  constructor() {
+    this.reports = [];
+    this.filters = {
+      type: 'all',
+      urgency: 'all'
+    };
+    this.cargarReportes();
+    this.inicializar();
+  }
+
+  cargarReportes() {
+    this.reports = JSON.parse(localStorage.getItem('denuncias')) || [];
+  }
+
+  guardarReportes() {
+    localStorage.setItem('denuncias', JSON.stringify(this.reports));
+  }
+
+  inicializar() {
+    this.actualizarEstadisticas();
+    this.configurarFormulario();
+    this.configurarFiltros();
+    this.cargarReportesLista();
+    this.actualizarFecha();
+  }
+
+  actualizarEstadisticas() {
+    const total = this.reports.length;
+    const hoy = this.reports.filter(r => this.esHoy(r.timestamp)).length;
+    const emergencias = this.reports.filter(r => r.urgencia === 'alta').length;
+    
+    document.getElementById('total-reports').textContent = total;
+    document.getElementById('today-reports').textContent = hoy;
+    document.getElementById('emergency-reports').textContent = emergencias;
+    document.getElementById('response-time').textContent = '30min';
+
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('es-BO', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const dateString = now.toLocaleDateString('es-BO', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    document.getElementById('lastUpdateTime').textContent = `${dateString} ${timeString}`;
+  }
+
+  esHoy(timestamp) {
+    const fechaReporte = new Date(timestamp);
+    const hoy = new Date();
+    return fechaReporte.toDateString() === hoy.toDateString();
+  }
+
+  actualizarFecha() {
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('es-BO', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  configurarFormulario() {
+    const form = document.getElementById('report-form');
+    form.addEventListener('submit', (e) => this.enviarReporte(e));
+  }
+
+  configurarFiltros() {
+    document.getElementById('type-filter').addEventListener('change', (e) => {
+      this.filters.type = e.target.value;
+      this.cargarReportesLista();
+    });
+
+    document.getElementById('urgency-filter').addEventListener('change', (e) => {
+      this.filters.urgency = e.target.value;
+      this.cargarReportesLista();
+    });
+  }
+
+  async enviarReporte(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const reporte = {
+      nombre: formData.get('nombre'),
+      tipo: formData.get('tipo'),
+      urgencia: formData.get('urgencia'),
+      lugar: formData.get('lugar'),
+      lat: formData.get('lat'),
+      lon: formData.get('lon'),
+      descripcion: formData.get('descripcion'),
+      timestamp: new Date().toISOString(),
+      id: Date.now().toString()
+    };
+
+    this.reports.push(reporte);
+    this.guardarReportes();
+    
+    await this.enviarAFormspree(reporte);
+    
+    this.mostrarNotificacion('✅ Reporte Enviado', 'Tu reporte ha sido registrado correctamente');
+    this.actualizarEstadisticas();
+    this.cargarReportesLista();
+    e.target.reset();
+  }
+
+  async enviarAFormspree(reporte) {
+    try {
+      const response = await fetch('https://formspree.io/f/xblzaejj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reporte)
+      });
+      
+      if (!response.ok) throw new Error('Error en el envío');
+    } catch (error) {
+      console.warn('Error enviando a Formspree:', error);
+    }
+  }
+
+  cargarReportesLista() {
+    const reportList = document.getElementById('report-list');
+    let reportesFiltrados = this.reports;
+
+    if (this.filters.type !== 'all') {
+      reportesFiltrados = reportesFiltrados.filter(r => r.tipo === this.filters.type);
+    }
+
+    if (this.filters.urgency !== 'all') {
+      reportesFiltrados = reportesFiltrados.filter(r => r.urgencia === this.filters.urgency);
+    }
+
+    reportesFiltrados = reportesFiltrados.slice(-10).reverse();
+
+    if (reportesFiltrados.length === 0) {
+      reportList.innerHTML = '<li class="empty-state">No hay reportes que coincidan con los filtros</li>';
+      return;
+    }
+
+    reportList.innerHTML = reportesFiltrados.map(report => this.crearElementoReporte(report)).join('');
+  }
+
+  crearElementoReporte(report) {
+    const typeLabels = {
+      sismo: 'Sismo',
+      inundacion: 'Inundación',
+      deslizamiento: 'Deslizamiento',
+      incendio: 'Incendio',
+      emergencia: 'Emergencia',
+      otro: 'Otro'
+    };
+
+    const urgencyLabels = {
+      alta: 'Alta',
+      media: 'Media',
+      baja: 'Baja'
+    };
+
+    const urgencyClasses = {
+      alta: 'priority-high',
+      media: 'priority-medium',
+      baja: 'priority-low'
+    };
+
+    const isEmergency = report.urgencia === 'alta';
+    const emergencyClass = isEmergency ? 'emergency' : '';
+
+    return `
+      <li class="report-item ${emergencyClass}">
+        <div class="report-header">
+          <span class="report-type ${isEmergency ? 'emergency' : ''}">${typeLabels[report.tipo] || report.tipo}</span>
+          <span class="report-location">${report.lugar}</span>
+        </div>
+        <p class="report-description">${report.descripcion}</p>
+        <div class="report-meta">
+          <span>Por: ${report.nombre}</span>
+          <div>
+            <span class="report-priority ${urgencyClasses[report.urgencia]}">${urgencyLabels[report.urgencia]} prioridad</span>
+            <span>${new Date(report.timestamp).toLocaleDateString()}</span>
+          </div>
+        </div>
+      </li>
+    `;
+  }
+
+  mostrarNotificacion(titulo, mensaje) {
+    const toast = document.getElementById('notificationToast');
+    const titleElem = document.getElementById('toastTitle');
+    const messageElem = document.getElementById('toastMessage');
+    
+    titleElem.textContent = titulo;
+    messageElem.textContent = mensaje;
+    
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3000);
+  }
+}
+
+function obtenerUbicacionActual() {
+  if (!navigator.geolocation) {
+    alert('La geolocalización no es soportada por tu navegador');
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      document.getElementById('lat-input').value = position.coords.latitude.toFixed(6);
+      document.getElementById('lon-input').value = position.coords.longitude.toFixed(6);
+      window.sistemaDenuncias.mostrarNotificacion('📍 Ubicación Obtenida', 'Coordenadas actualizadas correctamente');
+    },
+    (error) => {
+      alert('Error obteniendo la ubicación: ' + error.message);
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    }
+  );
+}
+
+function abrirMapa() {
+  window.open('mapa.html?seleccionar=ubicacion', '_blank');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  window.sistemaDenuncias = new SistemaDenuncias();
+
+  const emergencyBtn = document.querySelector('.emergency-btn');
+  emergencyBtn.addEventListener('click', function() {
+    const confirmar = confirm(
+      '🚨 ALERTA DE EMERGENCIA\n\n' +
+      '¿Estás seguro de que quieres enviar una alerta de emergencia?\n\n' +
+      'Esto notificará inmediatamente a los servicios de emergencia.\n' +
+      'Solo usa esta función en caso de peligro real e inmediato.'
+    );
+    
+    if (confirmar) {
+      const originalBackground = this.style.background;
+      const originalText = this.textContent;
+      
+      this.style.background = '#f59e0b';
+      this.textContent = '⏳';
+      this.disabled = true;
+      this.style.animation = 'none';
+      
+      obtenerUbicacionActual();
+      
+      setTimeout(() => {
+        document.getElementById('emergency-form').submit();
+        
+        setTimeout(() => {
+          this.style.background = originalBackground;
+          this.textContent = '🚨';
+          this.disabled = false;
+          this.style.animation = 'pulse-emergency 2s infinite';
+        }, 2000);
+      }, 1000);
+    }
+  });
+
+  const formElements = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+  formElements.forEach(element => {
+    element.addEventListener('focus', function() {
+      this.parentElement.style.transform = 'translateY(-2px)';
+    });
+    
+    element.addEventListener('blur', function() {
+      this.parentElement.style.transform = 'translateY(0)';
+    });
+  });
+
+  setInterval(() => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('es-BO', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const dateString = now.toLocaleDateString('es-BO', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    document.getElementById('lastUpdateTime').textContent = `${dateString} ${timeString}`;
+  }, 30000);
+});
+</script>
+
+</body>
+</html>

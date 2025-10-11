@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapas en Tiempo Real - Alerta Bolivia</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #f1f5f9;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.header {
+  background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+  border-bottom: 3px solid #60a5fa;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 1.7rem;
+}
+
+.logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #60a5fa;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+  transform: rotate(10deg);
+}
+
+.menu {
+  display: flex;
+  gap: 8px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+}
+
+.menu a:hover {
+  background: rgba(96, 165, 250, 0.9);
+  transform: translateY(-2px);
+}
+
+.menu a.active {
+  background: #60a5fa;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+}
+
+.main {
+  padding: 2rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  color: #f1f5f9;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  position: relative;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.page-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #60a5fa, #a855f7);
+  margin: 0.5rem auto;
+  border-radius: 2px;
+}
+
+.last-update {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.last-update .highlight {
+  color: #60a5fa;
+  font-weight: 600;
+}
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.dashboard-card {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  padding: 1.8rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  border: 1px solid #334155;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #60a5fa, #a855f7);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(96, 165, 250, 0.3);
+  border-color: #60a5fa;
+}
+
+.dashboard-card.active {
+  background: linear-gradient(135deg, #1e40af20, #3730a330);
+  border-color: #60a5fa;
+}
+
+.dashboard-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.dashboard-card:hover .dashboard-icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.dashboard-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #f1f5f9;
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.dashboard-label {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dashboard-trend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  margin-top: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.trend-up {
+  background: linear-gradient(135deg, #16a34a30, #22c55e50);
+  color: #4ade80;
+  border: 1px solid #16a34a50;
+}
+
+.trend-down {
+  background: linear-gradient(135deg, #dc262630, #ef444450);
+  color: #f87171;
+  border: 1px solid #dc262650;
+}
+
+.trend-neutral {
+  background: linear-gradient(135deg, #6b728030, #9ca3af50);
+  color: #d1d5db;
+  border: 1px solid #6b728050;
+}
+
+.dashboard-progress {
+  height: 6px;
+  background: #374151;
+  border-radius: 3px;
+  margin-top: 1rem;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #60a5fa, #a855f7);
+  border-radius: 3px;
+  transition: width 1s ease;
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+}
+
+.alert-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  animation: pulse-alert 1.5s infinite;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+@keyframes pulse-alert {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+/* Cards Grid Visual */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-radius: 24px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #374151;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #60a5fa, #a855f7);
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 25px 50px rgba(96, 165, 250, 0.3);
+  border-color: #60a5fa;
+}
+
+.card-header {
+  padding: 1.8rem 1.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(96, 165, 250, 0.4);
+  transition: all 0.3s ease;
+}
+
+.card:hover .card-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 25px rgba(96, 165, 250, 0.6);
+}
+
+.card-title {
+  flex: 1;
+}
+
+.card h3 {
+  color: #f1f5f9;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.3;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.card-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  animation: pulse-badge 2s infinite;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.card-content {
+  padding: 0 1.8rem 1.2rem;
+  flex: 1;
+}
+
+.card p {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-stats {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #94a3b8;
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.status-online {
+  background: linear-gradient(135deg, #16a34a30, #22c55e50);
+  color: #4ade80;
+  border: 1px solid #16a34a50;
+}
+
+.status-warning {
+  background: linear-gradient(135deg, #d9770630, #f59e0b50);
+  color: #fbbf24;
+  border: 1px solid #d9770650;
+}
+
+.card-footer {
+  padding: 1.2rem 1.8rem;
+  background: linear-gradient(135deg, #1e293b80, #33415580);
+  border-top: 1px solid #374151;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(96, 165, 250, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(96, 165, 250, 0.6);
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-external::after {
+  content: '↗';
+  font-size: 0.9em;
+  margin-left: 0.3rem;
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #cbd5e1;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  margin-top: 4rem;
+  border-top: 3px solid #60a5fa;
+}
+
+.footer-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.emergency-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.6);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse-emergency 2s infinite;
+}
+
+.emergency-btn:hover {
+  transform: scale(1.15) rotate(10deg);
+  box-shadow: 0 12px 35px rgba(239, 68, 68, 0.8);
+}
+
+@keyframes pulse-emergency {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .main {
+    padding: 1.5rem 1rem;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .card {
+    min-height: 180px;
+  }
+  
+  .card-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .emergency-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
+  
+  .card-footer {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.menu a:focus,
+.btn:focus,
+.emergency-btn:focus {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    <img src="logo.jpg" alt="Alerta Bolivia" class="logo-img">
+    <span>🇧🇴 Alerta Bolivia</span>
+  </div>
+  <nav class="menu">
+    <a href="index.html">Inicio</a>
+    <a href="educacion.html">Educación</a>
+    <a href="denuncias.html">Denuncias</a>
+    <a href="mapa.html" class="active">Mapa</a>
+    <a href="contactos.html">Contactos</a>
+  </nav>
+</header>
+
+<main class="main">
+  <h1 class="page-title">Centro de Monitoreo en Tiempo Real</h1>
+  
+  <div class="last-update">
+    🔄 Última actualización: <span class="highlight" id="lastUpdateTime">Cargando...</span>
+  </div>
+  <div class="dashboard">
+    <div class="dashboard-card" data-filter="all">
+      <div class="dashboard-icon">🌍</div>
+      <span class="dashboard-number" id="total-maps">8</span>
+      <span class="dashboard-label">Sistemas de Monitoreo</span>
+      <div class="dashboard-trend trend-up">
+        <span>↗</span>
+        <span>+2 activos</span>
+      </div>
+      <div class="dashboard-progress">
+        <div class="progress-bar" style="width: 100%"></div>
+      </div>
+    </div>
+
+    <div class="dashboard-card" data-filter="online">
+      <div class="dashboard-icon">🔄</div>
+      <span class="dashboard-number" id="live-maps">6</span>
+      <span class="dashboard-label">En Tiempo Real</span>
+      <div class="dashboard-trend trend-neutral">
+        <span>⚡</span>
+        <span>Estable</span>
+      </div>
+      <div class="dashboard-progress">
+        <div class="progress-bar" style="width: 75%"></div>
+      </div>
+    </div>
+
+    <div class="dashboard-card" data-filter="warning">
+      <div class="dashboard-icon">🚨</div>
+      <span class="dashboard-number" id="active-alerts">12</span>
+      <span class="dashboard-label">Alertas Activas</span>
+      <div class="dashboard-trend trend-up">
+        <span>⚠️</span>
+        <span>+2 nuevas</span>
+      </div>
+      <div class="alert-badge">2</div>
+      <div class="dashboard-progress">
+        <div class="progress-bar" style="width: 60%"></div>
+      </div>
+    </div>
+
+    <div class="dashboard-card" data-filter="response">
+      <div class="dashboard-icon">⚡</div>
+      <span class="dashboard-number" id="response-time">< 90s</span>
+      <span class="dashboard-label">Respuesta Rápida</span>
+      <div class="dashboard-trend trend-down">
+        <span>↘</span>
+        <span>-15s</span>
+      </div>
+      <div class="dashboard-progress">
+        <div class="progress-bar" style="width: 95%"></div>
+      </div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card" data-url="https://www.windy.com" data-status="online">
+      <div class="card-header">
+        <div class="card-icon">🌤️</div>
+        <div class="card-title">
+          <h3>Radar Meteorológico <span class="card-badge">EN VIVO</span></h3>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Seguimiento en tiempo real de sistemas climáticos y patrones de viento</p>
+        <div class="card-stats">
+          <div class="stat">🛰️ <span class="status-indicator status-online">Transmisión Activa</span></div>
+          <div class="stat">⏱️ Actualizado hace 2min</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-actions">
+          <button class="btn btn-external" data-url="https://www.windy.com">Abrir Radar</button>
+        </div>
+        <div class="stat">🌡️ 22°C • 💨 15km/h</div>
+      </div>
+    </div>
+    <div class="card" data-url="https://earth.google.com" data-status="online">
+      <div class="card-header">
+        <div class="card-icon">🛰️</div>
+        <div class="card-title">
+          <h3>Vista Satelital HD <span class="card-badge">4K</span></h3>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Imágenes de alta resolución para monitoreo territorial y análisis ambiental</p>
+        <div class="card-stats">
+          <div class="stat">📡 <span class="status-indicator status-online">Conexión Estable</span></div>
+          <div class="stat">🔄 Actualizado hoy</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-actions">
+          <button class="btn btn-external" data-url="https://earth.google.com">Explorar</button>
+        </div>
+        <div class="stat">🎯 Resolución 10m</div>
+      </div>
+    </div>
+    <div class="card" data-url="https://www.senamhi.gob.bo" data-status="warning">
+      <div class="card-header">
+        <div class="card-icon">⚠️</div>
+        <div class="card-title">
+          <h3>Centro de Alertas <span class="card-badge">OFICIAL</span></h3>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Sistema oficial de alertas meteorológicas y avisos de emergencia nacional</p>
+        <div class="card-stats">
+          <div class="stat">🚨 <span class="status-indicator status-warning">3 Alertas Activas</span></div>
+          <div class="stat">📍 5 Departamentos</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-actions">
+          <button class="btn btn-external" data-url="https://www.senamhi.gob.bo">Ver Alertas</button>
+        </div>
+        <div class="stat">🛡️ SENAMHI</div>
+      </div>
+    </div>
+    <div class="card" data-url="https://www.google.com/maps/search/hospitales+Bolivia" data-status="online">
+      <div class="card-header">
+        <div class="card-icon">🏥</div>
+        <div class="card-title">
+          <h3>Red de Emergencias <span class="card-badge">24/7</span></h3>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Localización de hospitales, centros de salud y servicios de emergencia</p>
+        <div class="card-stats">
+          <div class="stat">📞 <span class="status-indicator status-online">Disponible</span></div>
+          <div class="stat">🏥 247 Centros</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-actions">
+          <button class="btn btn-external" data-url="https://www.google.com/maps/search/hospitales+Bolivia">Ver Mapa</button>
+        </div>
+        <div class="stat">📍 GPS Activo</div>
+      </div>
+    </div>
+    <div class="card" data-url="https://firms.modaps.eosdis.nasa.gov/map" data-status="online">
+      <div class="card-header">
+        <div class="card-icon">🔥</div>
+        <div class="card-title">
+          <h3>Monitoreo de Incendios <span class="card-badge">NASA</span></h3>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Detección de focos de calor y actividad de incendios forestales en tiempo real</p>
+        <div class="card-stats">
+          <div class="stat">🛰️ <span class="status-indicator status-online">Satélite Activo</span></div>
+          <div class="stat">🔥 6 Focos Activos</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-actions">
+          <button class="btn btn-external" data-url="https://firms.modaps.eosdis.nasa.gov/map">Monitorear</button>
+        </div>
+        <div class="stat">🌡️ FIRMS NASA</div>
+      </div>
+    </div>
+    <div class="card" data-url="https://ds.iris.edu/seismon" data-status="online">
+      <div class="card-header">
+        <div class="card-icon">🌋</div>
+        <div class="card-title">
+          <h3>Red Sísmica <span class="card-badge">GLOBAL</span></h3>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Monitoreo de actividad tectónica y registro de sismos en tiempo real</p>
+        <div class="card-stats">
+          <div class="stat">📊 <span class="status-indicator status-online">Operacional</span></div>
+          <div class="stat">🌍 3 Sismos Hoy</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-actions">
+          <button class="btn btn-external" data-url="https://ds.iris.edu/seismon">Ver Sismos</button>
+        </div>
+        <div class="stat">⚡ IRIS Network</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<form id="emergency-form" action="https://formspree.io/f/xblzaejj" method="POST" style="display: none;">
+  <input type="hidden" name="nombre" value="Alerta Rápida">
+  <input type="hidden" name="_replyto" value="usuario@correo.com">
+  <input type="hidden" name="tipo" value="Emergencia">
+  <input type="hidden" name="lugar" value="Mi comunidad">
+  <input type="hidden" name="lat" value="-16.5">
+  <input type="hidden" name="lon" value="-68.15">
+  <textarea name="descripcion" style="display: none;">🚨 Hay un desastre en mi comunidad. Se requiere intervención inmediata.</textarea>
+</form>
+
+<button class="emergency-btn" title="Enviar alerta rápida de emergencia" aria-label="Botón de emergencia">
+  🚨
+</button>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>© 2025 Plataforma de Alerta y Educación Ambiental de Bolivia</p>
+    <p style="margin-top: 0.5rem; opacity: 0.8; font-size: 0.9rem;">Sistema de monitoreo y alerta temprana</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  function updateLastUpdateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('es-BO', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    const dateString = now.toLocaleDateString('es-BO', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    document.getElementById('lastUpdateTime').textContent = `${dateString} ${timeString}`;
+  }
+  updateLastUpdateTime();
+  setInterval(updateLastUpdateTime, 30000);
+  function openMap(url) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+  const dashboardCards = document.querySelectorAll('.dashboard-card');
+  const mapCards = document.querySelectorAll('.card');
+  dashboardCards.forEach(dashboardCard => {
+    dashboardCard.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+      dashboardCards.forEach(card => card.classList.remove('active'));
+      this.classList.add('active');
+      filterMaps(filter);
+    });
+  });
+
+  function filterMaps(filter) {
+    mapCards.forEach(card => {
+      card.style.opacity = '0.6';
+      card.style.transform = 'scale(0.95)';
+      
+      setTimeout(() => {
+        if (filter === 'all') {
+          card.style.display = 'flex';
+        } else {
+          const status = card.getAttribute('data-status');
+          card.style.display = status === filter ? 'flex' : 'none';
+        }
+        
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+      }, 300);
+    });
+  }
+  function animateCounter(element, target, duration = 1500) {
+    const currentText = element.textContent;
+    const isTime = currentText.includes('<');
+    const isPercent = currentText.includes('%');
+    
+    let start = parseInt(currentText.replace(/[^0-9]/g, '') || 0);
+    let targetNum = parseInt(target.toString().replace(/[^0-9]/g, ''));
+    
+    if (isTime) {
+      element.textContent = `< ${target}s`;
+      return;
+    }
+    
+    const increment = targetNum > start ? 1 : -1;
+    const steps = Math.abs(targetNum - start);
+    const stepTime = Math.max(50, duration / steps);
+    
+    let current = start;
+    const timer = setInterval(() => {
+      current += increment;
+      
+      if (isPercent) {
+        element.textContent = current + '%';
+      } else {
+        element.textContent = current;
+      }
+      
+      if (current === targetNum) {
+        clearInterval(timer);
+      }
+    }, stepTime);
+  }
+  function simulateRealTimeData() {
+    const alertElement = document.getElementById('active-alerts');
+    const currentAlerts = parseInt(alertElement.textContent);
+    const newAlerts = Math.random() > 0.8 ? currentAlerts + Math.floor(Math.random() * 2) : currentAlerts;
+    
+    if (newAlerts !== currentAlerts) {
+      animateCounter(alertElement, newAlerts, 800);
+      const alertBadge = document.querySelector('.alert-badge');
+      if (alertBadge && newAlerts > currentAlerts) {
+        const diff = newAlerts - currentAlerts;
+        alertBadge.textContent = diff.toString();
+        alertBadge.style.animation = 'none';
+        setTimeout(() => {
+          alertBadge.style.animation = 'pulse-alert 1.5s infinite';
+        }, 10);
+      }
+    }
+    const responseElement = document.getElementById('response-time');
+    const currentResponse = parseInt(responseElement.textContent.replace(/[^0-9]/g, ''));
+    const newResponse = Math.max(60, Math.min(120, currentResponse + (Math.random() > 0.5 ? -5 : 5)));
+    
+    if (newResponse !== currentResponse) {
+      responseElement.textContent = `< ${newResponse}s`;
+    }
+    updateLastUpdateTime();
+  }
+  mapCards.forEach(card => {
+    const url = card.getAttribute('data-url');
+    if (url) {
+      card.addEventListener('click', function(e) {
+        if (!e.target.closest('.btn')) {
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = '';
+            openMap(url);
+          }, 150);
+        }
+      });
+    }
+  });
+  const buttons = document.querySelectorAll('.btn-external');
+  buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const url = this.getAttribute('data-url');
+      if (url) {
+        const originalText = this.textContent;
+        this.textContent = '🔄 Conectando...';
+        this.disabled = true;
+        
+        setTimeout(() => {
+          openMap(url);
+          setTimeout(() => {
+            this.textContent = originalText;
+            this.disabled = false;
+          }, 1500);
+        }, 800);
+      }
+    });
+  });
+  const emergencyBtn = document.querySelector('.emergency-btn');
+  emergencyBtn.addEventListener('click', function() {
+    const confirmar = confirm(
+      '🚨 ALERTA DE EMERGENCIA\n\n' +
+      '¿Estás seguro de que quieres enviar una alerta de emergencia?\n\n' +
+      'Esto notificará inmediatamente a las autoridades de defensa civil.\n' +
+      'Solo usa esta función en caso de peligro real e inmediato.'
+    );
+    
+    if (confirmar) {
+      const originalBackground = this.style.background;
+      const originalText = this.textContent;
+      
+      this.style.background = '#f59e0b';
+      this.textContent = '⏳';
+      this.style.animation = 'none';
+      
+      setTimeout(() => {
+        document.getElementById('emergency-form').submit();
+        
+        setTimeout(() => {
+          this.style.background = originalBackground;
+          this.textContent = '🚨';
+          this.style.animation = 'pulse-emergency 2s infinite';
+        }, 2000);
+      }, 1000);
+    }
+  });
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+  const allCards = document.querySelectorAll('.dashboard-card, .card');
+  allCards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(card);
+  });
+  setInterval(simulateRealTimeData, 8000);
+  setInterval(() => {
+    const badges = document.querySelectorAll('.card-badge');
+    badges.forEach(badge => {
+      if (badge.textContent === 'EN VIVO') {
+        badge.style.animation = 'none';
+        setTimeout(() => {
+          badge.style.animation = 'pulse-badge 2s infinite';
+        }, 10);
+      }
+    });
+  }, 4000);
+});
+</script>
+
+</body>
+</html>
