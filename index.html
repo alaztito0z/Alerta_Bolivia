@@ -100,31 +100,6 @@ body {
   border-radius: 50%;
 }
 
-.install-btn {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-left: 8px;
-}
-
-.install-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-}
-
-.install-btn.hidden {
-  display: none;
-}
-
 .hero {
   background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
   color: white;
@@ -907,7 +882,6 @@ body {
 .menu a:focus,
 .emergency-btn:focus,
 .tour-btn:focus,
-.install-btn:focus,
 .github-login-btn:focus {
   outline: 2px solid #60a5fa;
   outline-offset: 2px;
@@ -927,9 +901,6 @@ body {
     <a href="denuncias.html">Denuncias</a>
     <a href="mapa.html">Mapa</a>
     <a href="contactos.html">Contactos</a>
-    <button class="install-btn" id="installButton">
-      📱 Descargar app
-    </button>
   </nav>
   <div id="userInfo" class="user-info" style="display: none;">
     <img id="userAvatar" class="user-avatar" src="" alt="Avatar">
@@ -1231,45 +1202,6 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
-
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  const installButton = document.getElementById('installButton');
-  if (installButton) {
-    installButton.style.display = 'flex';
-  }
-});
-
-document.getElementById('installButton').addEventListener('click', async () => {
-  if (!deferredPrompt) {
-    alert('Para instalar la app, busca la opción "Agregar a la pantalla de inicio" en el menú de tu navegador.');
-    return;
-  }
-  
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  
-  if (outcome === 'accepted') {
-    document.getElementById('installButton').classList.add('hidden');
-    window.sistemaContadores.mostrarToast('¡App Instalada!', 'La aplicación se ha instalado correctamente en tu dispositivo.');
-  }
-  
-  deferredPrompt = null;
-});
-
-window.addEventListener('appinstalled', () => {
-  document.getElementById('installButton').classList.add('hidden');
-  deferredPrompt = null;
-});
-
-window.addEventListener('load', () => {
-  if (window.matchMedia('(display-mode: standalone').matches) {
-    document.getElementById('installButton').classList.add('hidden');
-  }
-});
 
 document.getElementById('githubLoginTrigger').addEventListener('click', () => {
   const userInfo = document.getElementById('userInfo');
