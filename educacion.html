@@ -784,7 +784,7 @@
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('sismos.pdf')">📜 Ver Guía</button>
+            <button class="btn" onclick="abrirGuia('sismos')">📜 Ver Guía</button>
             <button class="btn btn-secondary" onclick="marcarComoCompletada('sismos')" id="btn-sismos">✅ Completar</button>
           </div>
           <div class="status-indicator status-pending">Pendiente</div>
@@ -808,7 +808,7 @@
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('inundaciones.pdf')">🌊 Ver Guía</button>
+            <button class="btn" onclick="abrirGuia('inundaciones')">🌊 Ver Guía</button>
             <button class="btn btn-secondary" onclick="marcarComoCompletada('inundaciones')" id="btn-inundaciones">✅ Completar</button>
           </div>
           <div class="status-indicator status-pending">Pendiente</div>
@@ -832,7 +832,7 @@
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('deslizamientos.pdf')">⛰️ Ver Guía</button>
+            <button class="btn" onclick="abrirGuia('deslizamientos')">⛰️ Ver Guía</button>
             <button class="btn btn-secondary" onclick="marcarComoCompletada('deslizamientos')" id="btn-deslizamientos">✅ Completar</button>
           </div>
           <div class="status-indicator status-pending">Pendiente</div>
@@ -857,7 +857,7 @@
         <div class="guide-footer">
           <div class="guide-actions">
             <button class="btn" onclick="abrirGuia('incendios')">🔥 Ver Guía</button>
-            <button class="btn btn-secondary" onclick="marcarComoCompletada('incendios.pdf')" id="btn-incendios">✅ Completar</button>
+            <button class="btn btn-secondary" onclick="marcarComoCompletada('incendios')" id="btn-incendios">✅ Completar</button>
           </div>
           <div class="status-indicator status-pending">Pendiente</div>
         </div>
@@ -880,7 +880,7 @@
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('primeros-auxilios.pdf')">🚑 Ver Guía</button>
+            <button class="btn" onclick="abrirGuia('primeros-auxilios')">🚑 Ver Guía</button>
             <button class="btn btn-secondary" onclick="marcarComoCompletada('primeros-auxilios')" id="btn-primeros-auxilios">✅ Completar</button>
           </div>
           <div class="status-indicator status-pending">Pendiente</div>
@@ -904,7 +904,7 @@
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('plan-familiar.pdf')">👨‍👩‍👧‍👦 Ver Guía</button>
+            <button class="btn" onclick="abrirGuia('plan-familiar')">👨‍👩‍👧‍👦 Ver Guía</button>
             <button class="btn btn-secondary" onclick="marcarComoCompletada('plan-familiar')" id="btn-plan-familiar">✅ Completar</button>
           </div>
           <div class="status-indicator status-pending">Pendiente</div>
@@ -1138,7 +1138,7 @@
     }
 
     function abrirGuia(guiaId) {
-      const url = `guias/${guiaId}.pdf`;
+      const url = `${guiaId}.pdf`;
       window.open(url, '_blank');
     }
 
