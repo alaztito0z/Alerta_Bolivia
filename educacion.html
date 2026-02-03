@@ -1562,25 +1562,32 @@
     }
 
     function abrirGuia(guiaId) {
-      const nombres = {
-        'sismos': 'sismos-terremotos',
-        'inundaciones': 'inundaciones',
-        'deslizamientos': 'deslizamientos',
-        'incendios': 'incendios-forestales',
-        'primeros-auxilios': 'primeros-auxilios',
-        'plan-familiar': 'plan-familiar'
-      };
-      
-      const nombreArchivo = nombres[guiaId] || guiaId;
-      const url = `guias/${nombreArchivo}.pdf`;
-      
-      window.sistemaEducacion.mostrarNotificacion(
-        '📖 Abriendo Guía', 
-        `Descargando guía de ${window.sistemaEducacion.obtenerNombreGuia(guiaId)}`
-      );
-      
-      window.open(url, '_blank');
-    }
+  const nombres = {
+    'sismos': 'sismos-terremotos.pdf',
+    'inundaciones': 'inundaciones.pdf',
+    'deslizamientos': 'deslizamientos.pdf',
+    'incendios': 'incendios-forestales.pdf',
+    'primeros-auxilios': 'primeros-auxilios.pdf',
+    'plan-familiar': 'plan-familiar.pdf'
+  };
+  
+  const nombreArchivo = nombres[guiaId];
+  
+  if (nombreArchivo) {
+    window.sistemaEducacion.mostrarNotificacion(
+      '📖 Abriendo Guía', 
+      `Descargando guía de ${window.sistemaEducacion.obtenerNombreGuia(guiaId)}`
+    );
+    
+    window.open(nombreArchivo, '_blank');
+  } else {
+    window.sistemaEducacion.mostrarNotificacion(
+      '❌ Error', 
+      'Guía no encontrada',
+      3000
+    );
+  }
+}
 
     function marcarComoCompletada(guiaId) {
       if (window.sistemaEducacion) {
@@ -1789,6 +1796,7 @@
   </script>
 </body>
 </html>
+
 
 
 
