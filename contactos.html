@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contactos de Emergencia - SAT Bolivia 2.0</title>
+<title>Contactos de Emergencia - Alerta Bolivia</title>
 <meta name="theme-color" content="#00B4D4">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="description" content="Sistema de Contactos de Emergencia SAT Bolivia 2.0 - Números oficiales de emergencia">
+<meta name="description" content="Sistema de Contactos de Emergencia Alerta Bolivia - Números oficiales de emergencia">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>📞</text></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>📞</text></svg>">
 
@@ -1130,7 +1130,7 @@
       <i class="fas fa-shield-alt"></i>
     </div>
     <div class="logo-text">
-      <div class="logo-title">SAT Bolivia 2.0</div>
+      <div class="logo-title">Alerta Bolivia</div>
       <div class="logo-subtitle">Contactos de Emergencia</div>
     </div>
   </div>
@@ -1280,13 +1280,13 @@
   </div>
 </div>
 <form id="emergencyFormspreeForm" action="https://formspree.io/f/xblzaejj" method="POST" style="display: none;">
-  <input type="hidden" name="_subject" value="🚨 ALERTA RÁPIDA - SAT Bolivia 2.0">
+  <input type="hidden" name="_subject" value="🚨 ALERTA RÁPIDA - Alerta Bolivia">
   <input type="hidden" name="tipo" value="EMERGENCIA CRÍTICA">
   <input type="hidden" name="gravedad" value="CRITICA">
   <input type="hidden" name="descripcion" value="🚨 ALERTA: Situación de emergencia que requiere intervención inmediata de servicios de emergencia">
   <input type="hidden" name="ubicacion" id="formspreeUbicacion" value="">
   <input type="hidden" name="timestamp" id="formspreeTimestamp" value="">
-  <input type="hidden" name="fuente" value="SAT Bolivia 2.0 Web App">
+  <input type="hidden" name="fuente" value="Alerta Bolivia Web App">
 </form>
 <button class="emergency-btn" title="Enviar alerta rápida de emergencia" aria-label="Botón de emergencia" onclick="mostrarAlertaRapida()">
   <i class="fas fa-exclamation-triangle"></i>
@@ -1732,7 +1732,7 @@ class SistemaContactos {
   saveContacts() {
     const todosLosContactos = {
       timestamp: new Date().toISOString(),
-      fuente: "SAT Bolivia 2.0 - Contactos de Emergencia",
+      fuente: "Alerta Bolivia - Contactos de Emergencia",
       departamentos: {}
     };
     
@@ -1776,7 +1776,7 @@ class SistemaContactos {
 }
 async function mostrarAlertaRapida() {
   const confirmar = confirm(
-    '🚨 ALERTA DE EMERGENCIA - SAT Bolivia 2.0\n\n' +
+    '🚨 ALERTA DE EMERGENCIA - Alerta Bolivia\n\n' +
     '¿Estás seguro de que quieres enviar una alerta de emergencia?\n\n' +
     'Esta alerta notificará inmediatamente a los servicios de emergencia.\n' +
     'Solo usa esta función en caso de peligro real e inmediato.\n\n' +
@@ -1808,7 +1808,7 @@ async function mostrarAlertaRapida() {
         precision: position.coords.accuracy
       },
       usuario: "Usuario SAT Contactos",
-      fuente: "SAT Bolivia 2.0 - Sistema de Contactos"
+      fuente: "Alerta Bolivia - Sistema de Contactos"
     };
     
     await enviarAlertaFormspree(alertaData);
@@ -1958,9 +1958,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  console.log('%c📞 Sistema de Contactos SAT Bolivia 2.0', 'font-size: 24px; font-weight: bold; color: #00B4D4;');
+  console.log('%c📞 Sistema de Contactos Alerta Bolivia', 'font-size: 24px; font-weight: bold; color: #00B4D4;');
   console.log('%cContactos de emergencia oficiales', 'color: #80D0FF;');
 });
 </script>
 </body>
 </html>
+
