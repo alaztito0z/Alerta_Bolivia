@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="description" content="Sistema de Alerta Temprana de Bolivia - Monitoreo en tiempo real de desastres naturales">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>🛡️</text></svg>">
+    <!--si no les gusta podemos usar este <link rel="icon" type="image/jpeg" href="logo.jpg">-->
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>🛡️</text></svg>">
     <link rel="manifest" href="./manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
@@ -1208,9 +1209,9 @@
 <body>
     <header class="header" id="header">
         <div class="logo-container" onclick="window.location.href='index.html'">
-            <div class="logo-img">
-                <i class="fas fa-shield-alt"></i>
-            </div>
+          <div class="logo-img">
+    <img src="logo.jpg" alt="Alerta Bolivia" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+</div>
             <div class="logo-text">
                 <div class="logo-title">Alerta Bolivia</div>
                 <div class="logo-subtitle">Sistema de Alerta Temprana</div>
@@ -1282,13 +1283,13 @@
             </div>
         </div>
     </section>
-    <div class="alert-banner" id="globalAlert">
+    <!--<div class="alert-banner" id="globalAlert">
         <span class="alert-icon"><i class="fas fa-info-circle"></i></span>
         <div class="alert-content">
-            <div class="alert-title">Estado del Sistema</div>
-            <div class="alert-message" id="alertMessage">
+           <div class="alert-title">Estado del Sistema</div>-->
+           <!--<div class="alert-message" id="alertMessage">
                 Todos los sistemas operativos normalmente • Última actualización: <span id="lastUpdate"></span>
-            </div>
+            </div>-->
         </div>
         <button class="alert-close" onclick="SAT.hideGlobalAlert()">✕</button>
     </div>
@@ -1597,11 +1598,11 @@
                 this.startAnimations();
                 this.startRealTimeUpdates();
                 setTimeout(() => {
-                    this.showNotification(
-                        '✅ Sistema Conectado',
-                        'SAT Bolivia está operativo y monitoreando los 9 departamentos.',
-                        'success'
-                    );
+                 //  this.showNotification(
+                       // '✅ Sistema Conectado',
+                       // 'SAT Bolivia está operativo y monitoreando los 9 departamentos.',
+                       // 'success'
+                  //  );
                 }, 1500);
                 this.isInitialized = true;
                 console.log('SAT Bolivia inicializado correctamente');
