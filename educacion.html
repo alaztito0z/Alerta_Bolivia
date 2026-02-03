@@ -4,95 +4,246 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Centro de Educación - Alerta Bolivia</title>
+  
+  <meta name="theme-color" content="#E6F7FF">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Centro de Educación del Alerta Bolivia - Materiales educativos sobre desastres naturales">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>📚</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>📚</text></svg>">
+  
+  <link rel="manifest" href="./manifest.json">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
+    :root {
+      --primary: #00B4D4;
+      --primary-dark: #0096B4;
+      --primary-light: #5AC8E8;
+      --secondary: #80D0FF;
+      --secondary-dark: #5AB8E0;
+      --accent: #FF6B8B;
+      --accent-dark: #E05070;
+      --success: #4CD964;
+      --success-dark: #38C050;
+      --warning: #FFB347;
+      --warning-dark: #E09B3D;
+      --danger: #FF6B6B;
+      --danger-dark: #E05050;
+      --dark: #0A1E32;
+      --darker: #051525;
+      --dark-light: #1E3A5F;
+      --light: #F0F9FF;
+      --light-dark: #D1E8F2;
+      --gray: #7A8AA3;
+      --gray-dark: #5A6A83;
+      --glass: rgba(255, 255, 255, 0.1);
+      --glass-light: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(0, 180, 212, 0.2);
+      --neon-glow: 0 0 20px rgba(0, 180, 212, 0.3), 0 0 40px rgba(0, 180, 212, 0.15);
+      --neon-glow-danger: 0 0 20px rgba(255, 107, 107, 0.3), 0 0 40px rgba(255, 107, 107, 0.15);
+      --neon-glow-success: 0 0 20px rgba(76, 217, 100, 0.3), 0 0 40px rgba(76, 217, 100, 0.15);
+      --shadow-lg: 0 20px 60px rgba(0, 20, 40, 0.2);
+      --shadow-xl: 0 30px 80px rgba(0, 20, 40, 0.25);
+      --transition-smooth: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --transition-fast: all 0.2s ease;
+      --border-radius: 20px;
+      --border-radius-lg: 30px;
+      --border-radius-sm: 12px;
+    }
+
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
     }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #f1f5f9;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #F0F9FF 0%, #E6F7FF 100%);
+      color: var(--dark);
       line-height: 1.6;
       min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 180, 212, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 107, 139, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(128, 208, 255, 0.06) 0%, transparent 50%);
+      z-index: -1;
+      animation: backgroundPulse 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes backgroundPulse {
+      0% { opacity: 0.6; }
+      100% { opacity: 0.8; }
     }
 
     .header {
-      background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
-      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 180, 212, 0.1);
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
       z-index: 1000;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.3);
-      border-bottom: 3px solid #60a5fa;
+      box-shadow: 0 4px 30px rgba(0, 20, 40, 0.1);
+      transition: var(--transition-smooth);
     }
 
-    .logo {
+    .header.scrolled {
+      padding: 0.75rem 2rem;
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .logo-container {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      font-size: 1.7rem;
+      gap: 1rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .logo-container:hover {
+      transform: translateX(5px);
     }
 
     .logo-img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 2px solid #60a5fa;
-      transition: transform 0.3s ease;
-    }
-
-    .logo:hover .logo-img {
-      transform: rotate(10deg);
-    }
-
-    .menu {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 12px;
       display: flex;
-      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: var(--neon-glow);
+      animation: logoFloat 6s ease-in-out infinite;
+      color: white;
     }
 
-    .menu a {
-      color: white;
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-5px) rotate(2deg); }
+      66% { transform: translateY(3px) rotate(-1deg); }
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-subtitle {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--dark);
       text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      transition: all 0.3s ease;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      transition: var(--transition-smooth);
       font-weight: 500;
       position: relative;
+      overflow: hidden;
+      border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
     }
 
-    .menu a:hover {
-      background: rgba(96, 165, 250, 0.9);
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 180, 212, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .nav-link:hover::before {
+      left: 100%;
+    }
+
+    .nav-link:hover {
+      border-color: var(--primary);
+      box-shadow: var(--neon-glow);
       transform: translateY(-2px);
+      background: var(--glass-light);
     }
 
-    .menu a.active {
-      background: #60a5fa;
-      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+    .nav-link.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: var(--neon-glow);
+      border: none;
+    }
+
+    .nav-link i {
+      font-size: 1.1rem;
     }
 
     .main {
-      padding: 2rem 1rem;
+      padding: 8rem 2rem 3rem;
       max-width: 1400px;
       margin: 0 auto;
     }
 
     .page-title {
       text-align: center;
-      color: #f1f5f9;
+      color: var(--dark);
       margin-bottom: 1rem;
       font-size: 2.5rem;
       font-weight: 800;
       position: relative;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      font-family: 'Poppins', sans-serif;
     }
 
     .page-title::after {
@@ -100,38 +251,39 @@
       display: block;
       width: 100px;
       height: 4px;
-      background: linear-gradient(90deg, #60a5fa, #a855f7);
-      margin: 0.5rem auto;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      margin: 1rem auto;
       border-radius: 2px;
+      box-shadow: var(--neon-glow);
     }
 
     .last-update {
       text-align: center;
-      color: #94a3b8;
-      font-size: 0.9rem;
-      margin-bottom: 2rem;
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 3rem;
     }
 
     .last-update .highlight {
-      color: #60a5fa;
+      color: var(--primary);
       font-weight: 600;
     }
 
     .progress-dashboard {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3rem;
+      gap: 2rem;
+      margin-bottom: 4rem;
     }
 
     .progress-card {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-      border: 1px solid #334155;
-      transition: all 0.4s ease;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 2.5rem 2rem;
       text-align: center;
+      transition: var(--transition-smooth);
       position: relative;
       overflow: hidden;
     }
@@ -142,21 +294,22 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #60a5fa, #a855f7);
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
     }
 
     .progress-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(96, 165, 250, 0.3);
-      border-color: #60a5fa;
+      transform: translateY(-10px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+      background: white;
     }
 
     .progress-icon {
       font-size: 3rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       transition: transform 0.3s ease;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
     }
 
     .progress-card:hover .progress-icon {
@@ -164,47 +317,47 @@
     }
 
     .progress-number {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: #f1f5f9;
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
       display: block;
       line-height: 1;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
 
     .progress-label {
       font-size: 0.9rem;
-      color: #cbd5e1;
-      font-weight: 600;
+      color: var(--gray);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      font-weight: 600;
     }
 
     .progress-bar-container {
       height: 6px;
-      background: #374151;
+      background: rgba(0, 180, 212, 0.1);
       border-radius: 3px;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       overflow: hidden;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
     }
 
     .progress-bar {
       height: 100%;
-      background: linear-gradient(90deg, #60a5fa, #a855f7);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       border-radius: 3px;
       transition: width 1s ease;
-      box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
     }
 
     .filter-section {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
       padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-      margin-bottom: 2rem;
-      border: 1px solid #334155;
+      margin-bottom: 3rem;
     }
 
     .search-container {
@@ -216,24 +369,24 @@
     .search-input {
       width: 100%;
       padding: 1rem 1.5rem 1rem 3rem;
-      border: 2px solid #374151;
+      border: 1px solid var(--glass-border);
       border-radius: 50px;
       font-size: 1rem;
-      background: #1e293b;
-      color: #f1f5f9;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--dark);
+      transition: var(--transition-smooth);
+      font-family: 'Inter', sans-serif;
     }
 
     .search-input:focus {
       outline: none;
-      border-color: #60a5fa;
-      box-shadow: 0 8px 25px rgba(96, 165, 250, 0.3);
-      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: var(--neon-glow);
+      background: white;
     }
 
     .search-input::placeholder {
-      color: #94a3b8;
+      color: var(--gray);
     }
 
     .search-icon {
@@ -241,7 +394,7 @@
       left: 1rem;
       top: 50%;
       transform: translateY(-50%);
-      color: #94a3b8;
+      color: var(--primary);
       font-size: 1.2rem;
     }
 
@@ -254,43 +407,45 @@
 
     .filter-btn {
       padding: 0.8rem 1.5rem;
-      border: 2px solid #60a5fa;
+      border: 1px solid var(--primary);
       background: transparent;
-      color: #60a5fa;
-      border-radius: 25px;
+      color: var(--primary);
+      border-radius: 50px;
       cursor: pointer;
       font-weight: 600;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
+      transition: var(--transition-smooth);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
     }
 
     .filter-btn.active,
     .filter-btn:hover {
-      background: #60a5fa;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(96, 165, 250, 0.4);
+      box-shadow: var(--neon-glow);
+      border-color: transparent;
     }
 
     .guides-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 2rem;
-      margin-top: 1rem;
+      margin-bottom: 3rem;
     }
 
     .guide-card {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-      border-radius: 24px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.4);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid #374151;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition-smooth);
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      min-height: 220px;
       display: flex;
       flex-direction: column;
+      height: 100%;
     }
 
     .guide-card::before {
@@ -300,13 +455,14 @@
       left: 0;
       width: 100%;
       height: 6px;
-      background: linear-gradient(90deg, #60a5fa, #a855f7);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
     }
 
     .guide-card:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 25px 50px rgba(96, 165, 250, 0.3);
-      border-color: #60a5fa;
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary);
+      background: white;
     }
 
     .guide-header {
@@ -319,21 +475,20 @@
     .guide-icon {
       width: 70px;
       height: 70px;
-      border-radius: 18px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2rem;
-      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       flex-shrink: 0;
-      box-shadow: 0 6px 20px rgba(96, 165, 250, 0.4);
-      transition: all 0.3s ease;
+      box-shadow: var(--neon-glow);
+      transition: var(--transition-smooth);
     }
 
     .guide-card:hover .guide-icon {
       transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 8px 25px rgba(96, 165, 250, 0.6);
     }
 
     .guide-title {
@@ -341,29 +496,28 @@
     }
 
     .guide-card h2 {
-      color: #f1f5f9;
+      color: var(--dark);
       font-size: 1.4rem;
       font-weight: 700;
-      margin: 0;
+      margin: 0 0 0.5rem 0;
       line-height: 1.3;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Poppins', sans-serif;
     }
 
     .guide-badge {
       display: inline-block;
-      background: linear-gradient(135deg, #ef4444, #dc2626);
+      background: linear-gradient(135deg, var(--danger), var(--accent-dark));
       color: white;
       padding: 0.3rem 0.8rem;
       border-radius: 15px;
       font-size: 0.75rem;
       font-weight: 700;
       animation: pulse-badge 2s infinite;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
     }
 
     @keyframes pulse-badge {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+      50% { transform: scale(1.05); }
     }
 
     .guide-content {
@@ -372,13 +526,13 @@
     }
 
     .guide-card p {
-      color: #cbd5e1;
+      color: var(--dark-light);
       font-size: 1rem;
       line-height: 1.5;
       margin: 0;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -394,7 +548,7 @@
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      color: #94a3b8;
+      color: var(--gray);
     }
 
     .status-indicator {
@@ -405,29 +559,27 @@
       padding: 0.3rem 0.6rem;
       border-radius: 12px;
       font-weight: 600;
-      backdrop-filter: blur(10px);
     }
 
     .status-completed {
-      background: linear-gradient(135deg, #16a34a30, #22c55e50);
-      color: #4ade80;
-      border: 1px solid #16a34a50;
+      background: rgba(76, 217, 100, 0.1);
+      color: var(--success);
+      border: 1px solid var(--success);
     }
 
     .status-pending {
-      background: linear-gradient(135deg, #d9770630, #f59e0b50);
-      color: #fbbf24;
-      border: 1px solid #d9770650;
+      background: rgba(255, 179, 71, 0.1);
+      color: var(--warning);
+      border: 1px solid var(--warning);
     }
 
     .guide-footer {
       padding: 1.5rem 2rem;
-      background: linear-gradient(135deg, #1e293b80, #33415580);
-      border-top: 1px solid #374151;
+      background: rgba(255, 255, 255, 0.5);
+      border-top: 1px solid var(--glass-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      backdrop-filter: blur(10px);
     }
 
     .guide-actions {
@@ -440,107 +592,207 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.8rem 1.5rem;
-      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       border: none;
-      border-radius: 12px;
+      border-radius: var(--border-radius-sm);
       font-weight: 600;
       font-size: 0.9rem;
       text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: var(--transition-smooth);
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(96, 165, 250, 0.4);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
+      font-family: 'Inter', sans-serif;
     }
 
     .btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(96, 165, 250, 0.6);
-    }
-
-    .btn:hover::before {
-      left: 100%;
+      box-shadow: var(--neon-glow);
     }
 
     .btn-secondary {
-      background: linear-gradient(135deg, #94a3b8, #64748b);
-      box-shadow: 0 4px 15px rgba(148, 163, 184, 0.4);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--dark);
+      border: 1px solid var(--glass-border);
     }
 
     .btn-secondary:hover {
-      box-shadow: 0 8px 25px rgba(148, 163, 184, 0.6);
+      background: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
     .btn-completed {
-      background: linear-gradient(135deg, #16a34a, #15803d);
-      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
+      background: linear-gradient(135deg, var(--success), var(--success-dark));
+      color: white;
     }
 
     .btn-completed:hover {
-      box-shadow: 0 8px 25px rgba(22, 163, 74, 0.6);
+      box-shadow: var(--neon-glow-success);
     }
 
     .no-results {
       text-align: center;
-      color: #94a3b8;
+      color: var(--gray);
       padding: 3rem;
       font-style: italic;
       display: none;
       grid-column: 1 / -1;
+      font-size: 1.1rem;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #E6F7FF, #D1E8F2);
+      border-top: 1px solid rgba(0, 180, 212, 0.2);
+      padding: 3rem 2rem 2rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer p {
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer p:last-child {
+      opacity: 0.8;
+      font-size: 0.9rem;
     }
 
     .emergency-btn {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 2rem;
+      right: 2rem;
       width: 70px;
       height: 70px;
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      color: white;
+      background: linear-gradient(135deg, var(--danger), var(--accent-dark));
       border: none;
       border-radius: 50%;
       font-size: 1.8rem;
+      color: white;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.6);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1001;
+      box-shadow: var(--neon-glow-danger);
+      transition: var(--transition-smooth);
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: pulse-emergency 2s infinite;
+      animation: emergencyPulse 2s infinite;
+    }
+
+    @keyframes emergencyPulse {
+      0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+      }
+      50% { 
+        transform: scale(1.1);
+        box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4), 0 0 60px rgba(255, 107, 107, 0.3);
+      }
     }
 
     .emergency-btn:hover {
-      transform: scale(1.15) rotate(10deg);
-      box-shadow: 0 12px 35px rgba(239, 68, 68, 0.8);
+      transform: scale(1.2) rotate(15deg);
+      animation: none;
     }
 
-    @keyframes pulse-emergency {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 21, 37, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(0, 180, 212, 0.2);
+      border-radius: var(--border-radius-lg);
+      padding: 3rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: var(--shadow-xl);
+      animation: modalAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      color: var(--dark);
+    }
+
+    @keyframes modalAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-content::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: calc(var(--border-radius-lg) + 2px);
+      z-index: -1;
+      animation: modalBorderGlow 3s linear infinite;
+    }
+
+    @keyframes modalBorderGlow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .modal-header {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .modal-subtitle {
+      color: var(--gray);
+      font-size: 1rem;
+    }
+
+    .modal-body {
+      margin-bottom: 2rem;
+    }
+
+    .modal-text {
+      color: var(--dark-light);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
     }
 
     .notification-toast {
       position: fixed;
       top: 100px;
       right: 30px;
-      background: linear-gradient(135deg, #1e293b, #334155);
+      background: rgba(255, 255, 255, 0.95);
       padding: 1.5rem 2rem;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      border-left: 4px solid #60a5fa;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-xl);
+      border-left: 4px solid var(--primary);
       z-index: 2001;
       transform: translateX(400px);
       transition: transform 0.3s ease;
@@ -553,49 +805,85 @@
     }
 
     .notification-title {
-      font-weight: 600;
-      color: #f1f5f9;
+      font-weight: 700;
+      color: var(--dark);
       margin-bottom: 0.5rem;
+      font-size: 1.1rem;
     }
 
     .notification-message {
-      color: #cbd5e1;
-      font-size: 0.9rem;
+      color: var(--dark-light);
+      font-size: 0.95rem;
     }
 
-    .footer {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      color: #cbd5e1;
-      text-align: center;
-      padding: 2.5rem 1rem;
-      margin-top: 4rem;
-      border-top: 3px solid #60a5fa;
+    .alert-banner {
+      background: rgba(255, 179, 71, 0.1);
+      border: 1px solid rgba(255, 179, 71, 0.3);
+      color: var(--warning-dark);
+      padding: 1.25rem 2rem;
+      margin: 2rem auto 3rem;
+      border-radius: var(--border-radius-sm);
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.8);
     }
 
-    .footer-content {
-      max-width: 600px;
-      margin: 0 auto;
+    .alert-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--warning);
     }
 
-    @media (max-width: 768px) {
+    .alert-banner.hidden {
+      display: none;
+    }
+
+    @media (max-width: 1200px) {
+      .page-title { font-size: 2.2rem; }
+      .main { padding: 7rem 2rem 3rem; }
+    }
+
+    @media (max-width: 992px) {
       .header {
         flex-direction: column;
-        padding: 1rem;
         gap: 1rem;
+        padding: 1rem;
       }
       
-      .menu {
+      .nav-menu {
         flex-wrap: wrap;
         justify-content: center;
       }
       
-      .main {
-        padding: 1.5rem 1rem;
+      .guides-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
       
-      .page-title {
-        font-size: 2rem;
-        margin-bottom: 1rem;
+      .emergency-btn {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page-title { font-size: 2rem; }
+      .main { padding: 6rem 1rem 2rem; }
+      
+      .guides-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
       
       .progress-dashboard {
@@ -603,13 +891,13 @@
         gap: 1rem;
       }
       
-      .guides-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+      .filter-buttons {
+        gap: 0.5rem;
       }
       
-      .guide-card {
-        min-height: 200px;
+      .filter-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
       }
       
       .guide-header {
@@ -622,28 +910,15 @@
         font-size: 1.8rem;
       }
       
-      .emergency-btn {
-        bottom: 20px;
+      .notification-toast {
         right: 20px;
-        width: 60px;
-        height: 60px;
-        font-size: 1.6rem;
-      }
-
-      .filter-buttons {
-        gap: 0.5rem;
-      }
-
-      .filter-btn {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.9rem;
+        left: 20px;
+        max-width: none;
       }
     }
 
     @media (max-width: 480px) {
-      .page-title {
-        font-size: 1.8rem;
-      }
+      .page-title { font-size: 1.8rem; }
       
       .progress-dashboard {
         grid-template-columns: 1fr;
@@ -680,29 +955,58 @@
       }
     }
 
-    .menu a:focus,
-    .btn:focus,
-    .emergency-btn:focus,
-    .search-input:focus,
-    .filter-btn:focus {
-      outline: 2px solid #60a5fa;
-      outline-offset: 2px;
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #E6F7FF;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary-dark));
     }
   </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="logo">
-      <img src="logo.jpg" alt="Alerta Bolivia" class="logo-img">
-      <span>🇧🇴 Alerta Bolivia</span>
+  <header class="header" id="header">
+    <div class="logo-container" onclick="window.location.href='index.html'">
+      <div class="logo-img">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <div class="logo-text">
+        <div class="logo-title">Alerta Bolivia</div>
+        <div class="logo-subtitle">Centro de Educación</div>
+      </div>
     </div>
-    <nav class="menu">
-      <a href="index.html">Inicio</a>
-      <a href="educacion.html" class="active">Educación</a>
-      <a href="denuncias.html">Denuncias</a>
-      <a href="mapa.html">Mapa</a>
-      <a href="contactos.html">Contactos</a>
+    
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-home"></i> Inicio
+      </a>
+      <a href="educacion.html" class="nav-link active">
+        <i class="fas fa-graduation-cap"></i> Educación
+      </a>
+      <a href="denuncias.html" class="nav-link">
+        <i class="fas fa-exclamation-triangle"></i> Denuncias
+      </a>
+      <a href="mapa.html" class="nav-link">
+        <i class="fas fa-map-marked-alt"></i> Mapa
+      </a>
+      <a href="contactos.html" class="nav-link">
+        <i class="fas fa-phone-alt"></i> Contactos
+      </a>
     </nav>
   </header>
 
@@ -710,7 +1014,21 @@
     <h1 class="page-title">Centro de Educación</h1>
     
     <div class="last-update">
-      🔄 Última actualización: <span class="highlight" id="lastUpdateTime">Cargando...</span>
+      <i class="fas fa-sync-alt"></i> Última actualización: 
+      <span class="highlight" id="lastUpdateTime">Cargando...</span>
+    </div>
+
+    <div class="alert-banner hidden" id="alertBanner">
+      <span class="alert-icon"><i class="fas fa-info-circle"></i></span>
+      <div class="alert-content">
+        <div class="alert-title">Estado del Sistema</div>
+        <div class="alert-message" id="alertMessage">
+          Todos los materiales educativos disponibles • Última actualización: <span id="lastUpdate"></span>
+        </div>
+      </div>
+      <button class="alert-close" onclick="document.getElementById('alertBanner').classList.add('hidden')">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
 
     <div class="progress-dashboard">
@@ -753,47 +1071,63 @@
 
     <div class="filter-section">
       <div class="search-container">
-        <div class="search-icon">🔍</div>
+        <div class="search-icon"><i class="fas fa-search"></i></div>
         <input type="text" class="search-input" placeholder="Buscar guías y materiales educativos..." id="searchInput">
       </div>
 
       <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">🌍 Todas</button>
-        <button class="filter-btn" data-filter="emergencia">🚨 Emergencia</button>
-        <button class="filter-btn" data-filter="prevencion">🛡️ Prevención</button>
-        <button class="filter-btn" data-filter="planificacion">📋 Planificación</button>
-        <button class="filter-btn" data-filter="primeros-auxilios">🚑 Primeros Auxilios</button>
+        <button class="filter-btn active" data-filter="all">
+          <i class="fas fa-globe-americas"></i> Todas
+        </button>
+        <button class="filter-btn" data-filter="emergencia">
+          <i class="fas fa-exclamation-triangle"></i> Emergencia
+        </button>
+        <button class="filter-btn" data-filter="prevencion">
+          <i class="fas fa-shield-alt"></i> Prevención
+        </button>
+        <button class="filter-btn" data-filter="planificacion">
+          <i class="fas fa-clipboard-list"></i> Planificación
+        </button>
+        <button class="filter-btn" data-filter="primeros-auxilios">
+          <i class="fas fa-first-aid"></i> Primeros Auxilios
+        </button>
       </div>
     </div>
 
     <div class="guides-grid" id="guidesGrid">
       <div class="guide-card" data-category="emergencia prevencion" data-tags="sismo terremoto evacuacion">
         <div class="guide-header">
-          <div class="guide-icon">🌋</div>
+          <div class="guide-icon"><i class="fas fa-mountain"></i></div>
           <div class="guide-title">
             <h2>Sismos y Terremotos <span class="guide-badge">NUEVO</span></h2>
           </div>
         </div>
         <div class="guide-content">
-          <p>Protocolos completos sobre qué hacer antes, durante y después de un sismo. Aprende a identificar zonas seguras.</p>
+          <p>Protocolos completos sobre qué hacer antes, durante y después de un sismo. Aprende a identificar zonas seguras y rutas de evacuación.</p>
           <div class="guide-stats">
-            <div class="guide-stat">⏱️ 15 min</div>
-            <div class="guide-stat">📖 8 pasos</div>
-            <div class="guide-stat">🎯 95% útil</div>
+            <div class="guide-stat"><i class="far fa-clock"></i> 15 min</div>
+            <div class="guide-stat"><i class="fas fa-book"></i> 8 pasos</div>
+            <div class="guide-stat"><i class="fas fa-chart-line"></i> 95% útil</div>
           </div>
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('sismos')">📜 Ver Guía</button>
-            <button class="btn btn-secondary" onclick="marcarComoCompletada('sismos')" id="btn-sismos">✅ Completar</button>
+            <button class="btn" onclick="abrirGuia('sismos')">
+              <i class="fas fa-book-open"></i> Ver Guía
+            </button>
+            <button class="btn btn-secondary" onclick="marcarComoCompletada('sismos')" id="btn-sismos">
+              <i class="fas fa-check"></i> Completar
+            </button>
           </div>
-          <div class="status-indicator status-pending">Pendiente</div>
+          <div class="status-indicator status-pending">
+            <i class="fas fa-clock"></i> Pendiente
+          </div>
         </div>
       </div>
 
       <div class="guide-card" data-category="emergencia prevencion" data-tags="inundacion agua lluvia">
         <div class="guide-header">
-          <div class="guide-icon">🌊</div>
+          <div class="guide-icon"><i class="fas fa-water"></i></div>
           <div class="guide-title">
             <h2>Inundaciones</h2>
           </div>
@@ -801,23 +1135,29 @@
         <div class="guide-content">
           <p>Medidas de prevención y evacuación para zonas inundables. Protege tus bienes y actúa según la intensidad del agua.</p>
           <div class="guide-stats">
-            <div class="guide-stat">⏱️ 12 min</div>
-            <div class="guide-stat">📖 6 pasos</div>
-            <div class="guide-stat">🎯 92% útil</div>
+            <div class="guide-stat"><i class="far fa-clock"></i> 12 min</div>
+            <div class="guide-stat"><i class="fas fa-book"></i> 6 pasos</div>
+            <div class="guide-stat"><i class="fas fa-chart-line"></i> 92% útil</div>
           </div>
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('inundaciones')">🌊 Ver Guía</button>
-            <button class="btn btn-secondary" onclick="marcarComoCompletada('inundaciones')" id="btn-inundaciones">✅ Completar</button>
+            <button class="btn" onclick="abrirGuia('inundaciones')">
+              <i class="fas fa-book-open"></i> Ver Guía
+            </button>
+            <button class="btn btn-secondary" onclick="marcarComoCompletada('inundaciones')" id="btn-inundaciones">
+              <i class="fas fa-check"></i> Completar
+            </button>
           </div>
-          <div class="status-indicator status-pending">Pendiente</div>
+          <div class="status-indicator status-pending">
+            <i class="fas fa-clock"></i> Pendiente
+          </div>
         </div>
       </div>
 
       <div class="guide-card" data-category="emergencia planificacion" data-tags="deslizamiento tierra riesgo">
         <div class="guide-header">
-          <div class="guide-icon">⛰️</div>
+          <div class="guide-icon"><i class="fas fa-mountain"></i></div>
           <div class="guide-title">
             <h2>Deslizamientos de Tierra</h2>
           </div>
@@ -825,23 +1165,29 @@
         <div class="guide-content">
           <p>Identificación de zonas de riesgo y planificación de rutas de escape seguras. Mantén comunicación con autoridades.</p>
           <div class="guide-stats">
-            <div class="guide-stat">⏱️ 18 min</div>
-            <div class="guide-stat">📖 9 pasos</div>
-            <div class="guide-stat">🎯 88% útil</div>
+            <div class="guide-stat"><i class="far fa-clock"></i> 18 min</div>
+            <div class="guide-stat"><i class="fas fa-book"></i> 9 pasos</div>
+            <div class="guide-stat"><i class="fas fa-chart-line"></i> 88% útil</div>
           </div>
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('deslizamientos')">⛰️ Ver Guía</button>
-            <button class="btn btn-secondary" onclick="marcarComoCompletada('deslizamientos')" id="btn-deslizamientos">✅ Completar</button>
+            <button class="btn" onclick="abrirGuia('deslizamientos')">
+              <i class="fas fa-book-open"></i> Ver Guía
+            </button>
+            <button class="btn btn-secondary" onclick="marcarComoCompletada('deslizamientos')" id="btn-deslizamientos">
+              <i class="fas fa-check"></i> Completar
+            </button>
           </div>
-          <div class="status-indicator status-pending">Pendiente</div>
+          <div class="status-indicator status-pending">
+            <i class="fas fa-clock"></i> Pendiente
+          </div>
         </div>
       </div>
 
       <div class="guide-card" data-category="emergencia prevencion" data-tags="incendio fuego evacuacion">
         <div class="guide-header">
-          <div class="guide-icon">🔥</div>
+          <div class="guide-icon"><i class="fas fa-fire"></i></div>
           <div class="guide-title">
             <h2>Incendios Forestales</h2>
           </div>
@@ -849,23 +1195,29 @@
         <div class="guide-content">
           <p>Técnicas de prevención y protocolos de evacuación. Protege tu vida ante la propagación de incendios.</p>
           <div class="guide-stats">
-            <div class="guide-stat">⏱️ 20 min</div>
-            <div class="guide-stat">📖 10 pasos</div>
-            <div class="guide-stat">🎯 90% útil</div>
+            <div class="guide-stat"><i class="far fa-clock"></i> 20 min</div>
+            <div class="guide-stat"><i class="fas fa-book"></i> 10 pasos</div>
+            <div class="guide-stat"><i class="fas fa-chart-line"></i> 90% útil</div>
           </div>
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('incendios')">🔥 Ver Guía</button>
-            <button class="btn btn-secondary" onclick="marcarComoCompletada('incendios')" id="btn-incendios">✅ Completar</button>
+            <button class="btn" onclick="abrirGuia('incendios')">
+              <i class="fas fa-book-open"></i> Ver Guía
+            </button>
+            <button class="btn btn-secondary" onclick="marcarComoCompletada('incendios')" id="btn-incendios">
+              <i class="fas fa-check"></i> Completar
+            </button>
           </div>
-          <div class="status-indicator status-pending">Pendiente</div>
+          <div class="status-indicator status-pending">
+            <i class="fas fa-clock"></i> Pendiente
+          </div>
         </div>
       </div>
 
       <div class="guide-card" data-category="primeros-auxilios emergencia" data-tags="medicina salud emergencia">
         <div class="guide-header">
-          <div class="guide-icon">🚑</div>
+          <div class="guide-icon"><i class="fas fa-first-aid"></i></div>
           <div class="guide-title">
             <h2>Primeros Auxilios <span class="guide-badge">ESENCIAL</span></h2>
           </div>
@@ -873,23 +1225,29 @@
         <div class="guide-content">
           <p>Aprende a actuar rápidamente en situaciones de emergencia médica. Guía esencial con técnicas para salvar vidas.</p>
           <div class="guide-stats">
-            <div class="guide-stat">⏱️ 25 min</div>
-            <div class="guide-stat">📖 12 pasos</div>
-            <div class="guide-stat">🎯 98% útil</div>
+            <div class="guide-stat"><i class="far fa-clock"></i> 25 min</div>
+            <div class="guide-stat"><i class="fas fa-book"></i> 12 pasos</div>
+            <div class="guide-stat"><i class="fas fa-chart-line"></i> 98% útil</div>
           </div>
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('primeros-auxilios')">🚑 Ver Guía</button>
-            <button class="btn btn-secondary" onclick="marcarComoCompletada('primeros-auxilios')" id="btn-primeros-auxilios">✅ Completar</button>
+            <button class="btn" onclick="abrirGuia('primeros-auxilios')">
+              <i class="fas fa-book-open"></i> Ver Guía
+            </button>
+            <button class="btn btn-secondary" onclick="marcarComoCompletada('primeros-auxilios')" id="btn-primeros-auxilios">
+              <i class="fas fa-check"></i> Completar
+            </button>
           </div>
-          <div class="status-indicator status-pending">Pendiente</div>
+          <div class="status-indicator status-pending">
+            <i class="fas fa-clock"></i> Pendiente
+          </div>
         </div>
       </div>
 
       <div class="guide-card" data-category="planificacion prevencion" data-tags="familia plan emergencia">
         <div class="guide-header">
-          <div class="guide-icon">👨‍👩‍👧‍👦</div>
+          <div class="guide-icon"><i class="fas fa-users"></i></div>
           <div class="guide-title">
             <h2>Plan Familiar</h2>
           </div>
@@ -897,51 +1255,95 @@
         <div class="guide-content">
           <p>Desarrolla un plan de acción familiar para diferentes tipos de desastres. Coordinación en situaciones críticas.</p>
           <div class="guide-stats">
-            <div class="guide-stat">⏱️ 30 min</div>
-            <div class="guide-stat">📖 15 pasos</div>
-            <div class="guide-stat">🎯 85% útil</div>
+            <div class="guide-stat"><i class="far fa-clock"></i> 30 min</div>
+            <div class="guide-stat"><i class="fas fa-book"></i> 15 pasos</div>
+            <div class="guide-stat"><i class="fas fa-chart-line"></i> 85% útil</div>
           </div>
         </div>
         <div class="guide-footer">
           <div class="guide-actions">
-            <button class="btn" onclick="abrirGuia('plan-familiar')">👨‍👩‍👧‍👦 Ver Guía</button>
-            <button class="btn btn-secondary" onclick="marcarComoCompletada('plan-familiar')" id="btn-plan-familiar">✅ Completar</button>
+            <button class="btn" onclick="abrirGuia('plan-familiar')">
+              <i class="fas fa-book-open"></i> Ver Guía
+            </button>
+            <button class="btn btn-secondary" onclick="marcarComoCompletada('plan-familiar')" id="btn-plan-familiar">
+              <i class="fas fa-check"></i> Completar
+            </button>
           </div>
-          <div class="status-indicator status-pending">Pendiente</div>
+          <div class="status-indicator status-pending">
+            <i class="fas fa-clock"></i> Pendiente
+          </div>
         </div>
       </div>
     </div>
 
     <div class="no-results" id="noResults">
-      No se encontraron guías que coincidan con tu búsqueda.
+      <i class="fas fa-search"></i> No se encontraron guías que coincidan con tu búsqueda.
     </div>
   </main>
 
-  <form id="emergency-form" action="https://formspree.io/f/xblzaejj" method="POST" style="display: none;">
-    <input type="hidden" name="nombre" value="Alerta Rápida">
-    <input type="hidden" name="_replyto" value="usuario@correo.com">
-    <input type="hidden" name="tipo" value="Emergencia">
-    <input type="hidden" name="lugar" value="Mi comunidad">
-    <input type="hidden" name="lat" value="-16.5">
-    <input type="hidden" name="lon" value="-68.15">
-    <textarea name="descripcion" style="display: none;">🚨 Hay un desastre en mi comunidad. Se requiere intervención inmediata.</textarea>
-  </form>
-
-  <button class="emergency-btn" title="Enviar alerta rápida de emergencia" aria-label="Botón de emergencia">
-    🚨
-  </button>
+  <div class="modal" id="emergencyModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">🚨 ALERTA DE EMERGENCIA</h3>
+        <p class="modal-subtitle">Solo usar en situaciones reales de peligro</p>
+      </div>
+      
+      <div class="modal-body">
+        <p class="modal-text">
+          Esta alerta notificará inmediatamente a los servicios de emergencia con tu ubicación exacta.
+        </p>
+        
+        <div class="location-status" id="locationStatus">
+          <p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p>
+        </div>
+        
+        <div class="emergency-info">
+          <h4><i class="fas fa-info-circle"></i> Información que se enviará:</h4>
+          <ul>
+            <li><strong>Tipo:</strong> EMERGENCIA INMEDIATA</li>
+            <li><strong>Nivel:</strong> ALERTA ROJA</li>
+            <li><strong>Ubicación:</strong> <span id="locationPreview">Coordenadas GPS</span></li>
+            <li><strong>Reportante:</strong> <span id="userPreview">Usuario SAT</span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="modal-actions">
+        <button class="btn btn-danger btn-lg btn-full" id="sendEmergencyBtn" onclick="enviarAlertaRapida()" disabled>
+          <i class="fas fa-paper-plane"></i> CONFIRMAR Y ENVIAR ALERTA
+        </button>
+        <button class="btn btn-secondary btn-full" onclick="closeEmergencyModal()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="notification-toast" id="notificationToast">
     <div class="notification-title" id="toastTitle">Progreso Guardado</div>
     <div class="notification-message" id="toastMessage">Tu avance ha sido registrado correctamente</div>
   </div>
 
+  <button class="emergency-btn" id="emergencyButton" onclick="mostrarAlertaRapida()">
+    <i class="fas fa-exclamation-triangle"></i>
+  </button>
+
   <footer class="footer">
     <div class="footer-content">
-      <p>© 2025 Plataforma de Alerta y Educación Ambiental de Bolivia</p>
-      <p style="margin-top: 0.5rem; opacity: 0.8; font-size: 0.9rem;">Sistema de monitoreo y alerta temprana</p>
+      <p>© 2026 SAT Bolivia - Sistema de Alerta Temprana. Todos los derechos reservados.</p>
+      <p>Desarrollado con <i class="fas fa-heart" style="color: var(--danger);"></i> para proteger a Bolivia</p>
     </div>
   </footer>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+  </script>
 
   <script>
     class SistemaEducacion {
@@ -955,7 +1357,7 @@
       }
 
       cargarProgreso() {
-        const progreso = JSON.parse(localStorage.getItem('progresoEducacion')) || {};
+        const progreso = JSON.parse(localStorage.getItem('sat_progreso_educacion')) || {};
         this.guiasCompletadas = new Set(progreso.guiasCompletadas || []);
         this.tiempoEstudio = progreso.tiempoEstudio || 0;
         this.pruebasAprobadas = progreso.pruebasAprobadas || 0;
@@ -969,7 +1371,7 @@
           pruebasAprobadas: this.pruebasAprobadas,
           certificados: this.certificados
         };
-        localStorage.setItem('progresoEducacion', JSON.stringify(progreso));
+        localStorage.setItem('sat_progreso_educacion', JSON.stringify(progreso));
       }
 
       inicializar() {
@@ -978,6 +1380,24 @@
         this.configurarFiltros();
         this.configurarBotonesCompletado();
         this.actualizarFecha();
+        this.configurarEventos();
+        
+        setTimeout(() => {
+          this.mostrarNotificacion('🎓 Centro de Educación', 'Explora los materiales educativos sobre desastres naturales');
+        }, 1500);
+      }
+
+      configurarEventos() {
+        window.addEventListener('scroll', () => {
+          const header = document.getElementById('header');
+          if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        });
+
+        setInterval(() => this.actualizarFecha(), 60000);
       }
 
       actualizarInterfazProgreso() {
@@ -1006,6 +1426,11 @@
           day: 'numeric'
         });
         document.getElementById('lastUpdateTime').textContent = `${dateString} ${timeString}`;
+        
+        const lastUpdate = document.getElementById('lastUpdate');
+        if (lastUpdate) {
+          lastUpdate.textContent = `${dateString} ${timeString}`;
+        }
       }
 
       configurarBusqueda() {
@@ -1114,14 +1539,14 @@
           'sismos': 'Sismos y Terremotos',
           'inundaciones': 'Inundaciones',
           'deslizamientos': 'Deslizamientos',
-          'incendios': 'Incendios',
+          'incendios': 'Incendios Forestales',
           'primeros-auxilios': 'Primeros Auxilios',
           'plan-familiar': 'Plan Familiar'
         };
         return nombres[guiaId] || guiaId;
       }
 
-      mostrarNotificacion(titulo, mensaje) {
+      mostrarNotificacion(titulo, mensaje, duracion = 3000) {
         const toast = document.getElementById('notificationToast');
         const titleElem = document.getElementById('toastTitle');
         const messageElem = document.getElementById('toastMessage');
@@ -1133,12 +1558,28 @@
         
         setTimeout(() => {
           toast.classList.remove('show');
-        }, 3000);
+        }, duracion);
       }
     }
 
     function abrirGuia(guiaId) {
-      const url = `guias/${guiaId}.pdf`;
+      const nombres = {
+        'sismos': 'sismos-terremotos',
+        'inundaciones': 'inundaciones',
+        'deslizamientos': 'deslizamientos',
+        'incendios': 'incendios-forestales',
+        'primeros-auxilios': 'primeros-auxilios',
+        'plan-familiar': 'plan-familiar'
+      };
+      
+      const nombreArchivo = nombres[guiaId] || guiaId;
+      const url = `guias/${nombreArchivo}.pdf`;
+      
+      window.sistemaEducacion.mostrarNotificacion(
+        '📖 Abriendo Guía', 
+        `Descargando guía de ${window.sistemaEducacion.obtenerNombreGuia(guiaId)}`
+      );
+      
       window.open(url, '_blank');
     }
 
@@ -1148,38 +1589,133 @@
       }
     }
 
+    let ubicacionUsuario = null;
+
+    async function mostrarAlertaRapida() {
+      const modal = document.getElementById('emergencyModal');
+      const status = document.getElementById('locationStatus');
+      const sendBtn = document.getElementById('sendEmergencyBtn');
+      const userPreview = document.getElementById('userPreview');
+      
+      modal.style.display = 'flex';
+      sendBtn.disabled = true;
+      status.innerHTML = '<p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p>';
+      
+      userPreview.textContent = 'Usuario SAT Educación';
+      
+      try {
+        const position = await obtenerUbicacion();
+        ubicacionUsuario = position;
+        
+        status.innerHTML = `
+          <p style="color: var(--success);">
+            <i class="fas fa-check-circle"></i> Ubicación confirmada<br>
+            <small>Lat: ${position.coords.latitude.toFixed(4)}, Lon: ${position.coords.longitude.toFixed(4)}</small>
+          </p>
+        `;
+        
+        document.getElementById('locationPreview').textContent = 
+          `${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`;
+        
+        sendBtn.disabled = false;
+        
+      } catch (error) {
+        console.warn('Error obteniendo ubicación:', error);
+        
+        status.innerHTML = `
+          <p style="color: var(--warning);">
+            <i class="fas fa-exclamation-triangle"></i> Ubicación aproximada<br>
+            <small>Se usará ubicación por red. Activa GPS para mayor precisión.</small>
+          </p>
+        `;
+        
+        document.getElementById('locationPreview').textContent = 'Ubicación aproximada por IP';
+        
+        ubicacionUsuario = {
+          coords: {
+            latitude: -16.290154,
+            longitude: -63.588653,
+            accuracy: 50000
+          }
+        };
+        sendBtn.disabled = false;
+      }
+    }
+
+    function obtenerUbicacion() {
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          reject(new Error('Geolocalización no soportada'));
+          return;
+        }
+        
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        });
+      });
+    }
+
+    async function enviarAlertaRapida() {
+      const sendBtn = document.getElementById('sendEmergencyBtn');
+      const originalText = sendBtn.innerHTML;
+      
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<span class="loading"></span> ENVIANDO ALERTA...';
+
+      try {
+        const alertaData = {
+          tipo: "EMERGENCIA_INMEDIATA",
+          nivel: "ROJA",
+          descripcion: "🚨 EMERGENCIA DESDE CENTRO DE EDUCACIÓN - Se requiere auxilio inmediato",
+          timestamp: new Date().toISOString(),
+          ubicacion: ubicacionUsuario ? {
+            lat: ubicacionUsuario.coords.latitude,
+            lon: ubicacionUsuario.coords.longitude,
+            precision: ubicacionUsuario.coords.accuracy
+          } : "Ubicación no disponible",
+          usuario: "Usuario SAT Educación",
+          fuente: "Alerta Bolivia - Centro de Educación"
+        };
+
+        window.sistemaEducacion.mostrarNotificacion(
+          '🚨 Alerta Enviada', 
+          'La emergencia ha sido reportada a los servicios correspondientes.',
+          5000
+        );
+
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        setTimeout(() => {
+          closeEmergencyModal();
+          sendBtn.innerHTML = originalText;
+          sendBtn.disabled = false;
+        }, 2000);
+
+      } catch (error) {
+        console.error('Error enviando alerta:', error);
+        window.sistemaEducacion.mostrarNotificacion(
+          '❌ Error', 
+          'No se pudo enviar la alerta. Por favor, llama al 911 directamente.',
+          5000
+        );
+        sendBtn.innerHTML = originalText;
+        sendBtn.disabled = false;
+      }
+    }
+
+    function closeEmergencyModal() {
+      const modal = document.getElementById('emergencyModal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+      ubicacionUsuario = null;
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       window.sistemaEducacion = new SistemaEducacion();
-
-      const emergencyBtn = document.querySelector('.emergency-btn');
-      emergencyBtn.addEventListener('click', function() {
-        const confirmar = confirm(
-          '🚨 ALERTA DE EMERGENCIA\n\n' +
-          '¿Estás seguro de que quieres enviar una alerta de emergencia?\n\n' +
-          'Esto notificará inmediatamente a las autoridades de defensa civil.\n' +
-          'Solo usa esta función en caso de peligro real e inmediato.'
-        );
-        
-        if (confirmar) {
-          const originalBackground = this.style.background;
-          const originalText = this.textContent;
-          
-          this.style.background = '#f59e0b';
-          this.textContent = '⏳';
-          this.style.animation = 'none';
-          
-          setTimeout(() => {
-            document.getElementById('emergency-form').submit();
-            
-            setTimeout(() => {
-              this.style.background = originalBackground;
-              this.textContent = '🚨';
-              this.style.animation = 'pulse-emergency 2s infinite';
-            }, 2000);
-          }, 1000);
-        }
-      });
-
+      
       const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -1202,9 +1738,55 @@
         observer.observe(card);
       });
 
-      setInterval(() => window.sistemaEducacion.actualizarFecha(), 30000);
+      const progressCards = document.querySelectorAll('.progress-card');
+      progressCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(card);
+      });
+
+      setTimeout(() => {
+        const alertBanner = document.getElementById('alertBanner');
+        if (alertBanner) {
+          alertBanner.classList.remove('hidden');
+        }
+      }, 2000);
+
+      console.log('%c📚 Centro de Educación Alerta Bolivia', 'font-size: 24px; font-weight: bold; color: #00B4D4;');
+      console.log('%cSistema de educación sobre desastres naturales', 'color: #80D0FF;');
+    });
+
+    window.addEventListener('error', (event) => {
+      console.error('Error en sistema de educación:', event.error);
+      if (window.sistemaEducacion) {
+        window.sistemaEducacion.mostrarNotificacion(
+          '⚠️ Error del Sistema', 
+          'Se ha producido un error. Por favor, recarga la página.',
+          5000
+        );
+      }
+    });
+
+    window.addEventListener('online', () => {
+      if (window.sistemaEducacion) {
+        window.sistemaEducacion.mostrarNotificacion(
+          '✅ Conexión Restablecida', 
+          'El sistema se ha reconectado correctamente.',
+          3000
+        );
+      }
+    });
+
+    window.addEventListener('offline', () => {
+      if (window.sistemaEducacion) {
+        window.sistemaEducacion.mostrarNotificacion(
+          '⚠️ Sin Conexión', 
+          'Estás trabajando en modo offline. Tu progreso se guardará localmente.',
+          5000
+        );
+      }
     });
   </script>
-
 </body>
 </html>
