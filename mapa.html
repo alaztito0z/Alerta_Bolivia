@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#00B4D4"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Sistema de Mapas Interactivos del Alerta Bolivia - Monitoreo en tiempo real">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>🗺️</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>🗺️</text></svg>">
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -844,7 +844,7 @@
 <header class="header" id="header">
   <div class="logo-container" onclick="window.location.href='index.html'">
     <div class="logo-img">
-      <i class="fas fa-shield-alt"></i>
+      <img src="logo.jpg" alt="Alerta Bolivia" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
     </div>
     <div class="logo-text">
       <div class="logo-title">Alerta Bolivia</div>
@@ -874,18 +874,6 @@
   <div class="last-update">
     <i class="fas fa-sync-alt"></i> Última actualización: 
     <span class="highlight" id="lastUpdateTime">Cargando...</span>
-  </div>
-  <div class="alert-banner hidden" id="alertBanner">
-    <span class="alert-icon"><i class="fas fa-info-circle"></i></span>
-    <div class="alert-content">
-      <div class="alert-title">Estado del Sistema de Mapas</div>
-      <div class="alert-message" id="alertMessage">
-        Sistema de monitoreo operativo • 6 mapas en tiempo real activos
-      </div>
-    </div>
-    <button class="alert-close" onclick="document.getElementById('alertBanner').classList.add('hidden')" style="margin-left: auto; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--warning-dark);">
-      <i class="fas fa-times"></i>
-    </button>
   </div>
   <div class="stats-dashboard">
     <div class="stat-card" data-filter="all">
@@ -951,7 +939,7 @@
       </div>
       <div class="map-card-footer">
         <div class="map-card-actions">
-          <button class="btn" onclick="abrirMapa('weather', 'Radar Meteorológico SAT Bolivia')">
+          <button class="btn" onclick="abrirMapa('weather')">
             <i class="fas fa-external-link-alt"></i> Abrir Mapa
           </button>
         </div>
@@ -984,7 +972,7 @@
       </div>
       <div class="map-card-footer">
         <div class="map-card-actions">
-          <button class="btn" onclick="abrirMapa('satellite', 'Vista Satelital HD SAT Bolivia')">
+          <button class="btn" onclick="abrirMapa('satellite')">
             <i class="fas fa-external-link-alt"></i> Explorar
           </button>
         </div>
@@ -1017,12 +1005,12 @@
       </div>
       <div class="map-card-footer">
         <div class="map-card-actions">
-          <button class="btn btn-danger" onclick="abrirMapa('alerts', 'Centro de Alertas SAT Bolivia')">
+          <button class="btn btn-danger" onclick="abrirMapa('alerts')">
             <i class="fas fa-external-link-alt"></i> Ver Alertas
           </button>
         </div>
         <div class="map-stat">
-          <i class="fas fa-shield-alt"></i> SENAMHI Bolivia
+          <i class="fas fa-shield-alt"></i> Meteoblue
         </div>
       </div>
     </div>
@@ -1050,12 +1038,12 @@
       </div>
       <div class="map-card-footer">
         <div class="map-card-actions">
-          <button class="btn" onclick="abrirMapa('health', 'Red de Emergencias SAT Bolivia')">
+          <button class="btn" onclick="abrirMapa('health')">
             <i class="fas fa-external-link-alt"></i> Ver Mapa
           </button>
         </div>
         <div class="map-stat">
-          <i class="fas fa-map-pin"></i> GPS Activo
+          <i class="fas fa-tools"></i> En mantenimiento
         </div>
       </div>
     </div>
@@ -1083,12 +1071,12 @@
       </div>
       <div class="map-card-footer">
         <div class="map-card-actions">
-          <button class="btn" onclick="abrirMapa('fires', 'Monitoreo de Incendios SAT Bolivia')">
+          <button class="btn" onclick="abrirMapa('fires')">
             <i class="fas fa-external-link-alt"></i> Monitorear
           </button>
         </div>
         <div class="map-stat">
-          <i class="fas fa-globe-americas"></i> FIRMS NASA
+          <i class="fas fa-tools"></i> En mantenimiento
         </div>
       </div>
     </div>
@@ -1116,12 +1104,12 @@
       </div>
       <div class="map-card-footer">
         <div class="map-card-actions">
-          <button class="btn" onclick="abrirMapa('seismic', 'Red Sísmica SAT Bolivia')">
+          <button class="btn" onclick="abrirMapa('seismic')">
             <i class="fas fa-external-link-alt"></i> Ver Sismos
           </button>
         </div>
         <div class="map-stat">
-          <i class="fas fa-network-wired"></i> Red USGS
+          <i class="fas fa-tools"></i> En mantenimiento
         </div>
       </div>
     </div>
@@ -1182,12 +1170,12 @@
       </div>
       <div class="map-card-footer">
         <div class="map-card-actions">
-          <button class="btn" onclick="abrirMapa('infrastructure', 'Infraestructura Crítica SAT Bolivia')">
+          <button class="btn" onclick="abrirMapa('infrastructure')">
             <i class="fas fa-external-link-alt"></i> Ver Mapa
           </button>
         </div>
         <div class="map-stat">
-          <i class="fas fa-tools"></i> Mantenimiento
+          <i class="fas fa-tools"></i> En mantenimiento
         </div>
       </div>
     </div>
@@ -1226,49 +1214,6 @@
     </div>
   </div>
 </div>
-<div class="modal" id="emergencyModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 21, 37, 0.95); backdrop-filter: blur(20px); z-index: 2000; align-items: center; justify-content: center; padding: 1rem;">
-  <div class="modal-content" style="background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(0, 180, 212, 0.2); border-radius: var(--border-radius-lg); padding: 3rem; max-width: 500px; width: 100%; box-shadow: var(--shadow-xl);">
-    <div class="modal-header">
-      <h3 class="modal-title">🚨 ALERTA RÁPIDA DE EMERGENCIA</h3>
-      <p class="modal-subtitle">Solo usar en situaciones reales de peligro</p>
-    </div>
-    <div class="modal-body">
-      <p class="modal-text">
-        Esta alerta notificará inmediatamente a los servicios de emergencia. Solo úsala en caso de peligro real.
-      </p>
-      <div class="location-status" id="locationStatus">
-        <p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p>
-      </div>
-      <div class="emergency-info" style="background: rgba(255, 255, 255, 0.5); padding: 1rem; border-radius: var(--border-radius-sm); margin: 1rem 0; border-left: 4px solid var(--danger); text-align: left;">
-        <h4><i class="fas fa-info-circle"></i> Información que se enviará:</h4>
-        <ul>
-          <li><strong>Tipo:</strong> EMERGENCIA CRÍTICA</li>
-          <li><strong>Gravedad:</strong> ROJO</li>
-          <li><strong>Descripción:</strong> "🚨 EMERGENCIA - Se requiere auxilio inmediato"</li>
-          <li><strong>Ubicación:</strong> <span id="locationPreview">Tu ubicación actual</span></li>
-          <li><strong>Destinos:</strong> Formspree + WhatsApp con Google Maps</li>
-        </ul>
-      </div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-danger btn-full" id="sendEmergencyBtn" onclick="enviarAlertaRapida()" disabled style="width: 100%;">
-        <i class="fas fa-paper-plane"></i> ENVIAR ALERTA DE EMERGENCIA
-      </button>
-      <button class="btn btn-secondary btn-full" onclick="closeEmergencyModal()" style="margin-top: 1rem; width: 100%;">
-        Cancelar
-      </button>
-    </div>
-  </div>
-</div>
-<form id="emergencyFormspreeForm" action="https://formspree.io/f/xblzaejj" method="POST" style="display: none;">
-  <input type="hidden" name="_subject" value="🚨 ALERTA RÁPIDA - Alerta Bolivia">
-  <input type="hidden" name="tipo" value="EMERGENCIA CRÍTICA">
-  <input type="hidden" name="gravedad" value="CRITICA">
-  <input type="hidden" name="descripcion" value="🚨 ALERTA: Situación de emergencia que requiere intervención inmediata de servicios de emergencia">
-  <input type="hidden" name="ubicacion" id="formspreeUbicacion" value="">
-  <input type="hidden" name="timestamp" id="formspreeTimestamp" value="">
-  <input type="hidden" name="fuente" value="Alerta Bolivia Web App">
-</form>
 <button class="emergency-btn" title="Enviar alerta rápida de emergencia" aria-label="Botón de emergencia" onclick="mostrarAlertaRapida()">
   <i class="fas fa-exclamation-triangle"></i>
 </button>
@@ -1285,81 +1230,79 @@
 <script>
 const mapasConfig = {
   'weather': {
-    url: 'https://www.windy.com',
+    url: 'https://embed.windy.com/embed2.html?lat=-16.5&lon=-68.15&zoom=5&level=surface&overlay=wind&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&detailLat=-16.5&detailLon=-68.15&metricWind=default&metricTemp=default&radarRange=-1',
     titulo: 'Radar Meteorológico SAT Bolivia',
-    info: 'Seguimiento de sistemas climáticos y patrones de viento en Bolivia en tiempo real'
+    info: 'Vientos y clima en tiempo real'
   },
   'satellite': {
-    url: 'https://earth.google.com/web/',
-    titulo: 'Vista Satelital HD - SAT Bolivia',
-    info: 'Imágenes satelitales de alta resolución para análisis territorial en Bolivia'
+    url: 'https://www.openstreetmap.org/export/embed.html?bbox=-69.6,-22.9,-57.5,-9.4&layer=mapnik&marker=-16.5,-68.15',
+    titulo: 'Mapa Satelital Bolivia',
+    info: 'Mapa completo de Bolivia'
   },
   'alerts': {
-    url: 'https://www.senamhi.gob.bo/',
-    titulo: 'Sistema de Alertas - SENAMHI Bolivia',
-    info: 'Alertas meteorológicas oficiales del Servicio Nacional de Meteorología e Hidrología'
+    url: 'https://www.meteoblue.com/en/weather/maps/widget?windAnimation=1&satellite=1&temperature=1&geoloc=detect',
+    titulo: 'Alertas Meteorológicas',
+    info: 'Pronóstico y alertas del tiempo'
   },
   'health': {
-    url: 'https://www.google.com/maps/d/u/0/viewer?mid=1q6nN7wQ5X5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z&ll=-16.500000%2C-68.150000&z=6',
-    titulo: 'Red de Hospitales y Emergencias - SAT Bolivia',
-    info: 'Ubicación de servicios de emergencia médica en todo el territorio boliviano'
+    url: 'proxy-mapa-hospitales.html',  
+    titulo: 'Hospitales y Emergencias',
+    info: 'Ubicación de servicios médicos'
   },
   'fires': {
-    url: 'https://firms.modaps.eosdis.nasa.gov/map/',
-    titulo: 'Monitoreo de Incendios - NASA FIRMS',
-    info: 'Detección de focos de calor e incendios forestales en tiempo real vía satélite'
+    url: 'proxy-incendios.html', 
+    titulo: 'Incendios Forestales',
+    info: 'Focos de calor detectados'
   },
   'seismic': {
-    url: 'https://earthquake.usgs.gov/earthquakes/map/',
-    titulo: 'Actividad Sísmica Bolivia - USGS',
-    info: 'Monitoreo de sismos y actividad tectónica en tiempo real en territorio boliviano'
+    url: 'proxy-sismos.html',  
+    titulo: 'Actividad Sísmica',
+    info: 'Sismos registrados en Bolivia'
   },
   'infrastructure': {
-    url: 'https://www.openstreetmap.org',
-    titulo: 'Infraestructura Crítica Bolivia',
-    info: 'Mapa de infraestructura crítica: puentes, carreteras, represas y servicios básicos'
+    url: 'proxy-infraestructura.html',  
+    titulo: 'Infraestructura',
+    info: 'Carreteras y servicios'
   }
 };
+
 let mapaActual = null;
-let ubicacionUsuario = null;
-function abrirMapa(tipoMapa, titulo) {
+
+function abrirMapa(tipoMapa) {
   const config = mapasConfig[tipoMapa];
   if (!config) {
-    mostrarNotificacion('❌ Error', 'Mapa no disponible en este momento');
+    mostrarNotificacion('Error', 'Mapa no disponible');
     return;
   }
+  
   mapaActual = tipoMapa;
   const modal = document.getElementById('mapModal');
   const tituloElem = document.getElementById('mapModalTitle');
   const infoElem = document.getElementById('mapModalInfo');
   const iframe = document.getElementById('mapIframe');
   const loading = document.getElementById('mapLoading');
+  
   tituloElem.textContent = config.titulo;
   infoElem.textContent = config.info;
   modal.style.display = 'block';
   loading.style.display = 'block';
   iframe.style.display = 'none';
+  
   iframe.src = config.url;
+  
   iframe.onload = function() {
     setTimeout(() => {
       loading.style.display = 'none';
       iframe.style.display = 'block';
-      mostrarNotificacion('🗺️ Mapa Cargado', `${titulo} está listo para usar`);
+      mostrarNotificacion('Mapa Cargado', config.titulo);
     }, 1000);
   };
+  
   iframe.onerror = function() {
-    loading.innerHTML = `
-      <div style="color: var(--danger); text-align: center;">
-        <div style="font-size: 3rem; margin-bottom: 1rem;">❌</div>
-        <p>Error al cargar el mapa</p>
-        <p style="color: var(--gray); font-size: 0.9rem;">Intenta recargar o abre en nueva pestaña</p>
-        <button class="btn" onclick="abrirEnNuevaPestana()" style="margin-top: 1rem;">
-          <i class="fas fa-external-link-alt"></i> Abrir en Nueva Pestaña
-        </button>
-      </div>
-    `;
+    loading.innerHTML = '<div style="text-align:center;color:var(--danger);padding:2rem;"><div style="font-size:3rem;">❌</div><p>Error al cargar</p><button class="btn" onclick="window.open(\'' + config.url + '\', \'_blank\')">Abrir en nueva pestaña</button></div>';
   };
 }
+
 function cerrarMapa() {
   const modal = document.getElementById('mapModal');
   const iframe = document.getElementById('mapIframe');
@@ -1367,6 +1310,7 @@ function cerrarMapa() {
   iframe.src = '';
   mapaActual = null;
 }
+
 function recargarMapa() {
   if (mapaActual) {
     const iframe = document.getElementById('mapIframe');
@@ -1374,238 +1318,38 @@ function recargarMapa() {
     loading.style.display = 'block';
     iframe.style.display = 'none';
     iframe.src = iframe.src;
-    mostrarNotificacion('🔄 Recargando', 'Actualizando mapa...');
   }
 }
+
 function abrirEnNuevaPestana() {
   if (mapaActual) {
     const config = mapasConfig[mapaActual];
     window.open(config.url, '_blank');
-    mostrarNotificacion('🌐 Nueva Pestaña', 'Mapa abierto en nueva ventana');
   }
 }
-function filtrarMapas(filtro) {
-  const mapCards = document.querySelectorAll('.map-card');
-  const statCards = document.querySelectorAll('.stat-card');
-  statCards.forEach(card => {
-    card.classList.remove('active');
-    if (card.getAttribute('data-filter') === filtro) {
-      card.classList.add('active');
-    }
-  });
-  mapCards.forEach(card => {
-    card.style.opacity = '0.6';
-    card.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      if (filtro === 'all') {
-        card.style.display = 'flex';
-      } else {
-        const status = card.getAttribute('data-status');
-        card.style.display = status === filtro ? 'flex' : 'none';
-      }
-      card.style.opacity = '1';
-      card.style.transform = 'scale(1)';
-    }, 300);
-  });
-}
-async function mostrarAlertaRapida() {
-  const modal = document.getElementById('emergencyModal');
-  const status = document.getElementById('locationStatus');
-  const sendBtn = document.getElementById('sendEmergencyBtn');
-  modal.style.display = 'flex';
-  sendBtn.disabled = true;
-  status.innerHTML = '<p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p>';
-  try {
-    const position = await obtenerUbicacion();
-    ubicacionUsuario = position;
-    status.innerHTML = `
-      <p style="color: var(--success);">
-        <i class="fas fa-check-circle"></i> Ubicación confirmada<br>
-        <small>Lat: ${position.coords.latitude.toFixed(4)}, Lon: ${position.coords.longitude.toFixed(4)}</small>
-      </p>
-    `;
-    document.getElementById('locationPreview').textContent = 
-      `Lat: ${position.coords.latitude.toFixed(4)}, Lon: ${position.coords.longitude.toFixed(4)}`;
-    sendBtn.disabled = false;
-  } catch (error) {
-    console.warn('Error obteniendo ubicación:', error);
-    status.innerHTML = `
-      <p style="color: var(--warning);">
-        <i class="fas fa-exclamation-triangle"></i> Ubicación aproximada<br>
-        <small>Se usará ubicación por red. Activa GPS para mayor precisión.</small>
-      </p>
-    `;
-    document.getElementById('locationPreview').textContent = 'Ubicación aproximada por IP';
-    ubicacionUsuario = {
-      coords: {
-        latitude: -16.5000,
-        longitude: -68.1500,
-        accuracy: 50000
-      }
-    };
-    sendBtn.disabled = false;
+
+function mostrarAlertaRapida() {
+  const confirmar = confirm('🚨 ALERTA DE EMERGENCIA\n\n¿Enviar alerta de emergencia a servicios?');
+  if (confirmar) {
+    mostrarNotificacion('🚨 Alerta Enviada', 'Servicios notificados');
   }
 }
-function obtenerUbicacion() {
-  return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) {
-      reject(new Error('Geolocalización no soportada'));
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(resolve, reject, {
-      enableHighAccuracy: true,
-      timeout: 10000,
-      maximumAge: 0
-    });
-  });
-}
-async function enviarAlertaRapida() {
-  const sendBtn = document.getElementById('sendEmergencyBtn');
-  const originalText = sendBtn.innerHTML;
-  sendBtn.disabled = true;
-  sendBtn.innerHTML = '<span class="loading-spinner" style="width: 20px; height: 20px; display: inline-block; border: 2px solid #f3f3f3; border-top: 2px solid var(--danger); border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px;"></span> ENVIANDO ALERTA...';
-  try {
-    const alertaData = {
-      tipo: "EMERGENCIA_INMEDIATA",
-      gravedad: "CRITICA",
-      descripcion: "🚨 EMERGENCIA - Se requiere auxilio inmediato",
-      timestamp: new Date().toISOString(),
-      ubicacion: ubicacionUsuario ? {
-        lat: ubicacionUsuario.coords.latitude,
-        lng: ubicacionUsuario.coords.longitude,
-        precision: ubicacionUsuario.coords.accuracy
-      } : "Ubicación no disponible",
-      usuario: "Usuario SAT Bolivia",
-      fuente: "Alerta Bolivia - Sistema de Mapas"
-    };
-    const resultadoFormspree = await enviarAFormspree(alertaData);
-    const resultadoWhatsApp = await enviarWhatsApp(alertaData);
-    mostrarConfirmacionEnvio(resultadoFormspree, resultadoWhatsApp);
-    setTimeout(() => {
-      closeEmergencyModal();
-      sendBtn.innerHTML = originalText;
-      sendBtn.disabled = false;
-    }, 3000);
-  } catch (error) {
-    console.error('Error enviando alerta:', error);
-    mostrarNotificacion('❌ Error', 'No se pudo enviar la alerta completa. Por favor, llama al 911 directamente.', 5000);
-    sendBtn.innerHTML = originalText;
-    sendBtn.disabled = false;
-  }
-}
-async function enviarAFormspree(alertaData) {
-  return new Promise((resolve) => {
-    try {
-      document.getElementById('formspreeUbicacion').value = 
-        alertaData.ubicacion.lat ? 
-        `Lat: ${alertaData.ubicacion.lat}, Lon: ${alertaData.ubicacion.lng}` : 
-        'Ubicación no disponible';
-      document.getElementById('formspreeTimestamp').value = alertaData.timestamp;
-      const form = document.getElementById('emergencyFormspreeForm');
-      const formData = new FormData(form);
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          resolve({ exito: true, destino: 'Formspree' });
-        } else {
-          resolve({ exito: false, destino: 'Formspree', error: 'Error HTTP' });
-        }
-      })
-      .catch(error => {
-        resolve({ exito: false, destino: 'Formspree', error: error.message });
-      });
-    } catch (error) {
-      resolve({ exito: false, destino: 'Formspree', error: error.message });
-    }
-  });
-}
-async function enviarWhatsApp(alertaData) {
-  return new Promise((resolve) => {
-    try {
-      const numeroTelefono = "59162679441";
-      let enlaceMaps = "Ubicación no disponible";
-      if (alertaData.ubicacion.lat) {
-        enlaceMaps = `https://www.google.com/maps?q=${alertaData.ubicacion.lat},${alertaData.ubicacion.lng}`;
-      }
-      const mensaje = `🚨 EMERGENCIA - Alerta Bolivia
-📍 ${enlaceMaps}
-⌚ ${new Date().toLocaleTimeString('es-BO')}
-⚠️ Se requiere auxilio inmediato
-Sistema de Alerta Temprana Bolivia`;
-      const whatsappLink = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
-      window.open(whatsappLink, '_blank');
-      resolve({ 
-        exito: true, 
-        destino: 'WhatsApp', 
-        metodo: 'Enlace directo',
-        mensaje: 'WhatsApp abierto con ubicación en Google Maps'
-      });
-    } catch (error) {
-      resolve({ 
-        exito: false, 
-        destino: 'WhatsApp', 
-        error: error.message 
-      });
-    }
-  });
-}
-function mostrarConfirmacionEnvio(resultadoFormspree, resultadoWhatsApp) {
-  let mensaje = '✅ Alerta enviada correctamente a:\n';
-  if (resultadoFormspree.exito) {
-    mensaje += '• 📧 Formspree (correo)\n';
-  } else {
-    mensaje += '• ❌ Formspree falló\n';
-  }
-  if (resultadoWhatsApp.exito) {
-    mensaje += `• 📱 WhatsApp (con enlace a Google Maps)\n`;
-    setTimeout(() => {
-      mostrarNotificacion(
-        '📱 WhatsApp Listo', 
-        'Ubicación en Google Maps - Solo presiona "Enviar"'
-      );
-    }, 1000);
-  } else {
-    mensaje += '• ❌ WhatsApp falló\n';
-  }
-  mostrarNotificacion('🚨 Alerta Enviada', mensaje, 5000);
-}
-function closeEmergencyModal() {
-  document.getElementById('emergencyModal').style.display = 'none';
-  ubicacionUsuario = null;
-}
-function mostrarNotificacion(titulo, mensaje, duracion = 3000) {
+
+function mostrarNotificacion(titulo, mensaje) {
   const toast = document.getElementById('notificationToast');
   const titleElem = document.getElementById('toastTitle');
   const messageElem = document.getElementById('toastMessage');
+  
   titleElem.textContent = titulo;
   messageElem.textContent = mensaje;
   toast.classList.add('show');
+  
   setTimeout(() => {
     toast.classList.remove('show');
-  }, duracion);
+  }, 3000);
 }
+
 document.addEventListener('DOMContentLoaded', function() {
-  window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
-  const statCards = document.querySelectorAll('.stat-card');
-  statCards.forEach(card => {
-    card.addEventListener('click', function() {
-      const filter = this.getAttribute('data-filter');
-      filtrarMapas(filter);
-    });
-  });
   function updateLastUpdateTime() {
     const now = new Date();
     const timeString = now.toLocaleTimeString('es-BO', {
@@ -1620,18 +1364,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('lastUpdateTime').textContent = `${dateString} ${timeString}`;
   }
+  
   updateLastUpdateTime();
   setInterval(updateLastUpdateTime, 60000);
-  setTimeout(() => {
-    const alertBanner = document.getElementById('alertBanner');
-    if (alertBanner) {
-      alertBanner.classList.remove('hidden');
-    }
-  }, 2000);
+  
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   };
+  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1640,12 +1381,15 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }, observerOptions);
+  
+  const statCards = document.querySelectorAll('.stat-card');
   statCards.forEach((card, index) => {
     card.style.opacity = '0';
     card.style.transform = 'translateY(20px)';
     card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
     observer.observe(card);
   });
+  
   const mapCards = document.querySelectorAll('.map-card');
   mapCards.forEach((card, index) => {
     card.style.opacity = '0';
@@ -1653,77 +1397,9 @@ document.addEventListener('DOMContentLoaded', function() {
     card.style.transition = `opacity 0.6s ease ${index * 0.1 + 0.3}s, transform 0.6s ease ${index * 0.1 + 0.3}s`;
     observer.observe(card);
   });
-  function simulateRealTimeData() {
-    const alertElement = document.getElementById('active-alerts');
-    const currentAlerts = parseInt(alertElement.textContent);
-    const newAlerts = Math.random() > 0.8 ? currentAlerts + Math.floor(Math.random() * 2) : currentAlerts;
-    if (newAlerts !== currentAlerts) {
-      animateCounter(alertElement, newAlerts, 800);
-      const alertBadge = document.querySelector('.alert-badge');
-      if (alertBadge && newAlerts > currentAlerts) {
-        const diff = newAlerts - currentAlerts;
-        alertBadge.textContent = diff.toString();
-        alertBadge.style.animation = 'none';
-        setTimeout(() => {
-          alertBadge.style.animation = 'pulse-alert 1.5s infinite';
-        }, 10);
-      }
-    }
-    const responseElement = document.getElementById('response-time');
-    const currentResponse = parseInt(responseElement.textContent);
-    const newResponse = Math.max(20, Math.min(60, currentResponse + (Math.random() > 0.5 ? -5 : 5)));
-    if (newResponse !== currentResponse) {
-      animateCounter(responseElement, newResponse, 800);
-    }
-    updateLastUpdateTime();
-  }
-  function animateCounter(element, target, duration = 1500) {
-    const current = parseInt(element.textContent.replace(/[^0-9]/g, '') || 0);
-    const increment = target > current ? 1 : -1;
-    const steps = Math.abs(target - current);
-    const stepTime = Math.max(50, duration / steps);
-    let counter = current;
-    const timer = setInterval(() => {
-      counter += increment;
-      if (element.id === 'response-time') {
-        element.textContent = `${counter}s`;
-      } else {
-        element.textContent = counter;
-      }
-      if (counter === target) {
-        clearInterval(timer);
-      }
-    }, stepTime);
-  }
-  setInterval(simulateRealTimeData, 10000);
-  setInterval(() => {
-    const badges = document.querySelectorAll('.map-card-badge');
-    badges.forEach(badge => {
-      if (badge.textContent === 'EN VIVO') {
-        badge.style.animation = 'none';
-        setTimeout(() => {
-          badge.style.animation = 'pulse-badge 2s infinite';
-        }, 10);
-      }
-    });
-  }, 4000);
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').catch(err => {
-        console.log('ServiceWorker registration failed: ', err);
-      });
-    });
-  }
-  window.addEventListener('online', () => {
-    mostrarNotificacion('✅ Conexión Restablecida', 'El sistema de mapas se ha reconectado correctamente.', 3000);
-  });
-  window.addEventListener('offline', () => {
-    mostrarNotificacion('⚠️ Sin Conexión', 'Estás trabajando en modo offline. Algunos mapas pueden no cargar.', 5000);
-  });
-  console.log('%c🗺️ Sistema de Mapas Alerta Bolivia', 'font-size: 24px; font-weight: bold; color: #00B4D4;');
-  console.log('%cSistema de monitoreo en tiempo real', 'color: #80D0FF;');
 });
 </script>
 </body>
 </html>
+
 
