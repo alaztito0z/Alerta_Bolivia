@@ -9,8 +9,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="description" content="Centro de Educación del Alerta Bolivia - Materiales educativos sobre desastres naturales">
- <link rel="icon" type="image/png" href="logo-192x192.png">
-<link rel="apple-touch-icon" href="logo-192x192.png">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>📚</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300B4D4%22>📚</text></svg>">
   
   <link rel="manifest" href="./manifest.json">
   
@@ -95,6 +96,117 @@
       0% { opacity: 0.6; }
       100% { opacity: 0.8; }
     }
+
+    .animated-title-section {
+  height: 50vh;
+  min-height: 350px;
+  padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  margin: 2rem auto;
+  max-width: 1200px;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animated-title-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.animated-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: transparent;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.animated-title span {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  overflow: visible;
+}
+
+.animated-title span:first-child {
+  top: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1;
+}
+
+.animated-title span:last-child {
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 1;
+}
+
+.animated-title span:first-child::before,
+.animated-title span:last-child::before {
+  content: attr(data-text);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  line-height: 1;
+  white-space: nowrap;
+  position: absolute;
+  width: 100%;
+}
+
+.animated-title span:first-child::before {
+  color: white;
+  transform: translateX(0) translateY(0.4em);
+}
+
+.animated-title span:last-child::before {
+  color: rgba(255, 255, 255, 0.7);
+  transform: translateX(0) translateY(-0.6em);
+}
+
+.animated-title:hover span:first-child::before {
+  transform: translateX(-30px) translateY(0.4em);
+  transition-delay: 0.1s;
+}
+
+.animated-title:hover span:last-child::before {
+  transform: translateX(30px) translateY(-0.6em);
+  color: rgba(255, 255, 255, 0.5);
+  transition-delay: 0.1s;
+}
+
+.animated-title:not(:hover) span:first-child::before {
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.animated-title:not(:hover) span:last-child::before {
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.4s ease;
+}
 
     .header {
       position: fixed;
@@ -849,6 +961,7 @@
     @media (max-width: 1200px) {
       .page-title { font-size: 2.2rem; }
       .main { padding: 7rem 2rem 3rem; }
+      .animated-title-section { height: 45vh; }
     }
 
     @media (max-width: 992px) {
@@ -873,6 +986,20 @@
         width: 60px;
         height: 60px;
         font-size: 1.6rem;
+      }
+      
+      .animated-title-section { height: 40vh; }
+      .animated-title span:first-child::before {
+        transform: translateX(-20px) translateY(0.4em);
+      }
+      .animated-title span:last-child::before {
+        transform: translateX(20px) translateY(-0.6em);
+      }
+      .animated-title:hover span:first-child::before {
+        transform: translateX(0) translateY(0.4em);
+      }
+      .animated-title:hover span:last-child::before {
+        transform: translateX(0) translateY(-0.6em);
       }
     }
 
@@ -914,6 +1041,24 @@
         left: 20px;
         max-width: none;
       }
+      
+      .animated-title-section { 
+        height: 35vh; 
+        padding: 1rem;
+        min-height: 300px;
+      }
+      .animated-title span:first-child::before {
+        transform: translateX(-15px) translateY(0.4em);
+      }
+      .animated-title span:last-child::before {
+        transform: translateX(15px) translateY(-0.6em);
+      }
+      .animated-title:hover span:first-child::before {
+        transform: translateX(0) translateY(0.4em);
+      }
+      .animated-title:hover span:last-child::before {
+        transform: translateX(0) translateY(-0.6em);
+      }
     }
 
     @media (max-width: 480px) {
@@ -943,6 +1088,23 @@
       .btn {
         width: 100%;
         justify-content: center;
+      }
+      
+      .animated-title-section { 
+        height: 30vh; 
+        min-height: 250px;
+      }
+      .animated-title span:first-child::before {
+        transform: translateX(-10px) translateY(0.4em);
+      }
+      .animated-title span:last-child::before {
+        transform: translateX(10px) translateY(-0.6em);
+      }
+      .animated-title:hover span:first-child::before {
+        transform: translateX(0) translateY(0.4em);
+      }
+      .animated-title:hover span:last-child::before {
+        transform: translateX(0) translateY(-0.6em);
       }
     }
 
@@ -982,8 +1144,8 @@
   <header class="header" id="header">
     <div class="logo-container" onclick="window.location.href='index.html'">
       <div class="logo-img">
-    <img src="logo.jpg" alt="Alerta Bolivia" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-</div>
+        <img src="logo.jpg" alt="Alerta Bolivia" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+      </div>
       <div class="logo-text">
         <div class="logo-title">Alerta Bolivia</div>
         <div class="logo-subtitle">Centro de Educación</div>
@@ -1010,25 +1172,19 @@
   </header>
 
   <main class="main">
-    <h1 class="page-title">Centro de Educación</h1>
+    <section class="animated-title-section">
+      <article class="animated-title-container">
+        <h1 class="animated-title">
+          <span data-text="Centro de Educación"></span>
+          <span data-text="Centro de Educación"></span>
+        </h1>
+      </article>
+    </section>
     
     <div class="last-update">
       <i class="fas fa-sync-alt"></i> Última actualización: 
       <span class="highlight" id="lastUpdateTime">Cargando...</span>
     </div>
-
-    <!--<div class="alert-banner hidden" id="alertBanner">
-      <span class="alert-icon"><i class="fas fa-info-circle"></i></span>
-      <div class="alert-content">
-        <div class="alert-title">Estado del Sistema</div>
-        <div class="alert-message" id="alertMessage">
-          Todos los materiales educativos disponibles • Última actualización: <span id="lastUpdate"></span>
-        </div>
-      </div>
-      <button class="alert-close" onclick="document.getElementById('alertBanner').classList.add('hidden')">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>-->
 
     <div class="progress-dashboard">
       <div class="progress-card">
@@ -1382,7 +1538,7 @@
         this.configurarEventos();
         
         setTimeout(() => {
-          this.mostrarNotificacion('🎓 Centro de Educación', 'Explora los materiales educativos sobre desastres naturales');
+          //this.mostrarNotificacion('🎓 Centro de Educación', 'Explora los materiales educativos sobre desastres naturales');
         }, 1500);
       }
 
@@ -1562,32 +1718,25 @@
     }
 
     function abrirGuia(guiaId) {
-  const nombres = {
-    'sismos': 'sismos-terremotos.pdf',
-    'inundaciones': 'inundaciones.pdf',
-    'deslizamientos': 'deslizamientos.pdf',
-    'incendios': 'incendios-forestales.pdf',
-    'primeros-auxilios': 'primeros-auxilios.pdf',
-    'plan-familiar': 'plan-familiar.pdf'
-  };
-  
-  const nombreArchivo = nombres[guiaId];
-  
-  if (nombreArchivo) {
-    window.sistemaEducacion.mostrarNotificacion(
-      '📖 Abriendo Guía', 
-      `Descargando guía de ${window.sistemaEducacion.obtenerNombreGuia(guiaId)}`
-    );
-    
-    window.open(nombreArchivo, '_blank');
-  } else {
-    window.sistemaEducacion.mostrarNotificacion(
-      '❌ Error', 
-      'Guía no encontrada',
-      3000
-    );
-  }
-}
+      const nombres = {
+        'sismos': 'sismos-terremotos',
+        'inundaciones': 'inundaciones',
+        'deslizamientos': 'deslizamientos',
+        'incendios': 'incendios-forestales',
+        'primeros-auxilios': 'primeros-auxilios',
+        'plan-familiar': 'plan-familiar'
+      };
+      
+      const nombreArchivo = nombres[guiaId] || guiaId;
+      const url = `guias/${nombreArchivo}.pdf`;
+      
+      window.sistemaEducacion.mostrarNotificacion(
+        '📖 Abriendo Guía', 
+        `Descargando guía de ${window.sistemaEducacion.obtenerNombreGuia(guiaId)}`
+      );
+      
+      window.open(url, '_blank');
+    }
 
     function marcarComoCompletada(guiaId) {
       if (window.sistemaEducacion) {
@@ -1721,6 +1870,18 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       window.sistemaEducacion = new SistemaEducacion();
+      
+      const titleSection = document.querySelector('.animated-title-section');
+      if (titleSection) {
+        titleSection.style.opacity = '0';
+        titleSection.style.transform = 'translateY(30px)';
+        titleSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        
+        setTimeout(() => {
+          titleSection.style.opacity = '1';
+          titleSection.style.transform = 'translateY(0)';
+        }, 300);
+      }
       
       const observerOptions = {
         threshold: 0.1,
