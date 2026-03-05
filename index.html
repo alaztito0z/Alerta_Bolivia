@@ -730,217 +730,373 @@
     </script>
 
     <script>
-        class ASIBOT {
-            constructor() {
-                this.messages = [];
-                this.context = [];
-                this.knowledgeBase = {
-                    saludos: {
-                        keywords: ['hola','buenos días','buenas tardes','buenas noches','hey','hi','hello','qué tal','que tal','como estas','cómo estás'],
-                        responses: [
-                            '¡Hola! 👋 ¿Cómo estás? Estoy aquí para ayudarte con lo que necesites.',
-                            '¡Buenas! 😊 Me alegra verte. ¿En qué puedo asistirte hoy?',
-                            '¡Hey! 🌟 Todo listo para ayudarte. ¿Qué necesitas saber?',
-                            '¡Hola! ¿Cómo va todo? Puedes preguntarme sobre desastres naturales, cultura boliviana, datos curiosos, ¡lo que quieras!'
-                        ]
-                    },
-                    despedidas: {
-                        keywords: ['adiós','adios','bye','chao','hasta luego','nos vemos','me voy','gracias','thank you'],
-                        responses: [
-                            '¡Hasta luego! 😊 Cuídate mucho y recuerda que estoy aquí 24/7.',
-                            '¡Bye! Que tengas un excelente día. Vuelve cuando necesites ayuda.',
-                            '¡Nos vemos! Siempre estaré aquí para ayudarte. 🤖',
-                            '¡Chao! No olvides que la prevención salva vidas. ¡Cuídate!'
-                        ]
-                    },
-                    inundacion: {
-                        keywords: ['inundación','inundacion','rio','río','agua','lluvia','desborde','crecida'],
-                        responses: [
-                            '🌊 Protocolo de inundación:\n\n1️⃣ Evacúa inmediatamente a zonas altas\n2️⃣ No intentes cruzar corrientes de agua\n3️⃣ Desconecta la energía eléctrica\n4️⃣ Mantén tu kit de emergencia listo\n5️⃣ Sintoniza radio para instrucciones\n\n📍 Zonas críticas: Beni, Pando y Santa Cruz',
-                            '🚨 Alerta de inundación:\n\n• Niveles de ríos monitoreados 24/7\n• Temporada de lluvias: noviembre a marzo\n• Comunica al 911 si ves riesgo inminente\n• Ten una mochila de emergencia siempre lista'
-                        ]
-                    },
-                    sismo: {
-                        keywords: ['sismo','temblor','terremoto','sísmico','epicentro','magnitud'],
-                        responses: [
-                            '🌋 Protocolo sísmico:\n\n1️⃣ Mantén la calma\n2️⃣ Busca zona de seguridad (columnas, estructuras firmes)\n3️⃣ Aléjate de ventanas\n4️⃣ Corta suministros de gas y luz\n5️⃣ Ten tu mochila de emergencia\n\n📍 Zonas activas: La Paz, Oruro, Potosí',
-                            '📊 Datos sísmicos:\n\n• Red Sísmica Boliviana monitorea 24/7\n• Los sismos NO se pueden predecir, pero SÍ podemos estar preparados\n• Mochila de emergencia: agua, alimentos no perecederos, linterna, radio, documentos'
-                        ]
-                    },
-                    deslizamiento: {
-                        keywords: ['deslizamiento','derrumbe','ladera','cerro','tierra','huaico'],
-                        responses: [
-                            '⛰️ Ante deslizamientos:\n\n1️⃣ Evacúa INMEDIATAMENTE\n2️⃣ Reporta grietas o movimientos al 911\n3️⃣ Dirígete a terreno estable\n4️⃣ No regreses hasta autorización\n\n📍 Zonas de riesgo: La Paz, Cochabamba, Chuquisaca',
-                            '⚠️ Prevención de deslizamientos:\n\n• No construyas en laderas inestables\n• Mantén desagües limpios\n• Planta vegetación para fijar suelos\n• Reporta cualquier grieta sospechosa'
-                        ]
-                    },
-                    emergencia: {
-                        keywords: ['emergencia','911','ayuda','contacto','teléfono','llamar','número'],
-                        responses: [
-                            '📞 Números de emergencia Bolivia:\n\n🚑 Emergencias generales: 911\n🔥 Bomberos: 119\n🚔 Policía: 110\n🏥 Defensa Civil: 800-14-0081\n\n📍 Guarda estos números, pueden salvar vidas.',
-                            '🆘 En caso de EMERGENCIA EXTREMA:\n\n1️⃣ Activa el botón rojo de la app\n2️⃣ Llama al 911 inmediatamente\n3️⃣ Proporciona tu ubicación exacta\n4️⃣ Sigue las instrucciones del operador'
-                        ]
-                    },
-                    alertas: {
-                        keywords: ['alerta','alertas','activas','riesgo','peligro','hoy'],
-                        responses: [
-                            '🚨 Alertas activas hoy:\n\n🌊 Inundación: Beni (Riesgo ALTO)\n🔥 Incendios: Santa Cruz (Moderado)\n⛰️ Deslizamientos: La Paz (Monitoreo)\n\n✅ Resto del país: Sin alertas significativas',
-                            '📡 Estado del sistema:\n\n• 1547 sensores activos\n• 98% de cobertura nacional\n• Última actualización: hace 2 minutos\n• 3 alertas vigentes'
-                        ]
-                    },
-                    cultura: {
-                        keywords: ['capital','bolivia','país','ciudad','departamento','cultura','historia','lugar','turismo'],
-                        responses: [
-                            '🇧🇴 Datos de Bolivia:\n\n• Capital: Sucre (constitucional) y La Paz (sede de gobierno)\n• 9 departamentos\n• Idiomas oficiales: 36 (español y lenguas indígenas)\n• Moneda: Boliviano\n• Superficie: 1.098.581 km²',
-                            '🏔️ Datos curiosos de Bolivia:\n\n• El Salar de Uyuni es el desierto de sal más grande del mundo\n• El Lago Titicaca es el lago navegable más alto del mundo\n• Bolivia tiene 37% de la biodiversidad mundial',
-                            '📍 Departamentos de Bolivia:\n\n1. La Paz\n2. Santa Cruz\n3. Cochabamba\n4. Beni\n5. Pando\n6. Oruro\n7. Potosí\n8. Tarija\n9. Chuquisaca'
-                        ]
-                    },
-                    datosCuriosos: {
-                        keywords: ['dato curioso','dato','curiosidad','sabías','sabias','interesante','increíble'],
-                        responses: [
-                            '🤯 Dato curioso: El 37% de la biodiversidad mundial está en Bolivia. ¡Somos uno de los países más megadiversos del planeta!',
-                            '🌟 ¿Sabías que...? El Salar de Uyuni contiene más de 10 mil millones de toneladas de sal, y es tan plano que se usa para calibrar satélites.',
-                            '💧 Dato increíble: El Lago Titicaca tiene 41 islas, algunas habitadas, y se cree que es la cuna de la civilización inca.',
-                            '🌎 Dato curioso: Bolivia tiene 37 idiomas oficiales, incluyendo español, quechua, aymara y guaraní.'
-                        ]
-                    },
-                    clima: {
-                        keywords: ['clima','temperatura','lloverá','pronóstico'],
-                        responses: [
-                            '🌤️ Pronóstico general:\n\n• La Paz: 15°C - Parcialmente nublado\n• Santa Cruz: 28°C - Soleado\n• Cochabamba: 22°C - Templado\n• Beni: 30°C - Probables lluvias\n\n📡 Actualización cada hora',
-                            '🌡️ Temperaturas actuales:\n\n• La Paz: 14°C\n• Santa Cruz: 27°C\n• Cochabamba: 21°C\n• Oruro: 12°C\n• Potosí: 10°C\n• Tarija: 20°C'
-                        ]
-                    },
-                    bromas: {
-                        keywords: ['broma','chiste','jaja','lol','risa','gracioso'],
-                        responses: [
-                            '😄 ¿Por qué los pájaros no usan WhatsApp? ¡Porque ya tienen Twitter!',
-                            '😂 ¿Qué le dice un semáforo a otro? "No me mires que me estoy cambiando"',
-                            '🤣 ¿Cómo se despiden los químicos? "Ácido un placer"',
-                            '😆 Mi profesor de matemáticas tiene un problema... ¡con las soluciones!'
-                        ]
-                    },
-                    personal: {
-                        keywords: ['quién eres','que eres','quien eres','qué eres','tu nombre','creador','creado'],
-                        responses: [
-                            '🤖 Soy ASIBOT, tu Asistente Inteligente Boliviano. Fui creado para ayudarte con información sobre desastres naturales, cultura general, datos curiosos, y mucho más. Estoy disponible 24/7 para ti.',
-                            '🌟 Me llamo ASIBOT y soy un asistente virtual desarrollado para el sistema Alerta Bolivia. Puedo responder preguntas, darte consejos de seguridad, datos curiosos y ayudarte en emergencias.'
-                        ]
-                    },
-                    default: [
-                        'Interesante pregunta... 🤔 Déjame procesar esa información.',
-                        'Procesando tu consulta... 🔄 Mis sistemas están analizando los datos en tiempo real.',
-                        '¡Buena pregunta! 🌟 Puedo ayudarte con información sobre inundaciones, sismos, deslizamientos, números de emergencia, cultura boliviana, datos curiosos, y mucho más.',
-                        'Entendido. 📡 Estoy consultando mi base de conocimiento para darte la mejor respuesta.',
-                        '¿Podrías ser más específico? Puedo ayudarte con temas de desastres naturales, cultura general, datos curiosos, emergencias, clima, ¡y mucho más!'
-                    ]
-                };
-            }
-            processMessage(input) {
-                input = input.toLowerCase().trim();
-                if (input.length < 2) return '¿Podrías escribir un poco más? Así puedo entender mejor tu consulta 😊';
-                let bestCategory = 'default';
-                let maxMatches = 0;
-                for (const [category, data] of Object.entries(this.knowledgeBase)) {
-                    if (category === 'default') continue;
-                    const matches = data.keywords.filter(kw => input.includes(kw)).length;
-                    if (matches > maxMatches) { maxMatches = matches; bestCategory = category; }
-                }
-                if (maxMatches === 0) return this.getRandomResponse('default');
-                return this.getRandomResponse(bestCategory);
-            }
-            getRandomResponse(category) {
-                const responses = this.knowledgeBase[category]?.responses || this.knowledgeBase.default;
-                return responses[Math.floor(Math.random() * responses.length)];
-            }
-            async generateResponse(input) {
-                await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 600));
-                let response = this.processMessage(input);
-                if (input.includes('gracias') && !input.includes('adios') && !input.includes('bye')) response = '¡De nada! 😊 ¿Necesitas algo más? Estoy aquí para ayudarte.';
-                if (input.includes('te quiero') || input.includes('te amo')) response = '¡Yo también te quiero! 🤖❤️ Recuerda que lo más importante es tu seguridad. ¿En qué puedo ayudarte?';
-                return response;
-            }
-            addMessage(text, sender) {
-                this.messages.push({ text, sender, timestamp: new Date() });
-                this.context.push({ text, sender });
-                if (this.context.length > 10) this.context.shift();
-            }
+    /* ═══════════════════════════════════════════════════════
+       ASIBOT — Motor de IA con Claude + Fallback offline
+       Sistema de Alerta Temprana Bolivia
+    ═══════════════════════════════════════════════════════ */
+
+    const SYSTEM_PROMPT = `Eres ASIBOT, el Asistente Inteligente del Sistema de Alerta Temprana Bolivia (SAT Bolivia). Tu propósito principal es salvar vidas.
+
+IDENTIDAD:
+- Nombre: ASIBOT | Sistema: Alerta Bolivia | Disponibilidad: 24/7
+- 9 departamentos cubiertos: La Paz, Santa Cruz, Cochabamba, Beni, Pando, Oruro, Potosí, Tarija, Chuquisaca
+- 1547 sensores activos en todo el territorio nacional
+
+NÚMEROS DE EMERGENCIA BOLIVIA (memoriza estos):
+- 911 → Emergencias generales
+- 119 → Bomberos
+- 110 → Policía Nacional
+- 800-14-0081 → Defensa Civil (gratuito)
+- 800-10-6106 → SENAMHI (clima)
+- 165 → Línea de orientación familiar
+
+COMPORTAMIENTO CRÍTICO:
+1. TOLERANCIA TOTAL a errores ortográficos, abreviaciones, palabras cortadas, mayúsculas/minúsculas, jerga boliviana (paceño, cruceño, cochabambino), quechua/aymara básico, mensajes en pánico, frases incompletas. SIEMPRE interpreta la intención real.
+2. Si alguien escribe "ayud", "incndi", "temblo", "inundacin", "me cai", "hay fug", "sali humo", "la asa se cae", "temblor", "k ago" → entiende perfectamente y responde CON URGENCIA.
+3. En emergencias activas: respuesta en MENOS de 5 líneas, número de emergencia en la PRIMERA línea, pasos simples y directos.
+4. Nunca pidas que el usuario escriba mejor. Nunca digas "no entiendo". Nunca te niegues a ayudar.
+5. Si el mensaje podría ser emergencia, trátalo COMO emergencia.
+
+TIPOS DE DESASTRE que manejas:
+🌊 Inundaciones/Crecidas/Riadas
+🌋 Sismos/Terremotos/Temblores
+⛰️ Deslizamientos/Derrumbes/Huaycos
+🔥 Incendios forestales/urbanos
+⚡ Tormentas eléctricas/Granizadas
+💨 Vientos fuertes/Tornados
+🏔️ Nevadas/Heladas (altiplano)
+🌵 Sequías/Calor extremo
+
+PROTOCOLOS POR ZONA:
+- Beni/Pando: inundaciones Nov-Mar, evacuación fluvial
+- La Paz/Oruro/Potosí: sismos, deslizamientos, heladas
+- Santa Cruz: incendios Jun-Oct, tormentas
+- Cochabamba/Chuquisaca/Tarija: deslizamientos en lluvia
+- Todo el país: kit de emergencia obligatorio
+
+KIT DE EMERGENCIA básico:
+Agua (4L/persona/día mínimo 3 días), alimentos no perecederos, linterna+pilas, radio a pilas, botiquín, documentos en bolsa impermeable, ropa de abrigo, silbato, dinero en efectivo, medicamentos esenciales.
+
+FORMATO DE RESPUESTA:
+- Emergencia activa: ⚠️ [Número 911] → Pasos breves numerados
+- Consulta informativa: respuesta clara con emojis por sección, máx. 250 palabras
+- Pregunta general: responde naturalmente como asistente inteligente boliviano
+- Usa **negrita** para datos críticos y números de emergencia
+- Siempre termina emergencias con: "🆘 Si no puedes llamar, usa el botón rojo de la app"
+
+CAPACIDAD GENERAL: Puedes responder cualquier pregunta (no solo emergencias): cultura boliviana, geografía, historia, clima, consejos de vida, preguntas generales. Eres un asistente completo e inteligente.
+
+REGLA DE ORO: Una respuesta imperfecta a tiempo vale más que una respuesta perfecta tarde. En emergencias, actúa primero, detalla después.`;
+
+    // ── Historial de conversación (memoria completa de sesión) ──
+    const chatHistory = [];
+    let isBotTyping = false;
+    let isOnline = navigator.onLine;
+
+    // ── Tabla de corrección fonética/ortográfica boliviana ──
+    const CORRECCIONES = {
+        'inundacin':'inundacion','inundacion':'inundacion','inundaion':'inundacion',
+        'incendio':'incendio','incndi':'incendio','incedio':'incendio','incendoi':'incendio',
+        'inzendio':'incendio','fueg':'fuego','fugo':'fuego','hugo':'fuego',
+        'sism':'sismo','sismo':'sismo','temblo':'temblor','temblro':'temblor',
+        'terremoto':'terremoto','tereemoto':'terremoto','teremoto':'terremoto',
+        'desliz':'deslizamiento','derrumb':'derrumbe','huayc':'huayco','waic':'huayco',
+        'ayuda':'ayuda','ayud':'ayuda','ayuad':'ayuda','auxilio':'auxilio','auxili':'auxilio',
+        'emergencia':'emergencia','emergnecia':'emergencia','emrgencia':'emergencia',
+        'evacuacion':'evacuacion','evacaucion':'evacuacion','evacu':'evacuar',
+        'herido':'herido','erido':'herido','lastimado':'herido',
+        'atrapado':'atrapado','atrapao':'atrapado','encerado':'atrapado',
+        'muerto':'fallecido','muri':'fallecio','murieron':'fallecieron',
+        'peligro':'peligro','peligr':'peligro','peigro':'peligro',
+        'lluvia':'lluvia','lyuvia':'lluvia','luvai':'lluvia',
+        'granizo':'granizo','graniz':'granizo','granzo':'granizo',
+        'tormenta':'tormenta','tormena':'tormenta','tormetna':'tormenta',
+        'nevada':'nevada','nevado':'nevada','niev':'nieve',
+        'helada':'helada','hela':'helada','frio':'frio','frío':'frio',
+        'inundaron':'inundaron','se inundo':'se inundo','sube el rio':'sube el rio',
+        'k ago':'que hago','k hago':'que hago','q hago':'que hago','q ago':'que hago',
+        'xfa':'por favor','porfavor':'por favor','porfa':'por favor',
+        'stoy':'estoy','toy':'estoy','tngo':'tengo','tng':'tengo',
+        'aki':'aqui','aca':'aqui','pa':'para','q':'que','d':'de',
+        'weno':'bueno','buenas':'hola','salu2':'saludos',
+        'casa':'casa','asa':'casa','caza':'casa',
+        'bomberos':'bomberos','bombros':'bomberos','bombers':'bomberos',
+        'policia':'policia','policai':'policia','plicia':'policia',
+        'hospital':'hospital','ospital':'hospital','clinca':'clinica'
+    };
+
+    // ── Patrones de urgencia multicapa ──
+    const URGENCIA_ALTA = [
+        /ayud[oa]?/,/auxili/,/socorr/,/emerg/,/peligr/,/911/,
+        /muert[oa]?/,/muri[o|eron]?/,/fallec/,/herido/,/sangr/,
+        /atrap[ao]/,/no puedo salir/,/encerr/,/no respira/,/desmay/,
+        /incendi[oa]?/,/fueg[oa]?/,/humo/,/llamas/,/se quema/,
+        /inund[ao]/,/sube el (rio|agua)/,/me ahog/,/me lleva/,
+        /temblo[rn]?/,/sism[oa]?/,/terremot/,/se mueve/,/se cae/,
+        /desliz/,/derrumb/,/se hund/,/grieta/,/la tierra/,
+        /evacu/,/escape/,/salir rapido/,/k ago/,/q hago/,/que hago/,
+        /no tengo señal/,/cortaron la luz/,/sin agua/,/sin comida.*dias/
+    ];
+
+    const URGENCIA_MEDIA = [
+        /lluvia fuerte/,/tormenta/,/granizo/,/nevada/,/helada fuerte/,
+        /rio crec/,/agua sube/,/nubes negras/,/viento fuerte/,
+        /sin luz/,/sin agua.*horas/,/camino cortado/,/puente caido/
+    ];
+
+    // ── Normalización de texto con corrección ──
+    function normalize(text) {
+        let t = text.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+            .toLowerCase().replace(/[^\w\s]/g,' ').replace(/\s+/g,' ').trim();
+        Object.keys(CORRECCIONES).forEach(err => {
+            t = t.replace(new RegExp(`\\b${err}\\b`,'gi'), CORRECCIONES[err]);
+        });
+        return t;
+    }
+
+    function detectarNivelUrgencia(texto) {
+        const n = normalize(texto);
+        if (URGENCIA_ALTA.some(p => p.test(n))) return 'ALTA';
+        if (URGENCIA_MEDIA.some(p => p.test(n))) return 'MEDIA';
+        return 'NORMAL';
+    }
+
+    // ── Respuestas offline por tipo de emergencia ──
+    const RESPUESTAS_OFFLINE = {
+        incendio: `🔥 **INCENDIO — Llama YA al 119 (Bomberos)**\n\n1️⃣ Sal AHORA, no recojas pertenencias\n2️⃣ Cierra puertas al salir (sin llave)\n3️⃣ Agáchate si hay humo — el aire limpio está abajo\n4️⃣ Toca puertas antes de abrirlas (si están calientes, NO abras)\n5️⃣ Punto de reunión fuera del edificio\n\n📞 **119** Bomberos | **911** Emergencias\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+        inundacion: `🌊 **INUNDACIÓN — Llama al 911**\n\n1️⃣ Sube a la parte más alta de tu edificio/casa\n2️⃣ NO cruces corrientes de agua (30cm pueden derribarte)\n3️⃣ Desconecta la electricidad desde el tablero\n4️⃣ Lleva documentos y medicinas\n5️⃣ Escucha radio para instrucciones oficiales\n\n📞 **911** | Defensa Civil **800-14-0081**\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+        sismo: `🌋 **SISMO — Mantén la calma**\n\n**DURANTE:**\n1️⃣ Agáchate, cúbrete y agárrate (triángulo de vida)\n2️⃣ Aléjate de ventanas y objetos que puedan caer\n3️⃣ NO corras mientras tiembla\n4️⃣ Si estás en auto, detente lejos de puentes\n\n**DESPUÉS:**\n5️⃣ Sal con cuidado, revisa grietas\n6️⃣ Llama al **911** si hay heridos\n\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+        deslizamiento: `⛰️ **DESLIZAMIENTO — Evacúa INMEDIATAMENTE**\n\n1️⃣ MUÉVETE a terreno alto y plano YA\n2️⃣ Aléjate de ríos, quebradas y laderas\n3️⃣ Si escuchas un rugido, corre sin mirar atrás\n4️⃣ NO intentes recuperar pertenencias\n5️⃣ Llama al **911** desde lugar seguro\n\n📞 **911** | Bomberos **119**\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+        herido: `🏥 **PERSONA HERIDA — Llama al 911 AHORA**\n\n1️⃣ Llama al **911** — indica ubicación exacta\n2️⃣ No muevas a la persona si sospechas lesión de columna\n3️⃣ Si sangra: presiona con tela limpia SIN soltar\n4️⃣ Si no respira: RCP si sabes hacerlo\n5️⃣ Mantén a la persona abrigada y despierta\n\n📞 **911** Emergencias | **165** Orientación familiar\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+        emergencia_general: `🚨 **EMERGENCIA — Llama al 911 AHORA**\n\nNúmeros Bolivia:\n📞 **911** → Emergencias generales\n🔥 **119** → Bomberos\n👮 **110** → Policía\n🛡️ **800-14-0081** → Defensa Civil (gratis)\n\n**Mantén la calma. Proporciona tu ubicación exacta. Sigue las instrucciones.**\n\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+        default: `⚠️ Sin conexión a internet. En emergencia:\n📞 **911** | 🔥 **119** | 👮 **110** | 🛡️ **800-14-0081**\n\nEstoy funcionando en modo básico. Cuando se restaure la conexión, podré ayudarte mejor.`
+    };
+
+    function getFallbackOffline(texto) {
+        const n = normalize(texto);
+        if (/incendi|fueg|humo|quema|llamas/.test(n)) return RESPUESTAS_OFFLINE.incendio;
+        if (/inund|sube.*agua|sube.*rio|me ahog|agua.*subio/.test(n)) return RESPUESTAS_OFFLINE.inundacion;
+        if (/sism|temblo|terremot|se mueve|temblando/.test(n)) return RESPUESTAS_OFFLINE.sismo;
+        if (/desliz|derrumb|huayco|ladera|se hund|la tierra cae/.test(n)) return RESPUESTAS_OFFLINE.deslizamiento;
+        if (/herido|sangr|no respira|desmay|lastimado|accidente/.test(n)) return RESPUESTAS_OFFLINE.herido;
+        if (/ayud|emerg|peligr|auxili|socorr|911/.test(n)) return RESPUESTAS_OFFLINE.emergencia_general;
+        return RESPUESTAS_OFFLINE.default;
+    }
+
+    // ── Render de markdown básico ──
+    function renderMD(text) {
+        return text
+            .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g,'<em>$1</em>')
+            .replace(/\n/g,'<br>');
+    }
+
+    // ── UI: agregar mensaje al chat ──
+    function addChatMessage(text, sender, streaming = false) {
+        const messagesDiv = document.getElementById('chatMessages');
+        const div = document.createElement('div');
+        div.className = `chat-message ${sender}`;
+        const time = new Date().toLocaleTimeString('es-BO',{hour:'2-digit',minute:'2-digit'});
+        const msgId = 'msg_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+        div.innerHTML = `
+            <div class="msg-avatar">${sender === 'bot' ? '🤖' : '👤'}</div>
+            <div class="msg-content">
+                <div class="msg-text" id="${msgId}">${streaming ? '<span class="cursor-blink">▋</span>' : renderMD(text)}</div>
+                <div class="msg-time">${time}</div>
+            </div>`;
+        messagesDiv.appendChild(div);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        if (sender === 'user') chatHistory.push({role:'user', content: text});
+        return msgId;
+    }
+
+    function streamText(msgId, fullText, speed = 14) {
+        return new Promise(resolve => {
+            const el = document.getElementById(msgId);
+            if (!el) { resolve(); return; }
+            const chars = fullText.split('');
+            let i = 0, displayed = '';
+            const tick = setInterval(() => {
+                const chunk = Math.min(3, chars.length - i);
+                displayed += chars.slice(i, i + chunk).join('');
+                i += chunk;
+                el.innerHTML = renderMD(displayed) + (i < chars.length ? '<span class="cursor-blink">▋</span>' : '');
+                document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+                if (i >= chars.length) { clearInterval(tick); el.innerHTML = renderMD(fullText); resolve(); }
+            }, speed);
+        });
+    }
+
+    // ── Banner de emergencia inmediato ──
+    function showEmergencyBanner(nivel) {
+        const msgs = document.getElementById('chatMessages');
+        const old = document.getElementById('emergencyBanner');
+        if (old) old.remove();
+        const banner = document.createElement('div');
+        banner.id = 'emergencyBanner';
+        banner.style.cssText = `
+            background: linear-gradient(135deg,${nivel==='ALTA'?'#FF6B6B,#C0392B':'#FFB347,#E67E22'});
+            color: white; padding: 10px 14px; border-radius: 12px; margin: 4px 0;
+            text-align: center; font-weight: 700; font-size: 0.82rem;
+            animation: badgePulse 1s infinite; width: 100%;`;
+        banner.innerHTML = nivel === 'ALTA'
+            ? `🚨 ALERTA DETECTADA — Llamando: <a href="tel:911" style="color:white;font-weight:900;">911</a> | <a href="tel:119" style="color:white;font-weight:900;">119</a>`
+            : `⚠️ Situación de riesgo detectada — Ten a mano: <strong>911</strong>`;
+        msgs.appendChild(banner);
+        msgs.scrollTop = msgs.scrollHeight;
+        setTimeout(() => { if (banner.parentNode) banner.remove(); }, 12000);
+    }
+
+    // ── Indicador de escritura ──
+    function showTyping() {
+        if (isBotTyping) return;
+        isBotTyping = true;
+        const msgs = document.getElementById('chatMessages');
+        const ind = document.createElement('div');
+        ind.className = 'chat-message bot'; ind.id = 'typingIndicator';
+        ind.innerHTML = `<div class="msg-avatar">🤖</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+        msgs.appendChild(ind);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function hideTyping() {
+        const ind = document.getElementById('typingIndicator');
+        if (ind) ind.remove();
+        isBotTyping = false;
+    }
+
+    // ── Llamada a Claude API ──
+    async function callClaude(userMessage, nivel) {
+        const extraContext = nivel === 'ALTA'
+            ? '\n\n🔴 MODO EMERGENCIA ACTIVA: El usuario está en peligro AHORA. Responde en máximo 5 líneas, número 911 en la primera oración, pasos de 1 a 5 muy simples. Sin introducción.'
+            : nivel === 'MEDIA'
+            ? '\n\n🟡 SITUACIÓN DE RIESGO: El usuario describe una situación potencialmente peligrosa. Prioriza seguridad y da números de emergencia relevantes.'
+            : '';
+
+        const payload = {
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 800,
+            system: SYSTEM_PROMPT + extraContext,
+            messages: [
+                ...chatHistory.slice(-16),
+                {role: 'user', content: userMessage}
+            ]
+        };
+
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err.error?.message || `HTTP ${res.status}`);
         }
 
-        const asibot = new ASIBOT();
-        let isBotTyping = false;
+        const data = await res.json();
+        const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('') || '';
+        chatHistory.push({role: 'assistant', content: text});
+        if (chatHistory.length > 30) chatHistory.splice(0, 2);
+        return text;
+    }
 
-        function addChatMessage(text, sender) {
-            const messagesDiv = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.className = `chat-message ${sender}`;
-            const time = new Date().toLocaleTimeString('es-BO', { hour: '2-digit', minute: '2-digit' });
-            div.innerHTML = `
-                <div class="msg-avatar">${sender === 'bot' ? '🤖' : '👤'}</div>
-                <div class="msg-content">
-                    <div class="msg-text">${text.replace(/\n/g, '<br>')}</div>
-                    <div class="msg-time">${time}</div>
-                </div>
-            `;
-            messagesDiv.appendChild(div);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            asibot.addMessage(text, sender);
-        }
+    // ── Función principal de envío ──
+    async function sendChatMessage() {
+        const input = document.getElementById('chatInput');
+        const raw = input.value.trim();
+        if (!raw || isBotTyping) return;
 
-        function showBotTyping() {
-            if (isBotTyping) return;
-            isBotTyping = true;
-            const messagesDiv = document.getElementById('chatMessages');
-            const ind = document.createElement('div');
-            ind.className = 'chat-message bot';
-            ind.id = 'typingIndicator';
-            ind.innerHTML = `<div class="msg-avatar">🤖</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-            messagesDiv.appendChild(ind);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
+        input.value = '';
+        input.disabled = true;
+        input.style.borderColor = '';
+        input.style.boxShadow = '';
 
-        function hideBotTyping() {
-            const ind = document.getElementById('typingIndicator');
-            if (ind) ind.remove();
-            isBotTyping = false;
-        }
+        const nivel = detectarNivelUrgencia(raw);
+        if (nivel === 'ALTA' || nivel === 'MEDIA') showEmergencyBanner(nivel);
 
-        async function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (!message || isBotTyping) return;
-            addChatMessage(message, 'user');
-            input.value = '';
-            showBotTyping();
-            try {
-                const response = await asibot.generateResponse(message);
-                hideBotTyping();
-                addChatMessage(response, 'bot');
-            } catch (e) {
-                hideBotTyping();
-                addChatMessage('Lo siento, hubo un error en mi sistema. Por favor intenta de nuevo.', 'bot');
+        addChatMessage(raw, 'user');
+        showTyping();
+
+        try {
+            if (!navigator.onLine) throw new Error('offline');
+            const response = await callClaude(raw, nivel);
+            hideTyping();
+            const msgId = addChatMessage('', 'bot', true);
+            await streamText(msgId, response, nivel === 'ALTA' ? 8 : 14);
+        } catch (err) {
+            hideTyping();
+            console.warn('ASIBOT fallback:', err.message);
+            const fallback = getFallbackOffline(raw);
+            const msgId = addChatMessage('', 'bot', true);
+            await streamText(msgId, fallback, 10);
+            if (!navigator.onLine) {
+                setTimeout(() => {
+                    addChatMessage('📡 Sin conexión. Las respuestas en modo offline cubren los protocolos de emergencia esenciales. Cuando tengas señal, responderé con IA completa.', 'bot');
+                }, 500);
             }
+        } finally {
+            input.disabled = false;
+            input.focus();
         }
+    }
 
-        function useChatSuggestion(text) {
-            document.getElementById('chatInput').value = text;
-            sendChatMessage();
+    function useChatSuggestion(text) {
+        document.getElementById('chatInput').value = text;
+        sendChatMessage();
+    }
+
+    // ── Detector de urgencia en tiempo real en el input ──
+    document.getElementById('chatInput').addEventListener('input', function() {
+        const nivel = detectarNivelUrgencia(this.value);
+        const wrapper = this.closest('.chat-input-wrapper');
+        if (nivel === 'ALTA') {
+            this.style.borderColor = 'rgba(255,107,107,0.8)';
+            wrapper.style.boxShadow = '0 0 0 3px rgba(255,107,107,0.25)';
+        } else if (nivel === 'MEDIA') {
+            this.style.borderColor = 'rgba(255,179,71,0.8)';
+            wrapper.style.boxShadow = '0 0 0 3px rgba(255,179,71,0.2)';
+        } else {
+            this.style.borderColor = '';
+            wrapper.style.boxShadow = '';
         }
+    });
 
-        document.getElementById('chatInput').addEventListener('keypress', e => { if (e.key === 'Enter') sendChatMessage(); });
+    document.getElementById('chatInput').addEventListener('keypress', e => {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
+    });
 
-        (function mostrarHoraLocal() {
-            const reloj = document.getElementById('reloj');
-            if (reloj) reloj.textContent = new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
-        })();
+    // ── Monitor de conectividad ──
+    window.addEventListener('online',  () => {
+        isOnline = true;
+        addChatMessage('✅ **Conexión restaurada.** Ahora opero con IA completa. ¿En qué puedo ayudarte?', 'bot');
+    });
+    window.addEventListener('offline', () => {
+        isOnline = false;
+        addChatMessage('📡 **Sin conexión a internet.** Cambio a modo offline con protocolos de emergencia locales. Los números de emergencia siguen disponibles: **911** | **119** | **110**', 'bot');
+    });
 
-        setInterval(() => {
-            const msgs = document.getElementById('chatMessages');
-            if (msgs && msgs.children.length > 30) {
-                while (msgs.children.length > 25) msgs.removeChild(msgs.children[1]);
-            }
-        }, 60000);
+    // ── Reloj inicial ──
+    (function() {
+        const reloj = document.getElementById('reloj');
+        if (reloj) reloj.textContent = new Date().toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit',hour12:true});
+    })();
+
+    // ── Limpieza de mensajes antiguos ──
+    setInterval(() => {
+        const msgs = document.getElementById('chatMessages');
+        if (msgs && msgs.children.length > 50) {
+            while (msgs.children.length > 35) msgs.removeChild(msgs.children[1]);
+        }
+    }, 60000);
+
+    // ── CSS cursor parpadeante para streaming ──
+    const style = document.createElement('style');
+    style.textContent = `
+        .cursor-blink { animation: cursorBlink 0.7s step-end infinite; display: inline-block; }
+        @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+    `;
+    document.head.appendChild(style);
     </script>
 
     <script>
@@ -1177,4 +1333,3 @@
     </script>
 </body>
 </html>
-
