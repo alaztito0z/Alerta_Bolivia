@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,369 +14,1302 @@
     <link rel="manifest" href="./manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS COMÚN (compartido con todas las páginas) -->
+    <link rel="stylesheet" href="css/common.css">
+
+    <!-- CSS ESPECÍFICO DE index.html -->
     <style>
-        :root {
-            --primary: #00B4D4;
-            --primary-dark: #0096B4;
-            --primary-light: #5AC8E8;
-            --secondary: #80D0FF;
-            --secondary-dark: #5AB8E0;
-            --accent: #FF6B8B;
-            --accent-dark: #E05070;
-            --success: #4CD964;
-            --success-dark: #38C050;
-            --warning: #FFB347;
-            --warning-dark: #E09B3D;
-            --danger: #FF6B6B;
-            --danger-dark: #E05050;
-            --dark: #0A1E32;
-            --darker: #051525;
-            --dark-light: #1E3A5F;
-            --light: #F0F9FF;
-            --light-dark: #D1E8F2;
-            --gray: #7A8AA3;
-            --gray-dark: #5A6A83;
-            --glass: rgba(255,255,255,0.1);
-            --glass-light: rgba(255,255,255,0.15);
-            --neon-glow: 0 0 20px rgba(0,180,212,0.3), 0 0 40px rgba(0,180,212,0.15);
-            --neon-glow-danger: 0 0 20px rgba(255,107,107,0.3), 0 0 40px rgba(255,107,107,0.15);
-            --neon-glow-success: 0 0 20px rgba(76,217,100,0.3), 0 0 40px rgba(76,217,100,0.15);
-            --shadow-lg: 0 20px 60px rgba(0,20,40,0.2);
-            --shadow-xl: 0 30px 80px rgba(0,20,40,0.25);
-            --transition-smooth: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
-            --transition-fast: all 0.2s ease;
-            --border-radius: 20px;
-            --border-radius-lg: 30px;
-            --border-radius-sm: 12px;
+        /* ===== ESTILOS EXCLUSIVOS DE LA PÁGINA DE INICIO ===== */
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; font-size: 16px; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #F0F9FF 0%, #E6F7FF 100%);
-            color: var(--dark);
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(0,180,212,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255,107,139,0.04) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(128,208,255,0.06) 0%, transparent 50%);
-            z-index: -1;
-            animation: backgroundPulse 20s ease-in-out infinite alternate;
-        }
-        @keyframes backgroundPulse { 0% { opacity: 0.6; } 100% { opacity: 0.8; } }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
+        
         h1 {
             font-size: 3.5rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text; background-clip: text; color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             animation: textGlow 3s ease-in-out infinite alternate;
         }
-        .hero h1 { position: relative; animation: melt 3s infinite ease-in-out, textGlow 3s ease-in-out infinite alternate; text-shadow: 0 0 20px rgba(0,180,212,0.3); }
-        .hero h1::before, .hero h1::after {
-            content: 'Alerta Bolivia'; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        
+        .hero h1 {
+            position: relative;
+            animation: melt 3s infinite ease-in-out, textGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px rgba(0, 180, 212, 0.3);
+        }
+        
+        .hero h1::before,
+        .hero h1::after {
+            content: 'Alerta Bolivia';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text; background-clip: text; color: transparent;
-            z-index: -1; opacity: 0.5; animation: drip 3s ease-in-out;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            z-index: -1;
+            opacity: 0.5;
+            animation: drip 3s ease-in-out;
         }
-        .hero h1::after { filter: blur(10px); opacity: 0.3; }
-        @keyframes melt { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
-        @keyframes drip { 0%, 100% { transform: scaleY(1); opacity: 0.5; } 50% { transform: scaleY(1.3); opacity: 0.7; } }
-        @keyframes textGlow { from { text-shadow: 0 0 20px rgba(0,180,212,0.1); } to { text-shadow: 0 0 30px rgba(0,180,212,0.2), 0 0 40px rgba(0,180,212,0.1); } }
-        h2 { font-size: 2.5rem; color: var(--dark); }
-        h3 { font-size: 1.8rem; }
-        p { margin-bottom: 1rem; color: var(--dark-light); }
-        .header {
-            position: fixed; top: 0; left: 0; right: 0;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0,180,212,0.1);
-            padding: 1rem 2rem;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; box-shadow: 0 4px 30px rgba(0,20,40,0.1);
-            transition: var(--transition-smooth);
+        
+        .hero h1::after {
+            filter: blur(10px);
+            opacity: 0.3;
         }
-        .header.scrolled { padding: 0.75rem 2rem; background: rgba(255,255,255,0.98); }
-        .logo-container { display: flex; align-items: center; gap: 1rem; cursor: pointer; transition: var(--transition-smooth); }
-        .logo-container:hover { transform: translateX(5px); }
-        .logo-img {
-            width: 50px; height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem; box-shadow: var(--neon-glow);
-            animation: logoFloat 6s ease-in-out infinite; color: white;
+        
+        @keyframes melt {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(10px);
+            }
         }
-        @keyframes logoFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 33% { transform: translateY(-5px) rotate(2deg); } 66% { transform: translateY(3px) rotate(-1deg); } }
-        .logo-text { display: flex; flex-direction: column; }
-        .logo-title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .logo-subtitle { font-size: 0.8rem; color: var(--gray); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
-        .nav-menu { display: flex; gap: 0.5rem; align-items: center; }
-        .nav-link {
-            color: var(--dark); text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 50px;
-            transition: var(--transition-smooth); font-weight: 500; position: relative; overflow: hidden;
-            border: 1px solid transparent; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem;
+        
+        @keyframes drip {
+            0%,
+            100% {
+                transform: scaleY(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scaleY(1.3);
+                opacity: 0.7;
+            }
         }
-        .nav-link::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0,180,212,0.1), transparent); transition: left 0.6s ease; }
-        .nav-link:hover::before { left: 100%; }
-        .nav-link:hover { border-color: var(--primary); box-shadow: var(--neon-glow); transform: translateY(-2px); background: var(--glass-light); }
-        .nav-link.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: var(--neon-glow); border: none; }
-        .nav-link i { font-size: 1.1rem; }
+        
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 180, 212, 0.1);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(0, 180, 212, 0.2), 0 0 40px rgba(0, 180, 212, 0.1);
+            }
+        }
+        
         .hero {
-            padding: 10rem 2rem 5rem; text-align: center; position: relative; overflow: hidden;
-            max-width: 1550px; margin: 0 auto;
-            background-image: url('fondo.png'); background-size: cover; background-position: center; background-repeat: no-repeat;
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            max-width: 1550px;
+            margin: 0 auto;
+            background-image: url('fondo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: white;
         }
-        .hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(0,180,212,0.08) 0%, transparent 70%); z-index: -1; animation: heroPulse 8s ease-in-out infinite alternate; }
-        @keyframes heroPulse { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.1); opacity: 0.8; } }
-        .hero-content { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
-        .hero-subtitle { font-size: 1.25rem; color: var(--primary); margin-bottom: 2rem; font-weight: 300; letter-spacing: 1px; }
-        .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 4rem; }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0, 180, 212, 0.08) 0%, transparent 70%);
+            z-index: -1;
+            animation: heroPulse 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes heroPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+        
         .hero-stat {
-            background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,180,212,0.2); border-radius: var(--border-radius);
-            padding: 2rem; text-align: center; transition: var(--transition-smooth); position: relative; overflow: hidden;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 180, 212, 0.2);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
         }
-        .hero-stat::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent)); border-radius: calc(var(--border-radius) + 2px); z-index: -1; opacity: 0; transition: opacity 0.3s ease; }
-        .hero-stat:hover::before { opacity: 1; animation: statBorderGlow 3s linear infinite; }
-        @keyframes statBorderGlow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
-        .hero-stat:hover { transform: translateY(-10px) scale(1.05); box-shadow: var(--shadow-lg); border-color: var(--primary); }
-        .stat-number { font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.5rem; display: block; line-height: 1; }
-        .stat-label { font-size: 0.9rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-        .section { padding: 5rem 2rem; max-width: 1400px; margin: 0 auto; }
-        .section-title { text-align: center; margin-bottom: 3rem; position: relative; }
-        .section-title::after { content: ''; display: block; width: 100px; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); margin: 1rem auto; border-radius: 2px; box-shadow: var(--neon-glow); }
-        .disaster-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
-        .card-container { perspective: 1500px; height: 450px; }
-        .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175,0.885,0.32,1.275); cursor: pointer; border-radius: var(--border-radius-lg); }
-        .card-container:hover .card { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--border-radius-lg); padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; background: rgba(255,255,255,0.8); border: 1px solid rgba(0,180,212,0.2); overflow: hidden; box-shadow: var(--shadow-lg); }
-        .card-front::before, .card-back::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(0,180,212,0.08), rgba(128,208,255,0.04)); z-index: -1; }
-        .card-back { transform: rotateY(180deg); background: rgba(255,255,255,0.9); justify-content: center; text-align: center; }
-        .card-icon { font-size: 4rem; text-align: center; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(0,0,0,0.1)); }
-        .card-title { font-size: 1.8rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .card-description { color: var(--dark-light); line-height: 1.6; margin-bottom: 2rem; }
-        .card-badge { position: absolute; top: 1.5rem; right: 1.5rem; padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; animation: badgePulse 2s infinite; }
-        @keyframes badgePulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
-        .badge-high { background: linear-gradient(135deg, var(--danger), var(--accent-dark)); color: white; box-shadow: var(--neon-glow-danger); }
-        .badge-medium { background: linear-gradient(135deg, var(--warning), var(--warning-dark)); color: var(--dark); box-shadow: 0 0 20px rgba(255,179,71,0.3); }
-        .badge-low { background: linear-gradient(135deg, var(--success), var(--success-dark)); color: var(--dark); box-shadow: var(--neon-glow-success); }
-        .card-back-content h4 { color: var(--primary); font-size: 1.3rem; margin-bottom: 1.5rem; }
-        .card-back-content ul { list-style: none; text-align: left; margin-bottom: 2rem; }
-        .card-back-content li { margin-bottom: 0.75rem; color: var(--dark-light); position: relative; padding-left: 1.5rem; }
-        .card-back-content li::before { content: '•'; color: var(--primary); font-size: 1.5rem; position: absolute; left: 0; top: -0.3rem; }
-        .graphic-container { width: 150px; height: 150px; margin: 0 auto 2rem; position: relative; }
-        .earthquake-graphic { position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: rgba(0,0,0,0.05); }
-        .seismic-wave { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border: 2px solid var(--warning); border-radius: 50%; animation: seismicWave 3s infinite; }
-        @keyframes seismicWave { 0% { width: 20px; height: 20px; opacity: 1; } 100% { width: 150px; height: 150px; opacity: 0; } }
-        .flood-graphic { position: relative; width: 100%; height: 100%; background: rgba(0,0,0,0.05); border-radius: 50%; overflow: hidden; }
-        .water-level { position: absolute; bottom: 0; width: 100%; background: linear-gradient(to top, var(--primary), var(--secondary)); animation: floodRise 4s infinite alternate; }
-        @keyframes floodRise { 0% { height: 30%; } 100% { height: 80%; } }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
-        .stat-card { background: rgba(255,255,255,0.8); border: 1px solid rgba(0,180,212,0.2); border-radius: var(--border-radius); padding: 2.5rem 2rem; text-align: center; transition: var(--transition-smooth); position: relative; overflow: hidden; }
-        .stat-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: var(--shadow-lg); }
-        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
-        .stat-number-lg { font-size: 3.5rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.5rem; display: block; line-height: 1; }
-        .stat-label-lg { font-size: 1rem; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
-        .action-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-top: 3rem; }
-        .action-card { background: rgba(255,255,255,0.8); border: 1px solid rgba(0,180,212,0.2); border-radius: var(--border-radius-lg); padding: 2.5rem; transition: var(--transition-smooth); cursor: pointer; position: relative; overflow: hidden; }
-        .action-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.7s ease; }
-        .action-card:hover::before { left: 100%; }
-        .action-card:hover { transform: translateY(-15px) scale(1.03); border-color: var(--primary); box-shadow: var(--shadow-xl); background: white; }
-        .action-icon { font-size: 3rem; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .action-title { font-size: 1.6rem; margin-bottom: 1rem; color: var(--dark); }
-        .action-description { color: var(--dark-light); line-height: 1.6; margin-bottom: 1.5rem; }
-        .action-badge { display: inline-block; padding: 0.5rem 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 50px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; box-shadow: var(--neon-glow); }
-        .emergency-btn { position: fixed; bottom: 2rem; right: 2rem; width: 80px; height: 80px; background: linear-gradient(135deg, var(--danger), var(--accent-dark)); border: none; border-radius: 50%; font-size: 2rem; color: white; cursor: pointer; z-index: 1001; box-shadow: var(--neon-glow-danger); transition: var(--transition-smooth); display: flex; align-items: center; justify-content: center; animation: emergencyPulse 2s infinite; }
-        @keyframes emergencyPulse { 0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(255,107,107,0.3); } 50% { transform: scale(1.1); box-shadow: 0 15px 40px rgba(255,107,107,0.4), 0 0 60px rgba(255,107,107,0.3); } }
-        .emergency-btn:hover { transform: scale(1.2) rotate(15deg); animation: none; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,21,37,0.95); backdrop-filter: blur(20px); z-index: 2000; align-items: center; justify-content: center; padding: 1rem; }
-        .modal-content { background: rgba(255,255,255,0.95); border: 1px solid rgba(0,180,212,0.2); border-radius: var(--border-radius-lg); padding: 3rem; max-width: 500px; width: 100%; box-shadow: var(--shadow-xl); animation: modalAppear 0.5s cubic-bezier(0.175,0.885,0.32,1.275); position: relative; overflow: hidden; color: var(--dark); }
-        @keyframes modalAppear { from { opacity: 0; transform: scale(0.8) translateY(50px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .modal-content::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent)); border-radius: calc(var(--border-radius-lg) + 2px); z-index: -1; animation: modalBorderGlow 3s linear infinite; }
-        @keyframes modalBorderGlow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
-        .modal-header { margin-bottom: 1.5rem; text-align: center; }
-        .modal-title { font-size: 1.8rem; color: var(--dark); margin-bottom: 0.5rem; }
-        .modal-subtitle { color: var(--gray); font-size: 1rem; }
-        .modal-body { margin-bottom: 2rem; }
-        .modal-text { color: var(--dark-light); line-height: 1.6; margin-bottom: 1.5rem; }
-        .btn { padding: 1rem 2rem; border: none; border-radius: var(--border-radius-sm); font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition-smooth); display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; text-decoration: none; }
-        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 5px 20px rgba(0,180,212,0.3); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,180,212,0.4); }
-        .btn-secondary { background: rgba(255,255,255,0.9); color: var(--dark); border: 1px solid rgba(0,180,212,0.3); }
-        .btn-secondary:hover { transform: translateY(-2px); border-color: var(--primary); box-shadow: var(--neon-glow); background: white; }
-        .btn-danger { background: linear-gradient(135deg, var(--danger), var(--danger-dark)); color: white; box-shadow: 0 5px 20px rgba(255,107,107,0.3); }
-        .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,107,107,0.4); }
-        .btn-lg { padding: 1.25rem 2.5rem; font-size: 1.1rem; }
-        .btn-full { width: 100%; }
-        .notification-container { position: fixed; top: 100px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 1rem; max-width: 400px; width: 100%; }
-        .notification { background: rgba(255,255,255,0.95); border: 1px solid rgba(0,180,212,0.2); border-radius: var(--border-radius-sm); padding: 1.25rem; box-shadow: var(--shadow-lg); animation: notificationSlideIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275); backdrop-filter: blur(20px); transform: translateX(0); transition: transform 0.3s ease, opacity 0.3s ease; position: relative; overflow: hidden; }
-        @keyframes notificationSlideIn { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
-        .notification.hiding { transform: translateX(100%); opacity: 0; }
-        .notification::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; }
-        .notification.info::before { background: var(--primary); }
-        .notification.success::before { background: var(--success); }
-        .notification.warning::before { background: var(--warning); }
-        .notification.danger::before { background: var(--danger); }
-        .notification-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
-        .notification-title { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 1.1rem; color: var(--dark); }
-        .notification-close { background: none; border: none; color: var(--gray); font-size: 1.2rem; cursor: pointer; padding: 0.25rem; border-radius: 5px; transition: var(--transition-fast); }
-        .notification-close:hover { color: var(--dark); background: rgba(0,0,0,0.05); }
-        .notification-body { color: var(--dark-light); font-size: 0.95rem; line-height: 1.5; }
-        .notification-progress { position: absolute; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary)); animation: progressBar linear forwards; }
-        @keyframes progressBar { from { width: 100%; } to { width: 0%; } }
-        .push-permission { position: fixed; bottom: 100px; right: 20px; background: rgba(255,255,255,0.95); border: 1px solid rgba(0,180,212,0.2); border-radius: var(--border-radius); padding: 1.5rem; max-width: 350px; backdrop-filter: blur(20px); box-shadow: var(--shadow-xl); animation: slideUp 0.5s ease; z-index: 9998; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
-        .push-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-        .push-header i { font-size: 1.5rem; color: var(--primary); }
-        .push-header h3 { font-size: 1.2rem; margin: 0; color: var(--dark); }
-        .push-text { color: var(--dark-light); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; }
-        .push-buttons { display: flex; gap: 0.75rem; }
-        .push-btn { flex: 1; padding: 0.75rem; border: none; border-radius: var(--border-radius-sm); font-weight: 600; cursor: pointer; transition: var(--transition-fast); display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-        .push-btn.allow { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; }
-        .push-btn.deny { background: rgba(0,0,0,0.05); color: var(--dark); }
-        .push-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-        .chatbot-section { padding: 5rem 2rem; max-width: 1400px; margin: 0 auto; }
-        .chatbot-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 2.5rem; align-items: start; }
-        .chatbot-info { display: flex; flex-direction: column; gap: 1.5rem; }
-        .chatbot-info-card { background: rgba(255,255,255,0.85); border: 1px solid rgba(0,180,212,0.2); border-radius: var(--border-radius-lg); padding: 2rem; backdrop-filter: blur(10px); box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
-        .chatbot-info-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
-        .chatbot-avatar-wrap { width: 72px; height: 72px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; box-shadow: var(--neon-glow); animation: logoFloat 4s ease-in-out infinite; margin-bottom: 1.25rem; overflow: hidden; }
-        .chatbot-avatar-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; }
-        .chatbot-name-title { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.4rem; }
-        .chatbot-status-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--gray); margin-bottom: 1.5rem; }
-        .online-dot { width: 9px; height: 9px; background: var(--success); border-radius: 50%; animation: dotPulse 2s infinite; box-shadow: 0 0 8px var(--success); }
-        @keyframes dotPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.2); } }
-        .chatbot-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
-        .cbot-stat { background: rgba(0,180,212,0.05); border: 1px solid rgba(0,180,212,0.15); border-radius: var(--border-radius-sm); padding: 0.9rem 0.5rem; text-align: center; }
-        .cbot-stat-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1rem; margin: 0 auto 0.4rem; }
-        .cbot-stat-val { font-size: 1.1rem; font-weight: 800; color: var(--dark); }
-        .cbot-stat-lbl { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.4px; }
-        .chatbot-knowledge-card { background: rgba(255,255,255,0.85); border: 1px solid rgba(0,180,212,0.2); border-radius: var(--border-radius); padding: 1.5rem 1.75rem; backdrop-filter: blur(10px); box-shadow: var(--shadow-lg); }
-        .chatbot-knowledge-card h4 { font-size: 1rem; color: var(--dark); margin-bottom: 1rem; }
-        .know-tag { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: var(--dark-light); margin-bottom: 0.6rem; }
-        .know-dot { width: 7px; height: 7px; background: var(--primary); border-radius: 50%; flex-shrink: 0; animation: knowPulse 2s infinite; }
-        @keyframes knowPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-
+        
+        .hero-stat::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: calc(var(--border-radius) + 2px);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .hero-stat:hover::before {
+            opacity: 1;
+            animation: statBorderGlow 3s linear infinite;
+        }
+        
+        @keyframes statBorderGlow {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+        
+        .hero-stat:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            display: block;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin: 1rem auto;
+            border-radius: 2px;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .disaster-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card-container {
+            perspective: 1500px;
+            height: 450px;
+        }
+        
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border-radius: var(--border-radius-lg);
+        }
+        
+        .card-container:hover .card {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 180, 212, 0.2);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .card-front::before,
+        .card-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 180, 212, 0.08), rgba(128, 208, 255, 0.04));
+            z-index: -1;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+            background: rgba(255, 255, 255, 0.9);
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .card-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-description {
+            color: var(--dark-light);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: badgePulse 2s infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+        
+        .badge-high {
+            background: linear-gradient(135deg, var(--danger), var(--accent-dark));
+            color: white;
+            box-shadow: var(--neon-glow-danger);
+        }
+        
+        .badge-medium {
+            background: linear-gradient(135deg, var(--warning), var(--warning-dark));
+            color: var(--dark);
+            box-shadow: 0 0 20px rgba(255, 179, 71, 0.3);
+        }
+        
+        .badge-low {
+            background: linear-gradient(135deg, var(--success), var(--success-dark));
+            color: var(--dark);
+            box-shadow: var(--neon-glow-success);
+        }
+        
+        .card-back-content h4 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-back-content ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        
+        .card-back-content li {
+            margin-bottom: 0.75rem;
+            color: var(--dark-light);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-back-content li::before {
+            content: '•';
+            color: var(--primary);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -0.3rem;
+        }
+        
+        .graphic-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .earthquake-graphic {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .seismic-wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid var(--warning);
+            border-radius: 50%;
+            animation: seismicWave 3s infinite;
+        }
+        
+        @keyframes seismicWave {
+            0% {
+                width: 20px;
+                height: 20px;
+                opacity: 1;
+            }
+            100% {
+                width: 150px;
+                height: 150px;
+                opacity: 0;
+            }
+        }
+        
+        .flood-graphic {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .water-level {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, var(--primary), var(--secondary));
+            animation: floodRise 4s infinite alternate;
+        }
+        
+        @keyframes floodRise {
+            0% {
+                height: 30%;
+            }
+            100% {
+                height: 80%;
+            }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 180, 212, 0.2);
+            border-radius: var(--border-radius);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .stat-number-lg {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            display: block;
+            line-height: 1;
+        }
+        
+        .stat-label-lg {
+            font-size: 1rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+        
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .action-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 180, 212, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .action-card:hover::before {
+            left: 100%;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-xl);
+            background: white;
+        }
+        
+        .action-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .action-title {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .action-description {
+            color: var(--dark-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .action-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .push-permission {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 180, 212, 0.2);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            max-width: 350px;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.5s ease;
+            z-index: 9998;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .push-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .push-header i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .push-header h3 {
+            font-size: 1.2rem;
+            margin: 0;
+            color: var(--dark);
+        }
+        
+        .push-text {
+            color: var(--dark-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+        
+        .push-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .push-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .push-btn.allow {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        
+        .push-btn.deny {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--dark);
+        }
+        
+        .push-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        /* CHATBOT (exclusivo) */
+        
+        .chatbot-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .chatbot-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+        
+        .chatbot-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .chatbot-info-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 180, 212, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chatbot-info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .chatbot-avatar-wrap {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: var(--neon-glow);
+            animation: logoFloat 4s ease-in-out infinite;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+        
+        .chatbot-avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px;
+        }
+        
+        .chatbot-name-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.4rem;
+        }
+        
+        .chatbot-status-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .online-dot {
+            width: 9px;
+            height: 9px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: dotPulse 2s infinite;
+            box-shadow: 0 0 8px var(--success);
+        }
+        
+        @keyframes dotPulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.2);
+            }
+        }
+        
+        .chatbot-stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .cbot-stat {
+            background: rgba(0, 180, 212, 0.05);
+            border: 1px solid rgba(0, 180, 212, 0.15);
+            border-radius: var(--border-radius-sm);
+            padding: 0.9rem 0.5rem;
+            text-align: center;
+        }
+        
+        .cbot-stat-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            margin: 0 auto 0.4rem;
+        }
+        
+        .cbot-stat-val {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+        
+        .cbot-stat-lbl {
+            font-size: 0.7rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        
+        .chatbot-knowledge-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 180, 212, 0.2);
+            border-radius: var(--border-radius);
+            padding: 1.5rem 1.75rem;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .chatbot-knowledge-card h4 {
+            font-size: 1rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .know-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.88rem;
+            color: var(--dark-light);
+            margin-bottom: 0.6rem;
+        }
+        
+        .know-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--primary);
+            border-radius: 50%;
+            flex-shrink: 0;
+            animation: knowPulse 2s infinite;
+        }
+        
+        @keyframes knowPulse {
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
         .chat-widget {
-            background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(0,180,212,0.25); border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-xl), 0 0 30px rgba(0,180,212,0.15);
-            display: flex; flex-direction: column; overflow: hidden; position: relative;
-            height: 640px; transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 180, 212, 0.25);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl), 0 0 30px rgba(0, 180, 212, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            height: 640px;
+            transition: var(--transition-smooth);
         }
-        .chat-widget:hover { border-color: var(--primary); box-shadow: var(--shadow-xl), 0 0 40px rgba(0,180,212,0.25); }
-        .chat-widget::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary-light), var(--secondary-dark), var(--primary)); border-radius: calc(var(--border-radius-lg) + 2px); z-index: -1; animation: borderGlow 6s linear infinite; background-size: 300% 300%; }
-        @keyframes borderGlow { 0% { background-position: 0% 50%; opacity: 0.5; } 50% { background-position: 100% 50%; opacity: 0.8; } 100% { background-position: 0% 50%; opacity: 0.5; } }
-        .chat-widget-header { padding: 1.1rem 1.5rem; background: linear-gradient(135deg, rgba(0,180,212,0.1), rgba(128,208,255,0.05)); border-bottom: 2px solid rgba(0,180,212,0.2); display: flex; align-items: center; gap: 0.9rem; }
-        .chat-widget-avatar { width: 42px; height: 42px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: var(--neon-glow); overflow: hidden; flex-shrink: 0; }
-        .chat-widget-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
-        .chat-widget-info { flex: 1; }
-        .chat-widget-name { font-size: 1.05rem; font-weight: 700; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 2px; }
-        .chat-widget-status { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--gray); }
-        .chat-messages { flex: 1; padding: 1.1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.85rem; background: rgba(255,255,255,0.3); scroll-behavior: smooth; }
-        .chat-messages::-webkit-scrollbar { width: 5px; }
-        .chat-messages::-webkit-scrollbar-track { background: rgba(0,180,212,0.08); border-radius: 10px; }
-        .chat-messages::-webkit-scrollbar-thumb { background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; }
-        .chat-message { display: flex; gap: 8px; max-width: 88%; animation: msgAppear 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
-        @keyframes msgAppear { from { opacity: 0; transform: translateY(12px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        .chat-message.bot { align-self: flex-start; }
-        .chat-message.user { align-self: flex-end; flex-direction: row-reverse; }
-        .msg-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; color: white; box-shadow: 0 3px 10px rgba(0,180,212,0.22); flex-shrink: 0; overflow: hidden; }
-        .msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .chat-message.user .msg-avatar { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); }
-        .msg-content { background: white; padding: 10px 14px; border-radius: 15px; border: 1px solid rgba(0,180,212,0.18); box-shadow: 0 2px 10px rgba(0,0,0,0.04); word-wrap: break-word; overflow-wrap: break-word; white-space: normal; line-height: 1.5; }
-        .chat-message.bot .msg-content { border-bottom-left-radius: 4px; background: linear-gradient(135deg, white, #f8fcff); }
-        .chat-message.user .msg-content { border-bottom-right-radius: 4px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: transparent; }
-        .msg-text { font-size: 0.875rem; line-height: 1.5; margin-bottom: 3px; white-space: pre-wrap; }
-        .msg-time { font-size: 0.68rem; color: var(--gray); text-align: right; }
-        .chat-message.user .msg-time { color: rgba(255,255,255,0.7); }
-        .typing-indicator { display: flex; gap: 4px; padding: 9px 13px; background: white; border-radius: 15px; border-bottom-left-radius: 4px; width: fit-content; border: 1px solid rgba(0,180,212,0.18); }
-        .typing-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: typing 1.4s infinite; }
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.3; } 30% { transform: translateY(-6px); opacity: 1; } }
-        .chat-input-area { padding: 0.9rem 1.1rem; background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(240,249,255,0.92)); border-top: 2px solid rgba(0,180,212,0.15); }
-        .chat-input-wrapper { display: flex; gap: 7px; background: white; border-radius: 22px; padding: 4px; border: 2px solid rgba(0,180,212,0.2); transition: var(--transition-smooth); box-shadow: 0 2px 12px rgba(0,0,0,0.04); margin-bottom: 0.65rem; }
-        .chat-input-wrapper:focus-within { border-color: var(--primary); box-shadow: var(--neon-glow); }
-        .chat-text-input { flex: 1; border: none; padding: 9px 12px; font-size: 0.875rem; background: transparent; outline: none; font-family: 'Inter', sans-serif; }
-        .chat-text-input::placeholder { color: var(--gray); font-style: italic; }
-        .chat-send-btn { width: 42px; height: 42px; border: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 18px; font-size: 1rem; cursor: pointer; transition: var(--transition-smooth); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .chat-send-btn:hover { transform: scale(1.1) rotate(5deg); box-shadow: var(--neon-glow); }
-        .chat-suggestions { display: flex; gap: 5px; flex-wrap: wrap; }
-        .chat-suggestion { padding: 5px 11px; background: white; border: 1px solid rgba(0,180,212,0.28); border-radius: 18px; font-size: 0.75rem; color: var(--dark); cursor: pointer; transition: var(--transition-smooth); display: flex; align-items: center; gap: 3px; white-space: nowrap; }
-        .chat-suggestion:hover { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; transform: translateY(-2px); box-shadow: var(--neon-glow); border-color: transparent; }
-
-        .footer { background: linear-gradient(135deg, #E6F7FF, #D1E8F2); border-top: 1px solid rgba(0,180,212,0.2); padding: 4rem 2rem 2rem; margin-top: 5rem; }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
-        .footer-section h3 { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--dark); }
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 0.75rem; }
-        .footer-links a { color: var(--gray); text-decoration: none; transition: var(--transition-fast); display: flex; align-items: center; gap: 0.5rem; }
-        .footer-links a:hover { color: var(--primary); transform: translateX(5px); }
-        .footer-bottom { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(0,180,212,0.2); color: var(--gray); font-size: 0.9rem; }
-        .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(0,180,212,0.3); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
+        
+        .chat-widget:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-xl), 0 0 40px rgba(0, 180, 212, 0.25);
+        }
+        
+        .chat-widget::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary-light), var(--secondary-dark), var(--primary));
+            border-radius: calc(var(--border-radius-lg) + 2px);
+            z-index: -1;
+            animation: borderGlow 6s linear infinite;
+            background-size: 300% 300%;
+        }
+        
+        @keyframes borderGlow {
+            0% {
+                background-position: 0% 50%;
+                opacity: 0.5;
+            }
+            50% {
+                background-position: 100% 50%;
+                opacity: 0.8;
+            }
+            100% {
+                background-position: 0% 50%;
+                opacity: 0.5;
+            }
+        }
+        
+        .chat-widget-header {
+            padding: 1.1rem 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 180, 212, 0.1), rgba(128, 208, 255, 0.05));
+            border-bottom: 2px solid rgba(0, 180, 212, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+        
+        .chat-widget-avatar {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: var(--neon-glow);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .chat-widget-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .chat-widget-info {
+            flex: 1;
+        }
+        
+        .chat-widget-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2px;
+        }
+        
+        .chat-widget-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.78rem;
+            color: var(--gray);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 1.1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            background: rgba(255, 255, 255, 0.3);
+            scroll-behavior: smooth;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(0, 180, 212, 0.08);
+            border-radius: 10px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+        
+        .chat-message {
+            display: flex;
+            gap: 8px;
+            max-width: 88%;
+            animation: msgAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes msgAppear {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .chat-message.bot {
+            align-self: flex-start;
+        }
+        
+        .chat-message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+        
+        .msg-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            color: white;
+            box-shadow: 0 3px 10px rgba(0, 180, 212, 0.22);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        .msg-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .chat-message.user .msg-avatar {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        }
+        
+        .msg-content {
+            background: white;
+            padding: 10px 14px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 180, 212, 0.18);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            line-height: 1.5;
+        }
+        
+        .chat-message.bot .msg-content {
+            border-bottom-left-radius: 4px;
+            background: linear-gradient(135deg, white, #f8fcff);
+        }
+        
+        .chat-message.user .msg-content {
+            border-bottom-right-radius: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+        }
+        
+        .msg-text {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 3px;
+            white-space: pre-wrap;
+        }
+        
+        .msg-time {
+            font-size: 0.68rem;
+            color: var(--gray);
+            text-align: right;
+        }
+        
+        .chat-message.user .msg-time {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 9px 13px;
+            background: white;
+            border-radius: 15px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+            border: 1px solid rgba(0, 180, 212, 0.18);
+        }
+        
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.3;
+            }
+            30% {
+                transform: translateY(-6px);
+                opacity: 1;
+            }
+        }
+        
+        .chat-input-area {
+            padding: 0.9rem 1.1rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(240, 249, 255, 0.92));
+            border-top: 2px solid rgba(0, 180, 212, 0.15);
+        }
+        
+        .chat-input-wrapper {
+            display: flex;
+            gap: 7px;
+            background: white;
+            border-radius: 22px;
+            padding: 4px;
+            border: 2px solid rgba(0, 180, 212, 0.2);
+            transition: var(--transition-smooth);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            margin-bottom: 0.65rem;
+        }
+        
+        .chat-input-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .chat-text-input {
+            flex: 1;
+            border: none;
+            padding: 9px 12px;
+            font-size: 0.875rem;
+            background: transparent;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .chat-text-input::placeholder {
+            color: var(--gray);
+            font-style: italic;
+        }
+        
+        .chat-send-btn {
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 18px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .chat-send-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .chat-suggestions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .chat-suggestion {
+            padding: 5px 11px;
+            background: white;
+            border: 1px solid rgba(0, 180, 212, 0.28);
+            border-radius: 18px;
+            font-size: 0.75rem;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            white-space: nowrap;
+        }
+        
+        .chat-suggestion:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--neon-glow);
+            border-color: transparent;
+        }
+        
         @media (max-width: 1100px) {
-            .chatbot-layout { grid-template-columns: 1fr; }
-            .chatbot-info { display: grid; grid-template-columns: 1fr 1fr; }
-            .chat-widget { height: 540px; }
+            .chatbot-layout {
+                grid-template-columns: 1fr;
+            }
+            .chatbot-info {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+            .chat-widget {
+                height: 540px;
+            }
         }
+        
         @media (max-width: 992px) {
-            .header { flex-direction: column; gap: 1rem; padding: 1rem; }
-            .nav-menu { flex-wrap: wrap; justify-content: center; }
-            .disaster-cards { grid-template-columns: repeat(2, 1fr); }
-            .action-grid { grid-template-columns: repeat(2, 1fr); }
+            .disaster-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .action-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
+        
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            .hero { padding: 8rem 1rem 3rem; }
-            .section { padding: 3rem 1rem; }
-            .disaster-cards, .action-grid { grid-template-columns: 1fr; }
-            .emergency-btn { bottom: 1.5rem; right: 1.5rem; width: 70px; height: 70px; font-size: 1.8rem; }
-            .notification-container { right: 10px; left: 10px; max-width: none; }
-            .push-permission { right: 10px; left: 10px; max-width: none; }
-            .chatbot-info { grid-template-columns: 1fr; }
-            .chatbot-section { padding: 3rem 1rem; }
-            .chat-widget { height: 500px; }
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .hero {
+                padding: 8rem 1rem 3rem;
+            }
+            .section {
+                padding: 3rem 1rem;
+            }
+            .disaster-cards,
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+            .push-permission {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+            .chatbot-info {
+                grid-template-columns: 1fr;
+            }
+            .chatbot-section {
+                padding: 3rem 1rem;
+            }
+            .chat-widget {
+                height: 500px;
+            }
         }
+        
         @media (max-width: 480px) {
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.8rem; }
-            .hero-stat, .stat-card { padding: 1.5rem; }
-            .modal-content { padding: 2rem; }
-            .btn { padding: 0.875rem 1.5rem; }
-            .chat-widget { height: 450px; }
-            .chatbot-stats-row { gap: 0.5rem; }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            .hero-stat,
+            .stat-card {
+                padding: 1.5rem;
+            }
+            .chat-widget {
+                height: 450px;
+            }
+            .chatbot-stats-row {
+                gap: 0.5rem;
+            }
         }
-        @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        
+        .cursor-blink {
+            animation: cursorBlink 0.7s step-end infinite;
+            display: inline-block;
         }
-        :focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
-        .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #E6F7FF; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 5px; }
-        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, var(--primary-light), var(--secondary-dark)); }
+        
+        @keyframes cursorBlink {
+            0%,
+            100% {
+                opacity: 1
+            }
+            50% {
+                opacity: 0
+            }
+        }
     </style>
 </head>
+
 <body>
+
+    <!-- HEADER -->
     <header class="header" id="header">
         <div class="logo-container" onclick="window.location.href='index.html'">
-            <div class="logo-img">
-                <img src="logo.jpg" alt="Alerta Bolivia" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
-            </div>
+            <div class="logo-img"><img src="logo.jpg" alt="Alerta Bolivia"></div>
             <div class="logo-text">
                 <div class="logo-title">Alerta Bolivia</div>
                 <div class="logo-subtitle">Sistema de Alerta Temprana</div>
@@ -387,26 +1321,20 @@
             <a href="denuncias.html" class="nav-link"><i class="fas fa-exclamation-triangle"></i> Denuncias</a>
             <a href="mapa.html" class="nav-link"><i class="fas fa-map-marked-alt"></i> Mapa</a>
             <a href="contactos.html" class="nav-link"><i class="fas fa-phone-alt"></i> Contactos</a>
-            <a href="login.html" class="nav-link" id="userLink" style="display:none;">
-                <i class="fas fa-user"></i> <span id="userName"></span>
-            </a>
+            <a href="login.html" class="nav-link" id="userLink" style="display:none;"><i class="fas fa-user"></i> <span id="userName"></span></a>
         </nav>
     </header>
 
-    <div class="notification-container" id="notificationContainer"></div>
-
-    <div class="push-permission" id="pushPermission" style="display:none;">
-        <div class="push-header">
-            <i class="fas fa-bell"></i>
-            <h3>Notificaciones en Tiempo Real</h3>
-        </div>
-        <p class="push-text">Permite que Alerta Bolivia te envíe alertas importantes sobre desastres naturales en tu área.</p>
-        <div class="push-buttons">
-            <button class="push-btn allow" onclick="NotificationSystem.requestPermission()"><i class="fas fa-check"></i> Permitir</button>
-            <button class="push-btn deny" onclick="NotificationSystem.hidePermission()"><i class="fas fa-times"></i> Ahora no</button>
-        </div>
+    <!-- NOTIFICACIONES (TOAST) -->
+    <div class="notification-toast" id="notificationToast">
+        <div class="notification-title" id="toastTitle">Notificación</div>
+        <div class="notification-message" id="toastMessage">Mensaje del sistema</div>
     </div>
 
+    <!-- CONTENEDOR DE NOTIFICACIONES (para SATBolivia) -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-background"></div>
         <div class="hero-content">
@@ -421,6 +1349,7 @@
         </div>
     </section>
 
+    <!-- DESASTRES -->
     <section class="section" id="desastres">
         <h2 class="section-title">🌋 Desastres Naturales en Bolivia</h2>
         <div class="disaster-cards">
@@ -461,7 +1390,9 @@
                         <h3 class="card-title">Inundaciones</h3>
                         <p class="card-description">Beni, Pando y Santa Cruz. Temporada de lluvias: Noviembre - Marzo. Monitoreo de niveles de ríos.</p>
                         <div class="graphic-container">
-                            <div class="flood-graphic"><div class="water-level"></div></div>
+                            <div class="flood-graphic">
+                                <div class="water-level"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-back">
@@ -504,6 +1435,7 @@
         </div>
     </section>
 
+    <!-- ESTADÍSTICAS -->
     <section class="section" id="estadisticas">
         <h2 class="section-title">📊 Estadísticas en Tiempo Real</h2>
         <div class="stats-grid">
@@ -516,49 +1448,38 @@
         </div>
     </section>
 
+    <!-- ACCIONES RÁPIDAS -->
     <section class="section" id="acciones">
         <h2 class="section-title">🚀 Acciones Rápidas</h2>
         <div class="action-grid">
-            <div class="action-card" onclick="SAT.navigateTo('denuncias.html')">
+            <div class="action-card" onclick="window.location.href='denuncias.html'">
                 <div class="action-icon"><i class="fas fa-exclamation-triangle"></i></div>
                 <h3 class="action-title">Reportar Incidente</h3>
-                <p class="action-description">Reporta desastres naturales, situaciones de riesgo o solicita ayuda inmediata. Sistema con verificación automática.</p>
-                <span class="action-badge">En línea 24/7</span>
-            </div>
-            <div class="action-card" onclick="SAT.navigateTo('mapa.html')">
+                <p class="action-description">Reporta desastres naturales, situaciones de riesgo o solicita ayuda inmediata. Sistema con verificación automática.</p><span class="action-badge">En línea 24/7</span></div>
+            <div class="action-card" onclick="window.location.href='mapa.html'">
                 <div class="action-icon"><i class="fas fa-map-marked-alt"></i></div>
                 <h3 class="action-title">Mapa Interactivo</h3>
-                <p class="action-description">Visualiza desastres activos, centros de emergencia, rutas de evacuación y zonas de riesgo en tiempo real.</p>
-                <span class="action-badge">GPS Activo</span>
-            </div>
-            <div class="action-card" onclick="SAT.navigateTo('educacion.html')">
+                <p class="action-description">Visualiza desastres activos, centros de emergencia, rutas de evacuación y zonas de riesgo en tiempo real.</p><span class="action-badge">GPS Activo</span></div>
+            <div class="action-card" onclick="window.location.href='educacion.html'">
                 <div class="action-icon"><i class="fas fa-graduation-cap"></i></div>
                 <h3 class="action-title">Centro de Aprendizaje</h3>
-                <p class="action-description">Guías completas, simuladores interactivos y protocolos oficiales para cada tipo de desastre natural.</p>
-                <span class="action-badge">Certificado</span>
-            </div>
-            <div class="action-card" onclick="SAT.navigateTo('contactos.html')">
+                <p class="action-description">Guías completas, simuladores interactivos y protocolos oficiales para cada tipo de desastre natural.</p><span class="action-badge">Certificado</span></div>
+            <div class="action-card" onclick="window.location.href='contactos.html'">
                 <div class="action-icon"><i class="fas fa-phone-alt"></i></div>
                 <h3 class="action-title">Red de Contactos</h3>
-                <p class="action-description">Acceso directo a servicios de emergencia, autoridades locales, centros de salud y organizaciones de ayuda.</p>
-                <span class="action-badge">Directorio Oficial</span>
-            </div>
+                <p class="action-description">Acceso directo a servicios de emergencia, autoridades locales, centros de salud y organizaciones de ayuda.</p><span class="action-badge">Directorio Oficial</span></div>
         </div>
     </section>
 
+    <!-- CHATBOT ASIBOT -->
     <section class="chatbot-section" id="asistente">
         <h2 class="section-title">🤖 Asistente Virtual IA</h2>
         <div class="chatbot-layout">
             <div class="chatbot-info">
                 <div class="chatbot-info-card">
-                    <div class="chatbot-avatar-wrap">
-                        <img src="LOGO_IA.png" alt="ASIBOT" onerror="this.style.display='none';this.parentElement.innerHTML='🤖';">
-                    </div>
+                    <div class="chatbot-avatar-wrap"><img src="LOGO_IA.png" alt="ASIBOT" onerror="this.style.display='none';this.parentElement.innerHTML='🤖';"></div>
                     <div class="chatbot-name-title">ASIBOT</div>
-                    <div class="chatbot-status-row">
-                        <span class="online-dot"></span>
-                        <span>Asistente Inteligente Bolivia • En línea</span>
-                    </div>
+                    <div class="chatbot-status-row"><span class="online-dot"></span><span>Asistente Inteligente Bolivia • En línea</span></div>
                     <div class="chatbot-stats-row">
                         <div class="cbot-stat">
                             <div class="cbot-stat-icon">⚡</div>
@@ -587,12 +1508,9 @@
                     <div class="know-tag"><span class="know-dot"></span><span>1547 sensores • 24/7 activo</span></div>
                 </div>
             </div>
-
             <div class="chat-widget">
                 <div class="chat-widget-header">
-                    <div class="chat-widget-avatar">
-                        <img src="LOGO_IA.png" alt="ASIBOT" onerror="this.style.display='none';this.parentElement.innerHTML='🤖';">
-                    </div>
+                    <div class="chat-widget-avatar"><img src="LOGO_IA.png" alt="ASIBOT" onerror="this.style.display='none';this.parentElement.innerHTML='🤖';"></div>
                     <div class="chat-widget-info">
                         <div class="chat-widget-name">ASIBOT</div>
                         <div class="chat-widget-status"><span class="online-dot"></span><span>En línea - Respuesta inmediata</span></div>
@@ -623,18 +1541,22 @@
         </div>
     </section>
 
+    <!-- MODAL DE EMERGENCIA -->
     <div class="modal" id="emergencyModal">
         <div class="modal-content">
+            <button class="modal-close" onclick="document.getElementById('emergencyModal').classList.remove('active')">&times;</button>
             <div class="modal-header">
                 <h3 class="modal-title">🚨 ALERTA DE EMERGENCIA</h3>
                 <p class="modal-subtitle">Solo usar en situaciones reales de peligro</p>
             </div>
             <div class="modal-body">
                 <p class="modal-text">Esta alerta notificará inmediatamente a los servicios de emergencia con tu ubicación exacta.</p>
-                <div class="location-status" id="locationStatus"><p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p></div>
-                <div class="emergency-info">
-                    <h4><i class="fas fa-info-circle"></i> Información que se enviará:</h4>
-                    <ul>
+                <div class="location-status" id="locationStatus">
+                    <p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p>
+                </div>
+                <div class="emergency-info" style="background:rgba(255,255,255,0.5);padding:1rem;border-radius:var(--border-radius-sm);border-left:4px solid var(--danger);margin:1rem 0;text-align:left;">
+                    <h4 style="color:var(--danger);margin-bottom:0.5rem;"><i class="fas fa-info-circle"></i> Información que se enviará:</h4>
+                    <ul style="color:var(--dark-light);font-size:0.9rem;padding-left:1rem;list-style:disc;">
                         <li><strong>Tipo:</strong> EMERGENCIA INMEDIATA</li>
                         <li><strong>Nivel:</strong> ALERTA ROJA</li>
                         <li><strong>Ubicación:</strong> <span id="locationPreview">Coordenadas GPS</span></li>
@@ -643,99 +1565,375 @@
                 </div>
             </div>
             <div class="modal-actions">
-                <button class="btn btn-danger btn-lg btn-full" id="sendEmergencyBtn" onclick="SAT.sendEmergency()" disabled>
-                    <i class="fas fa-paper-plane"></i> CONFIRMAR Y ENVIAR ALERTA
-                </button>
+                <button class="btn btn-danger btn-full" id="sendEmergencyBtn" onclick="SAT.sendEmergency()" disabled><i class="fas fa-paper-plane"></i> CONFIRMAR Y ENVIAR ALERTA</button>
                 <button class="btn btn-secondary btn-full" onclick="SAT.closeEmergencyModal()">Cancelar</button>
             </div>
         </div>
     </div>
 
+    <!-- MODAL DE CONFIRMACIÓN -->
     <div class="modal" id="confirmationModal">
         <div class="modal-content">
+            <button class="modal-close" onclick="SAT.closeConfirmationModal()">&times;</button>
             <div class="modal-header">
                 <h3 class="modal-title">✅ Alerta Enviada</h3>
                 <p class="modal-subtitle">Tu emergencia ha sido reportada</p>
             </div>
             <div class="modal-body">
                 <p class="modal-text">La alerta ha sido enviada a los servicios de emergencia. Mantén la calma y sigue las instrucciones.</p>
-                <div class="confirmation-info">
+                <div style="background:rgba(255,255,255,0.5);padding:1rem;border-radius:var(--border-radius-sm);">
                     <p><strong>Número de Reporte:</strong> <span id="reportNumber">SAT-000000</span></p>
                     <p><strong>Hora del Reporte:</strong> <span id="reportTime">00:00:00</span></p>
                     <p><strong>Servicios Notificados:</strong></p>
-                    <ul>
+                    <ul style="padding-left:1rem;color:var(--dark-light);">
                         <li>Sistema Nacional de Emergencias</li>
                         <li>Defensa Civil departamental</li>
                         <li>Servicios locales de rescate</li>
                     </ul>
                 </div>
             </div>
-            <div class="modal-actions">
-                <button class="btn btn-primary btn-full" onclick="SAT.closeConfirmationModal()"><i class="fas fa-check"></i> Entendido</button>
-            </div>
+            <div class="modal-actions"><button class="btn btn-primary btn-full" onclick="SAT.closeConfirmationModal()"><i class="fas fa-check"></i> Entendido</button></div>
         </div>
     </div>
 
-    <button class="emergency-btn" id="emergencyButton" onclick="SAT.showEmergencyModal()">
-        <i class="fas fa-exclamation-triangle"></i>
-    </button>
+    <!-- BOTÓN DE EMERGENCIA FLOTANTE (sin onclick, manejado por common.js) -->
+    <button class="emergency-btn"><i class="fas fa-exclamation-triangle"></i></button>
 
+    <!-- PUSH PERMISSION -->
+    <div class="push-permission" id="pushPermission" style="display:none;">
+        <div class="push-header"><i class="fas fa-bell"></i>
+            <h3>Notificaciones en Tiempo Real</h3>
+        </div>
+        <p class="push-text">Permite que Alerta Bolivia te envíe alertas importantes sobre desastres naturales en tu área.</p>
+        <div class="push-buttons">
+            <button class="push-btn allow" onclick="NotificationSystem.requestPermission()"><i class="fas fa-check"></i> Permitir</button>
+            <button class="push-btn deny" onclick="NotificationSystem.hidePermission()"><i class="fas fa-times"></i> Ahora no</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-section">
-                <h3>Alerta Bolivia</h3>
-                <p>Sistema de Alerta Temprana Nacional<br>Ministerio de Defensa<br>Viceministerio de Defensa Civil</p>
-            </div>
-            <div class="footer-section">
-                <h3>Enlaces Rápidos</h3>
-                <ul class="footer-links">
-                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Inicio</a></li>
-                    <li><a href="educacion.html"><i class="fas fa-chevron-right"></i> Educación</a></li>
-                    <li><a href="denuncias.html"><i class="fas fa-chevron-right"></i> Denuncias</a></li>
-                    <li><a href="mapa.html"><i class="fas fa-chevron-right"></i> Mapa</a></li>
-                    <li><a href="contactos.html"><i class="fas fa-chevron-right"></i> Contactos</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contactos de Emergencia</h3>
-                <ul class="footer-links">
-                    <li><a href="tel:911"><i class="fas fa-phone"></i> Emergencias: 911</a></li>
-                    <li><a href="tel:800140081"><i class="fas fa-phone"></i> Defensa Civil: 800-14-0081</a></li>
-                    <li><a href="tel:119"><i class="fas fa-phone"></i> Bomberos: 119</a></li>
-                    <li><a href="tel:110"><i class="fas fa-phone"></i> Policía: 110</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <ul class="footer-links">
-                    <li><a href="privacidad.html"><i class="fas fa-chevron-right"></i> Política de Privacidad</a></li>
-                    <li><a href="terminos.html"><i class="fas fa-chevron-right"></i> Términos de Uso</a></li>
-                    <li><a href="acerca.html"><i class="fas fa-chevron-right"></i> Acerca del Sistema</a></li>
-                    <li><a href="soporte.html"><i class="fas fa-chevron-right"></i> Soporte Técnico</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 SAT Bolivia - Sistema de Alerta Temprana. Todos los derechos reservados.</p>
+            <p>© 2026 SAT Bolivia - Sistema de Alerta Temprana. Todos los derechos reservados.</p>
             <p>Desarrollado con <i class="fas fa-heart" style="color:var(--danger);"></i> para proteger a Bolivia</p>
         </div>
     </footer>
 
+    <!-- ===== SCRIPTS ===== -->
+    <!-- JS COMÚN (compartido) -->
+    <script src="js/common.js"></script>
+
+    <!-- JS ESPECÍFICO DE index.html -->
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('ServiceWorker registration failed: ', err));
-            });
+        // ============================================================
+        // SAT BOLIVIA - CLASE PRINCIPAL (index.html)
+        // ============================================================
+        class SATBolivia {
+            constructor() {
+                this.stats = {
+                    desastres: 156,
+                    denuncias: 42,
+                    comunidades: 327,
+                    alertasActivas: 8,
+                    respuestas: 189,
+                    cobertura: 87,
+                    tiempoRespuesta: 45
+                };
+                this.user = null;
+                this.location = null;
+                this.notifications = [];
+                this.emergencyCooldown = false;
+                this.isInitialized = false;
+                this.init();
+            }
+            init() {
+                if (this.isInitialized) return;
+                this.loadUser();
+                this.initNotifications();
+                this.setupEvents();
+                this.startAnimations();
+                this.startRealTimeUpdates();
+                this.isInitialized = true;
+            }
+            loadUser() {
+                const u = localStorage.getItem('sat_user');
+                if (u) {
+                    this.user = JSON.parse(u);
+                    this.updateUserUI();
+                }
+            }
+            updateUserUI() {
+                if (this.user) {
+                    const ul = document.getElementById('userLink'),
+                        un = document.getElementById('userName');
+                    if (ul && un) {
+                        un.textContent = this.user.name.split(' ')[0];
+                        ul.style.display = 'flex';
+                    }
+                }
+            }
+            initNotifications() {
+                const asked = localStorage.getItem('pushPermissionAsked'),
+                    status = localStorage.getItem('pushPermission');
+                if ('Notification' in window) {
+                    if (asked === 'true' && (status === 'granted' || status === 'denied')) return;
+                    if (Notification.permission === 'default') {
+                        localStorage.setItem('pushPermissionAsked', 'true');
+                        setTimeout(() => {
+                            const p = document.getElementById('pushPermission');
+                            if (p) p.style.display = 'block';
+                        }, 3000);
+                    }
+                }
+                if ('serviceWorker' in navigator && 'PushManager' in window) this.registerPushNotifications();
+            }
+            async registerPushNotifications() {
+                try {
+                    const r = await navigator.serviceWorker.ready;
+                    await r.pushManager.getSubscription();
+                } catch (e) {
+                    console.warn('Error push:', e);
+                }
+            }
+            setupEvents() {
+                window.addEventListener('scroll', () => {
+                    const h = document.getElementById('header');
+                    if (window.scrollY > 50) h.classList.add('scrolled');
+                    else h.classList.remove('scrolled');
+                });
+                document.querySelectorAll('a[href^="#"]').forEach(a => {
+                    a.addEventListener('click', e => {
+                        e.preventDefault();
+                        const t = a.getAttribute('href');
+                        if (t === '#') return;
+                        const el = document.querySelector(t);
+                        if (el) el.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    });
+                });
+            }
+            startAnimations() {
+                this.animateStat('statDesastres', this.stats.desastres, 2000);
+                this.animateStat('statComunidades', this.stats.comunidades, 2000);
+                this.animateStat('statTiempoRespuesta', this.stats.tiempoRespuesta + 's', 2000);
+                this.animateStat('statCobertura', this.stats.cobertura + '%', 2000);
+                this.animateStat('totalDesastres', this.stats.desastres, 2500);
+                this.animateStat('totalDenuncias', this.stats.denuncias, 2500);
+                this.animateStat('totalComunidades', this.stats.comunidades, 2500);
+                this.animateStat('alertasActivas', this.stats.alertasActivas, 2500);
+                this.animateStat('respuestasEjecutadas', this.stats.respuestas, 2500);
+            }
+            animateStat(id, target, duration = 1500) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (typeof target === 'string') {
+                    el.textContent = target;
+                    return;
+                }
+                const start = parseInt(el.textContent) || 0;
+                const inc = (target - start) / (duration / 16);
+                let val = start,
+                    t0 = null;
+                const animate = ts => {
+                    if (!t0) t0 = ts;
+                    if (ts - t0 < duration) {
+                        val += inc;
+                        el.textContent = Math.floor(val);
+                        requestAnimationFrame(animate);
+                    } else {
+                        el.textContent = target;
+                        el.style.transform = 'scale(1.1)';
+                        el.style.color = 'var(--success)';
+                        setTimeout(() => {
+                            el.style.transform = '';
+                            el.style.color = '';
+                        }, 300);
+                    }
+                };
+                requestAnimationFrame(animate);
+            }
+            startRealTimeUpdates() {
+                setInterval(() => {
+                    this.stats.desastres += Math.floor(Math.random() * 2);
+                    this.stats.denuncias += Math.floor(Math.random() * 3);
+                    this.stats.respuestas = this.stats.desastres - Math.floor(Math.random() * 15);
+                    this.stats.alertasActivas = Math.min(12, Math.floor(Math.random() * 4) + 3);
+                    this.stats.tiempoRespuesta = Math.max(30, Math.min(60, Math.floor(40 + Math.random() * 20)));
+                    this.animateStat('totalDesastres', this.stats.desastres, 500);
+                    this.animateStat('totalDenuncias', this.stats.denuncias, 500);
+                    this.animateStat('respuestasEjecutadas', this.stats.respuestas, 500);
+                    this.animateStat('alertasActivas', this.stats.alertasActivas, 500);
+                    this.animateStat('statTiempoRespuesta', this.stats.tiempoRespuesta + 's', 500);
+                    if (Math.random() > 0.8) {
+                        const n = [
+                            ['🌡️ Monitoreo Climático', 'Actualización de datos meteorológicos completada.', 'info'],
+                            ['📡 Sensores Activos', '98% de los sensores reportando correctamente.', 'success'],
+                            ['⚠️ Alerta Preventiva', 'Vigilancia en zonas de riesgo por lluvias.', 'warning'],
+                            ['✅ Sistema Estable', 'Todos los servicios funcionando normalmente.', 'success']
+                        ][Math.floor(Math.random() * 4)];
+                        this.showNotification(n[0], n[1], n[2]);
+                    }
+                }, 30000);
+            }
+            showNotification(title, message, type = 'info', duration = 5000) {
+                const container = document.getElementById('notificationContainer');
+                if (!container) return;
+                const id = 'notif_' + Date.now();
+                const n = document.createElement('div');
+                n.className = `notification ${type}`;
+                n.id = id;
+                const icons = {
+                    info: 'ℹ️',
+                    success: '✅',
+                    warning: '⚠️',
+                    danger: '🚨'
+                };
+                n.innerHTML = `<div class="notification-header"><div class="notification-title"><span class="notification-icon">${icons[type]||'📢'}</span>${title}</div><button class="notification-close" onclick="SAT.removeNotification('${id}')">✕</button></div><div class="notification-body">${message}</div><div class="notification-progress" style="animation-duration:${duration}ms"></div>`;
+                container.appendChild(n);
+                setTimeout(() => this.removeNotification(id), duration);
+                this.notifications.push({
+                    id
+                });
+                if (this.notifications.length > 5) {
+                    const old = this.notifications.shift();
+                    this.removeNotification(old.id);
+                }
+            }
+            removeNotification(id) {
+                const n = document.getElementById(id);
+                if (!n) return;
+                n.classList.add('hiding');
+                setTimeout(() => {
+                    if (n.parentNode) n.parentNode.removeChild(n);
+                    this.notifications = this.notifications.filter(x => x.id !== id);
+                }, 300);
+            }
+            async showEmergencyModal() {
+                const modal = document.getElementById('emergencyModal');
+                const status = document.getElementById('locationStatus');
+                const btn = document.getElementById('sendEmergencyBtn');
+                const locPrev = document.getElementById('locationPreview');
+                const userPrev = document.getElementById('userPreview');
+                if (!modal) return;
+                modal.classList.add('active');
+                btn.disabled = true;
+                btn.innerHTML = '<span class="loading"></span> OBTENIENDO UBICACIÓN...';
+                // ✅ CORRECCIÓN AQUÍ:
+                userPrev.textContent = this.user ? this.user.name : 'Usuario SAT Bolivia';
+                try {
+                    const pos = await AlertaBolivia.obtenerUbicacion();
+                    this.location = {
+                        lat: pos.coords.latitude,
+                        lon: pos.coords.longitude,
+                        accuracy: pos.coords.accuracy,
+                        timestamp: new Date().toISOString()
+                    };
+                    locPrev.textContent = `${this.location.lat.toFixed(6)}, ${this.location.lon.toFixed(6)}`;
+                    status.innerHTML = `<p style="color:var(--success);"><i class="fas fa-check-circle"></i> Ubicación confirmada<br><small>Precisión: ±${Math.round(this.location.accuracy)} metros</small></p>`;
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-paper-plane"></i> CONFIRMAR Y ENVIAR ALERTA';
+                } catch (e) {
+                    status.innerHTML = `<p style="color:var(--warning);"><i class="fas fa-exclamation-triangle"></i> Ubicación aproximada<br><small>Se usará ubicación por red. Activa GPS para mayor precisión.</small></p>`;
+                    locPrev.textContent = 'Ubicación aproximada por IP';
+                    this.location = {
+                        lat: -16.290154,
+                        lon: -63.588653,
+                        accuracy: 50000,
+                        source: 'ip_estimation'
+                    };
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-paper-plane"></i> ENVIAR CON UBICACIÓN APROXIMADA';
+                }
+            }
+            async sendEmergency() {
+                const btn = document.getElementById('sendEmergencyBtn');
+                const orig = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = '<span class="loading"></span> ENVIANDO ALERTA...';
+                try {
+                    const id = `SAT-${Date.now().toString().slice(-6)}-${Math.random().toString(36).substr(2,3).toUpperCase()}`;
+                    this.stats.denuncias++;
+                    this.stats.alertasActivas++;
+                    this.animateStat('totalDenuncias', this.stats.denuncias, 500);
+                    this.animateStat('alertasActivas', this.stats.alertasActivas, 500);
+                    try {
+                        const reports = JSON.parse(localStorage.getItem('sat_emergency_reports') || '[]');
+                        reports.unshift({
+                            id,
+                            location: this.location,
+                            savedAt: new Date().toISOString()
+                        });
+                        if (reports.length > 50) reports.pop();
+                        localStorage.setItem('sat_emergency_reports', JSON.stringify(reports));
+                    } catch (e) {}
+                    const modal = document.getElementById('confirmationModal');
+                    document.getElementById('reportNumber').textContent = id;
+                    document.getElementById('reportTime').textContent = new Date().toLocaleTimeString('es-BO');
+                    if (modal) {
+                        modal.classList.add('active');
+                        setTimeout(() => this.closeConfirmationModal(), 10000);
+                    }
+                    AlertaBolivia.mostrarNotificacion('🚨 ALERTA ENVIADA', `Emergencia reportada con código ${id}. Servicios notificados.`, 8000);
+                    await new Promise(r => setTimeout(r, 1500));
+                    setTimeout(() => {
+                        this.closeEmergencyModal();
+                        btn.innerHTML = orig;
+                        btn.disabled = false;
+                    }, 2000);
+                } catch (e) {
+                    AlertaBolivia.mostrarNotificacion('❌ ERROR', 'No se pudo enviar la alerta completa. Por favor, llama al 911 directamente.', 'danger');
+                    btn.innerHTML = orig;
+                    btn.disabled = false;
+                }
+            }
+            closeEmergencyModal() {
+                const m = document.getElementById('emergencyModal');
+                if (m) m.classList.remove('active');
+                this.location = null;
+            }
+            closeConfirmationModal() {
+                const m = document.getElementById('confirmationModal');
+                if (m) m.classList.remove('active');
+            }
+            navigateTo(url) {
+                window.location.href = url;
+            }
+            static get instance() {
+                if (!window._satInstance) window._satInstance = new SATBolivia();
+                return window._satInstance;
+            }
         }
-    </script>
 
-    <script>
-    /* ═══════════════════════════════════════════════════════
-       ASIBOT — Motor de IA con Claude + Fallback offline
-       Sistema de Alerta Temprana Bolivia
-    ═══════════════════════════════════════════════════════ */
+        class NotificationSystem {
+            static async requestPermission() {
+                try {
+                    document.getElementById('pushPermission').style.display = 'none';
+                    const perm = await Notification.requestPermission();
+                    localStorage.setItem('pushPermission', perm);
+                    localStorage.setItem('pushPermissionAsked', 'true');
+                    if (perm === 'granted') SAT.showNotification('🔔 Notificaciones Activadas', 'Ahora recibirás alertas importantes sobre desastres naturales.', 'success');
+                    else if (perm === 'denied') SAT.showNotification('⚠️ Notificaciones Desactivadas', 'No recibirás alertas importantes. Puedes activarlas en Configuración del navegador.', 'warning');
+                } catch (e) {
+                    localStorage.setItem('pushPermissionAsked', 'true');
+                }
+            }
+            static hidePermission() {
+                document.getElementById('pushPermission').style.display = 'none';
+                localStorage.setItem('pushPermissionAsked', 'true');
+                localStorage.setItem('pushPermission', 'dismissed');
+                SAT.showNotification('ℹ️ Recordatorio', 'Puedes activar las notificaciones más tarde en Configuración.', 'info');
+            }
+        }
 
-    const SYSTEM_PROMPT = `Eres ASIBOT, el Asistente Inteligente del Sistema de Alerta Temprana Bolivia (SAT Bolivia). Tu propósito principal es salvar vidas.
+        window.SAT = SATBolivia.instance;
+        window.NotificationSystem = NotificationSystem;
+
+        // ============================================================
+        // ASIBOT - CHATBOT (index.html)
+        // ============================================================
+        const SYSTEM_PROMPT = `Eres ASIBOT, el Asistente Inteligente del Sistema de Alerta Temprana Bolivia (SAT Bolivia). Tu propósito principal es salvar vidas.
 
 IDENTIDAD:
 - Nombre: ASIBOT | Sistema: Alerta Bolivia | Disponibilidad: 24/7
@@ -788,535 +1986,362 @@ CAPACIDAD GENERAL: Puedes responder cualquier pregunta (no solo emergencias): cu
 
 REGLA DE ORO: Una respuesta imperfecta a tiempo vale más que una respuesta perfecta tarde. En emergencias, actúa primero, detalla después.`;
 
-    // ── Historial de conversación (memoria completa de sesión) ──
-    const chatHistory = [];
-    let isBotTyping = false;
-    let isOnline = navigator.onLine;
+        const chatHistory = [];
+        let isBotTyping = false;
 
-    // ── Tabla de corrección fonética/ortográfica boliviana ──
-    const CORRECCIONES = {
-        'inundacin':'inundacion','inundacion':'inundacion','inundaion':'inundacion',
-        'incendio':'incendio','incndi':'incendio','incedio':'incendio','incendoi':'incendio',
-        'inzendio':'incendio','fueg':'fuego','fugo':'fuego','hugo':'fuego',
-        'sism':'sismo','sismo':'sismo','temblo':'temblor','temblro':'temblor',
-        'terremoto':'terremoto','tereemoto':'terremoto','teremoto':'terremoto',
-        'desliz':'deslizamiento','derrumb':'derrumbe','huayc':'huayco','waic':'huayco',
-        'ayuda':'ayuda','ayud':'ayuda','ayuad':'ayuda','auxilio':'auxilio','auxili':'auxilio',
-        'emergencia':'emergencia','emergnecia':'emergencia','emrgencia':'emergencia',
-        'evacuacion':'evacuacion','evacaucion':'evacuacion','evacu':'evacuar',
-        'herido':'herido','erido':'herido','lastimado':'herido',
-        'atrapado':'atrapado','atrapao':'atrapado','encerado':'atrapado',
-        'muerto':'fallecido','muri':'fallecio','murieron':'fallecieron',
-        'peligro':'peligro','peligr':'peligro','peigro':'peligro',
-        'lluvia':'lluvia','lyuvia':'lluvia','luvai':'lluvia',
-        'granizo':'granizo','graniz':'granizo','granzo':'granizo',
-        'tormenta':'tormenta','tormena':'tormenta','tormetna':'tormenta',
-        'nevada':'nevada','nevado':'nevada','niev':'nieve',
-        'helada':'helada','hela':'helada','frio':'frio','frío':'frio',
-        'inundaron':'inundaron','se inundo':'se inundo','sube el rio':'sube el rio',
-        'k ago':'que hago','k hago':'que hago','q hago':'que hago','q ago':'que hago',
-        'xfa':'por favor','porfavor':'por favor','porfa':'por favor',
-        'stoy':'estoy','toy':'estoy','tngo':'tengo','tng':'tengo',
-        'aki':'aqui','aca':'aqui','pa':'para','q':'que','d':'de',
-        'weno':'bueno','buenas':'hola','salu2':'saludos',
-        'casa':'casa','asa':'casa','caza':'casa',
-        'bomberos':'bomberos','bombros':'bomberos','bombers':'bomberos',
-        'policia':'policia','policai':'policia','plicia':'policia',
-        'hospital':'hospital','ospital':'hospital','clinca':'clinica'
-    };
-
-    // ── Patrones de urgencia multicapa ──
-    const URGENCIA_ALTA = [
-        /ayud[oa]?/,/auxili/,/socorr/,/emerg/,/peligr/,/911/,
-        /muert[oa]?/,/muri[o|eron]?/,/fallec/,/herido/,/sangr/,
-        /atrap[ao]/,/no puedo salir/,/encerr/,/no respira/,/desmay/,
-        /incendi[oa]?/,/fueg[oa]?/,/humo/,/llamas/,/se quema/,
-        /inund[ao]/,/sube el (rio|agua)/,/me ahog/,/me lleva/,
-        /temblo[rn]?/,/sism[oa]?/,/terremot/,/se mueve/,/se cae/,
-        /desliz/,/derrumb/,/se hund/,/grieta/,/la tierra/,
-        /evacu/,/escape/,/salir rapido/,/k ago/,/q hago/,/que hago/,
-        /no tengo señal/,/cortaron la luz/,/sin agua/,/sin comida.*dias/
-    ];
-
-    const URGENCIA_MEDIA = [
-        /lluvia fuerte/,/tormenta/,/granizo/,/nevada/,/helada fuerte/,
-        /rio crec/,/agua sube/,/nubes negras/,/viento fuerte/,
-        /sin luz/,/sin agua.*horas/,/camino cortado/,/puente caido/
-    ];
-
-    // ── Normalización de texto con corrección ──
-    function normalize(text) {
-        let t = text.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-            .toLowerCase().replace(/[^\w\s]/g,' ').replace(/\s+/g,' ').trim();
-        Object.keys(CORRECCIONES).forEach(err => {
-            t = t.replace(new RegExp(`\\b${err}\\b`,'gi'), CORRECCIONES[err]);
-        });
-        return t;
-    }
-
-    function detectarNivelUrgencia(texto) {
-        const n = normalize(texto);
-        if (URGENCIA_ALTA.some(p => p.test(n))) return 'ALTA';
-        if (URGENCIA_MEDIA.some(p => p.test(n))) return 'MEDIA';
-        return 'NORMAL';
-    }
-
-    // ── Respuestas offline por tipo de emergencia ──
-    const RESPUESTAS_OFFLINE = {
-        incendio: `🔥 **INCENDIO — Llama YA al 119 (Bomberos)**\n\n1️⃣ Sal AHORA, no recojas pertenencias\n2️⃣ Cierra puertas al salir (sin llave)\n3️⃣ Agáchate si hay humo — el aire limpio está abajo\n4️⃣ Toca puertas antes de abrirlas (si están calientes, NO abras)\n5️⃣ Punto de reunión fuera del edificio\n\n📞 **119** Bomberos | **911** Emergencias\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
-        inundacion: `🌊 **INUNDACIÓN — Llama al 911**\n\n1️⃣ Sube a la parte más alta de tu edificio/casa\n2️⃣ NO cruces corrientes de agua (30cm pueden derribarte)\n3️⃣ Desconecta la electricidad desde el tablero\n4️⃣ Lleva documentos y medicinas\n5️⃣ Escucha radio para instrucciones oficiales\n\n📞 **911** | Defensa Civil **800-14-0081**\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
-        sismo: `🌋 **SISMO — Mantén la calma**\n\n**DURANTE:**\n1️⃣ Agáchate, cúbrete y agárrate (triángulo de vida)\n2️⃣ Aléjate de ventanas y objetos que puedan caer\n3️⃣ NO corras mientras tiembla\n4️⃣ Si estás en auto, detente lejos de puentes\n\n**DESPUÉS:**\n5️⃣ Sal con cuidado, revisa grietas\n6️⃣ Llama al **911** si hay heridos\n\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
-        deslizamiento: `⛰️ **DESLIZAMIENTO — Evacúa INMEDIATAMENTE**\n\n1️⃣ MUÉVETE a terreno alto y plano YA\n2️⃣ Aléjate de ríos, quebradas y laderas\n3️⃣ Si escuchas un rugido, corre sin mirar atrás\n4️⃣ NO intentes recuperar pertenencias\n5️⃣ Llama al **911** desde lugar seguro\n\n📞 **911** | Bomberos **119**\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
-        herido: `🏥 **PERSONA HERIDA — Llama al 911 AHORA**\n\n1️⃣ Llama al **911** — indica ubicación exacta\n2️⃣ No muevas a la persona si sospechas lesión de columna\n3️⃣ Si sangra: presiona con tela limpia SIN soltar\n4️⃣ Si no respira: RCP si sabes hacerlo\n5️⃣ Mantén a la persona abrigada y despierta\n\n📞 **911** Emergencias | **165** Orientación familiar\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
-        emergencia_general: `🚨 **EMERGENCIA — Llama al 911 AHORA**\n\nNúmeros Bolivia:\n📞 **911** → Emergencias generales\n🔥 **119** → Bomberos\n👮 **110** → Policía\n🛡️ **800-14-0081** → Defensa Civil (gratis)\n\n**Mantén la calma. Proporciona tu ubicación exacta. Sigue las instrucciones.**\n\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
-        default: `⚠️ Sin conexión a internet. En emergencia:\n📞 **911** | 🔥 **119** | 👮 **110** | 🛡️ **800-14-0081**\n\nEstoy funcionando en modo básico. Cuando se restaure la conexión, podré ayudarte mejor.`
-    };
-
-    function getFallbackOffline(texto) {
-        const n = normalize(texto);
-        if (/incendi|fueg|humo|quema|llamas/.test(n)) return RESPUESTAS_OFFLINE.incendio;
-        if (/inund|sube.*agua|sube.*rio|me ahog|agua.*subio/.test(n)) return RESPUESTAS_OFFLINE.inundacion;
-        if (/sism|temblo|terremot|se mueve|temblando/.test(n)) return RESPUESTAS_OFFLINE.sismo;
-        if (/desliz|derrumb|huayco|ladera|se hund|la tierra cae/.test(n)) return RESPUESTAS_OFFLINE.deslizamiento;
-        if (/herido|sangr|no respira|desmay|lastimado|accidente/.test(n)) return RESPUESTAS_OFFLINE.herido;
-        if (/ayud|emerg|peligr|auxili|socorr|911/.test(n)) return RESPUESTAS_OFFLINE.emergencia_general;
-        return RESPUESTAS_OFFLINE.default;
-    }
-
-    // ── Render de markdown básico ──
-    function renderMD(text) {
-        return text
-            .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g,'<em>$1</em>')
-            .replace(/\n/g,'<br>');
-    }
-
-    // ── UI: agregar mensaje al chat ──
-    function addChatMessage(text, sender, streaming = false) {
-        const messagesDiv = document.getElementById('chatMessages');
-        const div = document.createElement('div');
-        div.className = `chat-message ${sender}`;
-        const time = new Date().toLocaleTimeString('es-BO',{hour:'2-digit',minute:'2-digit'});
-        const msgId = 'msg_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
-        div.innerHTML = `
-            <div class="msg-avatar">${sender === 'bot' ? '🤖' : '👤'}</div>
-            <div class="msg-content">
-                <div class="msg-text" id="${msgId}">${streaming ? '<span class="cursor-blink">▋</span>' : renderMD(text)}</div>
-                <div class="msg-time">${time}</div>
-            </div>`;
-        messagesDiv.appendChild(div);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        if (sender === 'user') chatHistory.push({role:'user', content: text});
-        return msgId;
-    }
-
-    function streamText(msgId, fullText, speed = 14) {
-        return new Promise(resolve => {
-            const el = document.getElementById(msgId);
-            if (!el) { resolve(); return; }
-            const chars = fullText.split('');
-            let i = 0, displayed = '';
-            const tick = setInterval(() => {
-                const chunk = Math.min(3, chars.length - i);
-                displayed += chars.slice(i, i + chunk).join('');
-                i += chunk;
-                el.innerHTML = renderMD(displayed) + (i < chars.length ? '<span class="cursor-blink">▋</span>' : '');
-                document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
-                if (i >= chars.length) { clearInterval(tick); el.innerHTML = renderMD(fullText); resolve(); }
-            }, speed);
-        });
-    }
-
-    // ── Banner de emergencia inmediato ──
-    function showEmergencyBanner(nivel) {
-        const msgs = document.getElementById('chatMessages');
-        const old = document.getElementById('emergencyBanner');
-        if (old) old.remove();
-        const banner = document.createElement('div');
-        banner.id = 'emergencyBanner';
-        banner.style.cssText = `
-            background: linear-gradient(135deg,${nivel==='ALTA'?'#FF6B6B,#C0392B':'#FFB347,#E67E22'});
-            color: white; padding: 10px 14px; border-radius: 12px; margin: 4px 0;
-            text-align: center; font-weight: 700; font-size: 0.82rem;
-            animation: badgePulse 1s infinite; width: 100%;`;
-        banner.innerHTML = nivel === 'ALTA'
-            ? `🚨 ALERTA DETECTADA — Llamando: <a href="tel:911" style="color:white;font-weight:900;">911</a> | <a href="tel:119" style="color:white;font-weight:900;">119</a>`
-            : `⚠️ Situación de riesgo detectada — Ten a mano: <strong>911</strong>`;
-        msgs.appendChild(banner);
-        msgs.scrollTop = msgs.scrollHeight;
-        setTimeout(() => { if (banner.parentNode) banner.remove(); }, 12000);
-    }
-
-    // ── Indicador de escritura ──
-    function showTyping() {
-        if (isBotTyping) return;
-        isBotTyping = true;
-        const msgs = document.getElementById('chatMessages');
-        const ind = document.createElement('div');
-        ind.className = 'chat-message bot'; ind.id = 'typingIndicator';
-        ind.innerHTML = `<div class="msg-avatar">🤖</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-        msgs.appendChild(ind);
-        msgs.scrollTop = msgs.scrollHeight;
-    }
-
-    function hideTyping() {
-        const ind = document.getElementById('typingIndicator');
-        if (ind) ind.remove();
-        isBotTyping = false;
-    }
-
-    // ── Llamada a Claude API ──
-    async function callClaude(userMessage, nivel) {
-        const extraContext = nivel === 'ALTA'
-            ? '\n\n🔴 MODO EMERGENCIA ACTIVA: El usuario está en peligro AHORA. Responde en máximo 5 líneas, número 911 en la primera oración, pasos de 1 a 5 muy simples. Sin introducción.'
-            : nivel === 'MEDIA'
-            ? '\n\n🟡 SITUACIÓN DE RIESGO: El usuario describe una situación potencialmente peligrosa. Prioriza seguridad y da números de emergencia relevantes.'
-            : '';
-
-        const payload = {
-            model: 'claude-sonnet-4-20250514',
-            max_tokens: 800,
-            system: SYSTEM_PROMPT + extraContext,
-            messages: [
-                ...chatHistory.slice(-16),
-                {role: 'user', content: userMessage}
-            ]
+        const CORRECCIONES = {
+            'inundacin': 'inundacion',
+            'inundacion': 'inundacion',
+            'inundaion': 'inundacion',
+            'incendio': 'incendio',
+            'incndi': 'incendio',
+            'incedio': 'incendio',
+            'incendoi': 'incendio',
+            'inzendio': 'incendio',
+            'fueg': 'fuego',
+            'fugo': 'fuego',
+            'hugo': 'fuego',
+            'sism': 'sismo',
+            'sismo': 'sismo',
+            'temblo': 'temblor',
+            'temblro': 'temblor',
+            'terremoto': 'terremoto',
+            'tereemoto': 'terremoto',
+            'teremoto': 'terremoto',
+            'desliz': 'deslizamiento',
+            'derrumb': 'derrumbe',
+            'huayc': 'huayco',
+            'waic': 'huayco',
+            'ayuda': 'ayuda',
+            'ayud': 'ayuda',
+            'ayuad': 'ayuda',
+            'auxilio': 'auxilio',
+            'auxili': 'auxilio',
+            'emergencia': 'emergencia',
+            'emergnecia': 'emergencia',
+            'emrgencia': 'emergencia',
+            'evacuacion': 'evacuacion',
+            'evacaucion': 'evacuacion',
+            'evacu': 'evacuar',
+            'herido': 'herido',
+            'erido': 'herido',
+            'lastimado': 'herido',
+            'atrapado': 'atrapado',
+            'atrapao': 'atrapado',
+            'encerado': 'atrapado',
+            'muerto': 'fallecido',
+            'muri': 'fallecio',
+            'murieron': 'fallecieron',
+            'peligro': 'peligro',
+            'peligr': 'peligro',
+            'peigro': 'peligro',
+            'lluvia': 'lluvia',
+            'lyuvia': 'lluvia',
+            'luvai': 'lluvia',
+            'granizo': 'granizo',
+            'graniz': 'granizo',
+            'granzo': 'granizo',
+            'tormenta': 'tormenta',
+            'tormena': 'tormenta',
+            'tormetna': 'tormenta',
+            'nevada': 'nevada',
+            'nevado': 'nevada',
+            'niev': 'nieve',
+            'helada': 'helada',
+            'hela': 'helada',
+            'frio': 'frio',
+            'frío': 'frio',
+            'inundaron': 'inundaron',
+            'se inundo': 'se inundo',
+            'sube el rio': 'sube el rio',
+            'k ago': 'que hago',
+            'k hago': 'que hago',
+            'q hago': 'que hago',
+            'q ago': 'que hago',
+            'xfa': 'por favor',
+            'porfavor': 'por favor',
+            'porfa': 'por favor',
+            'stoy': 'estoy',
+            'toy': 'estoy',
+            'tngo': 'tengo',
+            'tng': 'tengo',
+            'aki': 'aqui',
+            'aca': 'aqui',
+            'pa': 'para',
+            'q': 'que',
+            'd': 'de',
+            'weno': 'bueno',
+            'buenas': 'hola',
+            'salu2': 'saludos',
+            'casa': 'casa',
+            'asa': 'casa',
+            'caza': 'casa',
+            'bomberos': 'bomberos',
+            'bombros': 'bomberos',
+            'bombers': 'bomberos',
+            'policia': 'policia',
+            'policai': 'policia',
+            'plicia': 'policia',
+            'hospital': 'hospital',
+            'ospital': 'hospital',
+            'clinca': 'clinica'
         };
 
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
+        const URGENCIA_ALTA = [
+            /ayud[oa]?/, /auxili/, /socorr/, /emerg/, /peligr/, /911/,
+            /muert[oa]?/, /muri[o|eron]?/, /fallec/, /herido/, /sangr/,
+            /atrap[ao]/, /no puedo salir/, /encerr/, /no respira/, /desmay/,
+            /incendi[oa]?/, /fueg[oa]?/, /humo/, /llamas/, /se quema/,
+            /inund[ao]/, /sube el (rio|agua)/, /me ahog/, /me lleva/,
+            /temblo[rn]?/, /sism[oa]?/, /terremot/, /se mueve/, /se cae/,
+            /desliz/, /derrumb/, /se hund/, /grieta/, /la tierra/,
+            /evacu/, /escape/, /salir rapido/, /k ago/, /q hago/, /que hago/,
+            /no tengo señal/, /cortaron la luz/, /sin agua/, /sin comida.*dias/
+        ];
+        const URGENCIA_MEDIA = [
+            /lluvia fuerte/, /tormenta/, /granizo/, /nevada/, /helada fuerte/,
+            /rio crec/, /agua sube/, /nubes negras/, /viento fuerte/,
+            /sin luz/, /sin agua.*horas/, /camino cortado/, /puente caido/
+        ];
+
+        function normalize(text) {
+            let t = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase().replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim();
+            Object.keys(CORRECCIONES).forEach(err => {
+                t = t.replace(new RegExp(`\\b${err}\\b`, 'gi'), CORRECCIONES[err]);
+            });
+            return t;
+        }
+
+        function detectarNivelUrgencia(texto) {
+            const n = normalize(texto);
+            if (URGENCIA_ALTA.some(p => p.test(n))) return 'ALTA';
+            if (URGENCIA_MEDIA.some(p => p.test(n))) return 'MEDIA';
+            return 'NORMAL';
+        }
+
+        const RESPUESTAS_OFFLINE = {
+            incendio: `🔥 **INCENDIO — Llama YA al 119 (Bomberos)**\n\n1️⃣ Sal AHORA, no recojas pertenencias\n2️⃣ Cierra puertas al salir (sin llave)\n3️⃣ Agáchate si hay humo — el aire limpio está abajo\n4️⃣ Toca puertas antes de abrirlas (si están calientes, NO abras)\n5️⃣ Punto de reunión fuera del edificio\n\n📞 **119** Bomberos | **911** Emergencias\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+            inundacion: `🌊 **INUNDACIÓN — Llama al 911**\n\n1️⃣ Sube a la parte más alta de tu edificio/casa\n2️⃣ NO cruces corrientes de agua (30cm pueden derribarte)\n3️⃣ Desconecta la electricidad desde el tablero\n4️⃣ Lleva documentos y medicinas\n5️⃣ Escucha radio para instrucciones oficiales\n\n📞 **911** | Defensa Civil **800-14-0081**\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+            sismo: `🌋 **SISMO — Mantén la calma**\n\n**DURANTE:**\n1️⃣ Agáchate, cúbrete y agárrate (triángulo de vida)\n2️⃣ Aléjate de ventanas y objetos que puedan caer\n3️⃣ NO corras mientras tiembla\n4️⃣ Si estás en auto, detente lejos de puentes\n\n**DESPUÉS:**\n5️⃣ Sal con cuidado, revisa grietas\n6️⃣ Llama al **911** si hay heridos\n\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+            deslizamiento: `⛰️ **DESLIZAMIENTO — Evacúa INMEDIATAMENTE**\n\n1️⃣ MUÉVETE a terreno alto y plano YA\n2️⃣ Aléjate de ríos, quebradas y laderas\n3️⃣ Si escuchas un rugido, corre sin mirar atrás\n4️⃣ NO intentes recuperar pertenencias\n5️⃣ Llama al **911** desde lugar seguro\n\n📞 **911** | Bomberos **119**\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+            herido: `🏥 **PERSONA HERIDA — Llama al 911 AHORA**\n\n1️⃣ Llama al **911** — indica ubicación exacta\n2️⃣ No muevas a la persona si sospechas lesión de columna\n3️⃣ Si sangra: presiona con tela limpia SIN soltar\n4️⃣ Si no respira: RCP si sabes hacerlo\n5️⃣ Mantén a la persona abrigada y despierta\n\n📞 **911** Emergencias | **165** Orientación familiar\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+            emergencia_general: `🚨 **EMERGENCIA — Llama al 911 AHORA**\n\nNúmeros Bolivia:\n📞 **911** → Emergencias generales\n🔥 **119** → Bomberos\n👮 **110** → Policía\n🛡️ **800-14-0081** → Defensa Civil (gratis)\n\n**Mantén la calma. Proporciona tu ubicación exacta. Sigue las instrucciones.**\n\n🆘 Si no puedes llamar, usa el botón rojo de la app`,
+            default: `⚠️ Sin conexión a internet. En emergencia:\n📞 **911** | 🔥 **119** | 👮 **110** | 🛡️ **800-14-0081**\n\nEstoy funcionando en modo básico. Cuando se restaure la conexión, podré ayudarte mejor.`
+        };
+
+        function getFallbackOffline(texto) {
+            const n = normalize(texto);
+            if (/incendi|fueg|humo|quema|llamas/.test(n)) return RESPUESTAS_OFFLINE.incendio;
+            if (/inund|sube.*agua|sube.*rio|me ahog|agua.*subio/.test(n)) return RESPUESTAS_OFFLINE.inundacion;
+            if (/sism|temblo|terremot|se mueve|temblando/.test(n)) return RESPUESTAS_OFFLINE.sismo;
+            if (/desliz|derrumb|huayco|ladera|se hund|la tierra cae/.test(n)) return RESPUESTAS_OFFLINE.deslizamiento;
+            if (/herido|sangr|no respira|desmay|lastimado|accidente/.test(n)) return RESPUESTAS_OFFLINE.herido;
+            if (/ayud|emerg|peligr|auxili|socorr|911/.test(n)) return RESPUESTAS_OFFLINE.emergencia_general;
+            return RESPUESTAS_OFFLINE.default;
+        }
+
+        function renderMD(text) {
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        }
+
+        function addChatMessage(text, sender, streaming = false) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `chat-message ${sender}`;
+            const time = new Date().toLocaleTimeString('es-BO', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            const msgId = 'msg_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+            div.innerHTML = `<div class="msg-avatar">${sender === 'bot' ? '🤖' : '👤'}</div><div class="msg-content"><div class="msg-text" id="${msgId}">${streaming ? '<span class="cursor-blink">▋</span>' : renderMD(text)}</div><div class="msg-time">${time}</div></div>`;
+            messagesDiv.appendChild(div);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            if (sender === 'user') chatHistory.push({
+                role: 'user',
+                content: text
+            });
+            return msgId;
+        }
+
+        function streamText(msgId, fullText, speed = 14) {
+            return new Promise(resolve => {
+                const el = document.getElementById(msgId);
+                if (!el) {
+                    resolve();
+                    return;
+                }
+                const chars = fullText.split('');
+                let i = 0,
+                    displayed = '';
+                const tick = setInterval(() => {
+                    const chunk = Math.min(3, chars.length - i);
+                    displayed += chars.slice(i, i + chunk).join('');
+                    i += chunk;
+                    el.innerHTML = renderMD(displayed) + (i < chars.length ? '<span class="cursor-blink">▋</span>' : '');
+                    document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+                    if (i >= chars.length) {
+                        clearInterval(tick);
+                        el.innerHTML = renderMD(fullText);
+                        resolve();
+                    }
+                }, speed);
+            });
+        }
+
+        function showEmergencyBanner(nivel) {
+            const msgs = document.getElementById('chatMessages');
+            const old = document.getElementById('emergencyBanner');
+            if (old) old.remove();
+            const banner = document.createElement('div');
+            banner.id = 'emergencyBanner';
+            banner.style.cssText = `background: linear-gradient(135deg,${nivel==='ALTA'?'#FF6B6B,#C0392B':'#FFB347,#E67E22'});color:white;padding:10px 14px;border-radius:12px;margin:4px 0;text-align:center;font-weight:700;font-size:0.82rem;animation:badgePulse 1s infinite;width:100%;`;
+            banner.innerHTML = nivel === 'ALTA' ? `🚨 ALERTA DETECTADA — Llamando: <a href="tel:911" style="color:white;font-weight:900;">911</a> | <a href="tel:119" style="color:white;font-weight:900;">119</a>` : `⚠️ Situación de riesgo detectada — Ten a mano: <strong>911</strong>`;
+            msgs.appendChild(banner);
+            msgs.scrollTop = msgs.scrollHeight;
+            setTimeout(() => {
+                if (banner.parentNode) banner.remove();
+            }, 12000);
+        }
+
+        function showTyping() {
+            if (isBotTyping) return;
+            isBotTyping = true;
+            const msgs = document.getElementById('chatMessages');
+            const ind = document.createElement('div');
+            ind.className = 'chat-message bot';
+            ind.id = 'typingIndicator';
+            ind.innerHTML = `<div class="msg-avatar">🤖</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+            msgs.appendChild(ind);
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+
+        function hideTyping() {
+            const ind = document.getElementById('typingIndicator');
+            if (ind) ind.remove();
+            isBotTyping = false;
+        }
+
+        async function callClaude(userMessage, nivel) {
+            // Preparamos el mensaje con el contexto de emergencia si es necesario
+            const extraContext = nivel === 'ALTA' ?
+                '🔴 MODO EMERGENCIA: Responde en máximo 5 líneas, número 911 en la primera línea, pasos simples y directos.' :
+                '';
+
+            const payload = {
+                message: extraContext + ' ' + userMessage
+            };
+
+            // URL del webhook de n8n (ajusta si cambiaste puerto o ruta)
+            const res = await fetch('http://localhost:5678/webhook/chat-gemini', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) {
+                // Si falla, lanzamos error para que entre al modo offline
+                throw new Error(`HTTP ${res.status}`);
+            }
+
+            const data = await res.json();
+
+            // Extraemos la respuesta de Gemini (formato: candidates[0].content.parts[0].text)
+            const text = data.response || 'Lo siento, no pude procesar tu mensaje.';
+
+            // Guardamos en el historial
+            chatHistory.push({
+                role: 'assistant',
+                content: text
+            });
+
+            return text;
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const raw = input.value.trim();
+            if (!raw || isBotTyping) return;
+            input.value = '';
+            input.disabled = true;
+            const nivel = detectarNivelUrgencia(raw);
+            if (nivel === 'ALTA' || nivel === 'MEDIA') showEmergencyBanner(nivel);
+            addChatMessage(raw, 'user');
+            showTyping();
+            try {
+                if (!navigator.onLine) throw new Error('offline');
+                const response = await callClaude(raw, nivel);
+                hideTyping();
+                const msgId = addChatMessage('', 'bot', true);
+                await streamText(msgId, response, nivel === 'ALTA' ? 8 : 14);
+            } catch (err) {
+                hideTyping();
+                const fallback = getFallbackOffline(raw);
+                const msgId = addChatMessage('', 'bot', true);
+                await streamText(msgId, fallback, 10);
+                if (!navigator.onLine) {
+                    setTimeout(() => {
+                        addChatMessage('📡 Sin conexión. Las respuestas en modo offline cubren los protocolos de emergencia esenciales. Cuando tengas señal, responderé con IA completa.', 'bot');
+                    }, 500);
+                }
+            } finally {
+                input.disabled = false;
+                input.focus();
+            }
+        }
+
+        function useChatSuggestion(text) {
+            document.getElementById('chatInput').value = text;
+            sendChatMessage();
+        }
+
+        document.getElementById('chatInput').addEventListener('input', function() {
+            const nivel = detectarNivelUrgencia(this.value);
+            const wrapper = this.closest('.chat-input-wrapper');
+            if (nivel === 'ALTA') {
+                this.style.borderColor = 'rgba(255,107,107,0.8)';
+                wrapper.style.boxShadow = '0 0 0 3px rgba(255,107,107,0.25)';
+            } else if (nivel === 'MEDIA') {
+                this.style.borderColor = 'rgba(255,179,71,0.8)';
+                wrapper.style.boxShadow = '0 0 0 3px rgba(255,179,71,0.2)';
+            } else {
+                this.style.borderColor = '';
+                wrapper.style.boxShadow = '';
+            }
+        });
+        document.getElementById('chatInput').addEventListener('keypress', e => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendChatMessage();
+            }
         });
 
-        if (!res.ok) {
-            const err = await res.json().catch(() => ({}));
-            throw new Error(err.error?.message || `HTTP ${res.status}`);
-        }
+        window.addEventListener('online', () => {
+            addChatMessage('✅ **Conexión restaurada.** Ahora opero con IA completa. ¿En qué puedo ayudarte?', 'bot');
+        });
+        window.addEventListener('offline', () => {
+            addChatMessage('📡 **Sin conexión a internet.** Cambio a modo offline con protocolos de emergencia locales. Los números de emergencia siguen disponibles: **911** | **119** | **110**', 'bot');
+        });
 
-        const data = await res.json();
-        const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('') || '';
-        chatHistory.push({role: 'assistant', content: text});
-        if (chatHistory.length > 30) chatHistory.splice(0, 2);
-        return text;
-    }
+        (function() {
+            const reloj = document.getElementById('reloj');
+            if (reloj) reloj.textContent = new Date().toLocaleTimeString(undefined, {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+        })();
 
-    // ── Función principal de envío ──
-    async function sendChatMessage() {
-        const input = document.getElementById('chatInput');
-        const raw = input.value.trim();
-        if (!raw || isBotTyping) return;
+        setInterval(() => {
+            const msgs = document.getElementById('chatMessages');
+            if (msgs && msgs.children.length > 50) {
+                while (msgs.children.length > 35) msgs.removeChild(msgs.children[1]);
+            }
+        }, 60000);
 
-        input.value = '';
-        input.disabled = true;
-        input.style.borderColor = '';
-        input.style.boxShadow = '';
-
-        const nivel = detectarNivelUrgencia(raw);
-        if (nivel === 'ALTA' || nivel === 'MEDIA') showEmergencyBanner(nivel);
-
-        addChatMessage(raw, 'user');
-        showTyping();
-
-        try {
-            if (!navigator.onLine) throw new Error('offline');
-            const response = await callClaude(raw, nivel);
-            hideTyping();
-            const msgId = addChatMessage('', 'bot', true);
-            await streamText(msgId, response, nivel === 'ALTA' ? 8 : 14);
-        } catch (err) {
-            hideTyping();
-            console.warn('ASIBOT fallback:', err.message);
-            const fallback = getFallbackOffline(raw);
-            const msgId = addChatMessage('', 'bot', true);
-            await streamText(msgId, fallback, 10);
-            if (!navigator.onLine) {
-                setTimeout(() => {
-                    addChatMessage('📡 Sin conexión. Las respuestas en modo offline cubren los protocolos de emergencia esenciales. Cuando tengas señal, responderé con IA completa.', 'bot');
-                }, 500);
-            }
-        } finally {
-            input.disabled = false;
-            input.focus();
-        }
-    }
-
-    function useChatSuggestion(text) {
-        document.getElementById('chatInput').value = text;
-        sendChatMessage();
-    }
-
-    // ── Detector de urgencia en tiempo real en el input ──
-    document.getElementById('chatInput').addEventListener('input', function() {
-        const nivel = detectarNivelUrgencia(this.value);
-        const wrapper = this.closest('.chat-input-wrapper');
-        if (nivel === 'ALTA') {
-            this.style.borderColor = 'rgba(255,107,107,0.8)';
-            wrapper.style.boxShadow = '0 0 0 3px rgba(255,107,107,0.25)';
-        } else if (nivel === 'MEDIA') {
-            this.style.borderColor = 'rgba(255,179,71,0.8)';
-            wrapper.style.boxShadow = '0 0 0 3px rgba(255,179,71,0.2)';
-        } else {
-            this.style.borderColor = '';
-            wrapper.style.boxShadow = '';
-        }
-    });
-
-    document.getElementById('chatInput').addEventListener('keypress', e => {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
-    });
-
-    // ── Monitor de conectividad ──
-    window.addEventListener('online',  () => {
-        isOnline = true;
-        addChatMessage('✅ **Conexión restaurada.** Ahora opero con IA completa. ¿En qué puedo ayudarte?', 'bot');
-    });
-    window.addEventListener('offline', () => {
-        isOnline = false;
-        addChatMessage('📡 **Sin conexión a internet.** Cambio a modo offline con protocolos de emergencia locales. Los números de emergencia siguen disponibles: **911** | **119** | **110**', 'bot');
-    });
-
-    // ── Reloj inicial ──
-    (function() {
-        const reloj = document.getElementById('reloj');
-        if (reloj) reloj.textContent = new Date().toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit',hour12:true});
-    })();
-
-    // ── Limpieza de mensajes antiguos ──
-    setInterval(() => {
-        const msgs = document.getElementById('chatMessages');
-        if (msgs && msgs.children.length > 50) {
-            while (msgs.children.length > 35) msgs.removeChild(msgs.children[1]);
-        }
-    }, 60000);
-
-    // ── CSS cursor parpadeante para streaming ──
-    const style = document.createElement('style');
-    style.textContent = `
-        .cursor-blink { animation: cursorBlink 0.7s step-end infinite; display: inline-block; }
-        @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
-    `;
-    document.head.appendChild(style);
-    </script>
-
-    <script>
-        class SATBolivia {
-            constructor() {
-                this.stats = { desastres: 156, denuncias: 42, comunidades: 327, alertasActivas: 8, respuestas: 189, cobertura: 87, tiempoRespuesta: 45 };
-                this.user = null; this.location = null; this.notifications = [];
-                this.emergencyCooldown = false; this.isInitialized = false;
-                this.init();
-            }
-            init() {
-                if (this.isInitialized) return;
-                this.loadUser(); this.initNotifications(); this.setupEvents(); this.startAnimations(); this.startRealTimeUpdates();
-                this.isInitialized = true;
-            }
-            loadUser() { const u = localStorage.getItem('sat_user'); if (u) { this.user = JSON.parse(u); this.updateUserUI(); } }
-            updateUserUI() {
-                if (this.user) {
-                    const ul = document.getElementById('userLink'), un = document.getElementById('userName');
-                    if (ul && un) { un.textContent = this.user.name.split(' ')[0]; ul.style.display = 'flex'; }
-                }
-            }
-            initNotifications() {
-                const asked = localStorage.getItem('pushPermissionAsked'), status = localStorage.getItem('pushPermission');
-                if ('Notification' in window) {
-                    if (asked === 'true' && (status === 'granted' || status === 'denied')) return;
-                    if (Notification.permission === 'default') {
-                        localStorage.setItem('pushPermissionAsked', 'true');
-                        setTimeout(() => { const p = document.getElementById('pushPermission'); if (p) p.style.display = 'block'; }, 3000);
-                    }
-                }
-                if ('serviceWorker' in navigator && 'PushManager' in window) this.registerPushNotifications();
-            }
-            async registerPushNotifications() {
-                try { const r = await navigator.serviceWorker.ready; await r.pushManager.getSubscription(); } catch (e) { console.warn('Error push:', e); }
-            }
-            setupEvents() {
-                window.addEventListener('scroll', () => {
-                    const h = document.getElementById('header');
-                    if (window.scrollY > 50) h.classList.add('scrolled'); else h.classList.remove('scrolled');
-                });
-                document.querySelectorAll('a[href^="#"]').forEach(a => {
-                    a.addEventListener('click', e => {
-                        e.preventDefault();
-                        const t = a.getAttribute('href');
-                        if (t === '#') return;
-                        const el = document.querySelector(t);
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    });
-                });
-                document.getElementById('emergencyButton').addEventListener('click', e => {
-                    if (this.emergencyCooldown) {
-                        e.preventDefault();
-                        this.showNotification('⏳ Espera un momento', 'Debes esperar antes de enviar otra alerta de emergencia.', 'warning');
-                        return;
-                    }
-                    this.emergencyCooldown = true;
-                    setTimeout(() => { this.emergencyCooldown = false; }, 30000);
-                });
-            }
-            startAnimations() {
-                this.animateStat('statDesastres', this.stats.desastres, 2000);
-                this.animateStat('statComunidades', this.stats.comunidades, 2000);
-                this.animateStat('statTiempoRespuesta', this.stats.tiempoRespuesta + 's', 2000);
-                this.animateStat('statCobertura', this.stats.cobertura + '%', 2000);
-                this.animateStat('totalDesastres', this.stats.desastres, 2500);
-                this.animateStat('totalDenuncias', this.stats.denuncias, 2500);
-                this.animateStat('totalComunidades', this.stats.comunidades, 2500);
-                this.animateStat('alertasActivas', this.stats.alertasActivas, 2500);
-                this.animateStat('respuestasEjecutadas', this.stats.respuestas, 2500);
-            }
-            animateStat(id, target, duration = 1500) {
-                const el = document.getElementById(id);
-                if (!el) return;
-                if (typeof target === 'string') { el.textContent = target; return; }
-                const start = parseInt(el.textContent) || 0;
-                const inc = (target - start) / (duration / 16);
-                let val = start, t0 = null;
-                const animate = ts => {
-                    if (!t0) t0 = ts;
-                    if (ts - t0 < duration) { val += inc; el.textContent = Math.floor(val); requestAnimationFrame(animate); }
-                    else {
-                        el.textContent = target;
-                        el.style.transform = 'scale(1.1)'; el.style.color = 'var(--success)';
-                        setTimeout(() => { el.style.transform = ''; el.style.color = ''; }, 300);
-                    }
-                };
-                requestAnimationFrame(animate);
-            }
-            startRealTimeUpdates() {
-                setInterval(() => {
-                    this.stats.desastres += Math.floor(Math.random() * 2);
-                    this.stats.denuncias += Math.floor(Math.random() * 3);
-                    this.stats.respuestas = this.stats.desastres - Math.floor(Math.random() * 15);
-                    this.stats.alertasActivas = Math.min(12, Math.floor(Math.random() * 4) + 3);
-                    this.stats.tiempoRespuesta = Math.max(30, Math.min(60, Math.floor(40 + Math.random() * 20)));
-                    this.animateStat('totalDesastres', this.stats.desastres, 500);
-                    this.animateStat('totalDenuncias', this.stats.denuncias, 500);
-                    this.animateStat('respuestasEjecutadas', this.stats.respuestas, 500);
-                    this.animateStat('alertasActivas', this.stats.alertasActivas, 500);
-                    this.animateStat('statTiempoRespuesta', this.stats.tiempoRespuesta + 's', 500);
-                    if (Math.random() > 0.8) {
-                        const n = [
-                            ['🌡️ Monitoreo Climático','Actualización de datos meteorológicos completada.','info'],
-                            ['📡 Sensores Activos','98% de los sensores reportando correctamente.','success'],
-                            ['⚠️ Alerta Preventiva','Vigilancia en zonas de riesgo por lluvias.','warning'],
-                            ['✅ Sistema Estable','Todos los servicios funcionando normalmente.','success']
-                        ][Math.floor(Math.random() * 4)];
-                        this.showNotification(n[0], n[1], n[2]);
-                    }
-                }, 30000);
-            }
-            showNotification(title, message, type = 'info', duration = 5000) {
-                const container = document.getElementById('notificationContainer');
-                if (!container) return;
-                const id = 'notif_' + Date.now();
-                const n = document.createElement('div');
-                n.className = `notification ${type}`; n.id = id;
-                const icons = { info: 'ℹ️', success: '✅', warning: '⚠️', danger: '🚨' };
-                n.innerHTML = `<div class="notification-header"><div class="notification-title"><span class="notification-icon">${icons[type]||'📢'}</span>${title}</div><button class="notification-close" onclick="SAT.removeNotification('${id}')">✕</button></div><div class="notification-body">${message}</div><div class="notification-progress" style="animation-duration:${duration}ms"></div>`;
-                container.appendChild(n);
-                setTimeout(() => this.removeNotification(id), duration);
-                this.notifications.push({ id });
-                if (this.notifications.length > 5) { const old = this.notifications.shift(); this.removeNotification(old.id); }
-            }
-            removeNotification(id) {
-                const n = document.getElementById(id); if (!n) return;
-                n.classList.add('hiding');
-                setTimeout(() => { if (n.parentNode) n.parentNode.removeChild(n); this.notifications = this.notifications.filter(x => x.id !== id); }, 300);
-            }
-            async showEmergencyModal() {
-                const modal = document.getElementById('emergencyModal');
-                const status = document.getElementById('locationStatus');
-                const btn = document.getElementById('sendEmergencyBtn');
-                const locPrev = document.getElementById('locationPreview');
-                const userPrev = document.getElementById('userPreview');
-                if (!modal) return;
-                modal.style.display = 'flex'; btn.disabled = true;
-                btn.innerHTML = '<span class="loading"></span> OBTENIENDO UBICACIÓN...';
-                userPrev.textContent = this.user?.name || 'Usuario SAT Bolivia';
-                try {
-                    const pos = await this.getLocation();
-                    this.location = { lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy, timestamp: new Date().toISOString() };
-                    locPrev.textContent = `${this.location.lat.toFixed(6)}, ${this.location.lon.toFixed(6)}`;
-                    status.innerHTML = `<p style="color:var(--success);"><i class="fas fa-check-circle"></i> Ubicación confirmada<br><small>Precisión: ±${Math.round(this.location.accuracy)} metros</small></p>`;
-                    btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> CONFIRMAR Y ENVIAR ALERTA';
-                } catch (e) {
-                    status.innerHTML = `<p style="color:var(--warning);"><i class="fas fa-exclamation-triangle"></i> Ubicación aproximada<br><small>Se usará ubicación por red. Activa GPS para mayor precisión.</small></p>`;
-                    locPrev.textContent = 'Ubicación aproximada por IP';
-                    this.location = { lat: -16.290154, lon: -63.588653, accuracy: 50000, source: 'ip_estimation' };
-                    btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> ENVIAR CON UBICACIÓN APROXIMADA';
-                }
-            }
-            getLocation() {
-                return new Promise((res, rej) => {
-                    if (!navigator.geolocation) { rej(new Error('Geolocalización no soportada')); return; }
-                    navigator.geolocation.getCurrentPosition(res, rej, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
-                });
-            }
-            async sendEmergency() {
-                const btn = document.getElementById('sendEmergencyBtn');
-                const orig = btn.innerHTML;
-                btn.disabled = true; btn.innerHTML = '<span class="loading"></span> ENVIANDO ALERTA...';
-                try {
-                    const id = `SAT-${Date.now().toString().slice(-6)}-${Math.random().toString(36).substr(2,3).toUpperCase()}`;
-                    this.stats.denuncias++; this.stats.alertasActivas++;
-                    this.animateStat('totalDenuncias', this.stats.denuncias, 500);
-                    this.animateStat('alertasActivas', this.stats.alertasActivas, 500);
-                    try {
-                        const reports = JSON.parse(localStorage.getItem('sat_emergency_reports') || '[]');
-                        reports.unshift({ id, location: this.location, savedAt: new Date().toISOString() });
-                        if (reports.length > 50) reports.pop();
-                        localStorage.setItem('sat_emergency_reports', JSON.stringify(reports));
-                    } catch (e) {}
-                    const modal = document.getElementById('confirmationModal');
-                    document.getElementById('reportNumber').textContent = id;
-                    document.getElementById('reportTime').textContent = new Date().toLocaleTimeString('es-BO');
-                    if (modal) { modal.style.display = 'flex'; setTimeout(() => this.closeConfirmationModal(), 10000); }
-                    this.showNotification('🚨 ALERTA ENVIADA', `Emergencia reportada con código ${id}. Servicios notificados.`, 'danger', 8000);
-                    await new Promise(r => setTimeout(r, 1500));
-                    setTimeout(() => { this.closeEmergencyModal(); btn.innerHTML = orig; btn.disabled = false; }, 2000);
-                } catch (e) {
-                    this.showNotification('❌ ERROR', 'No se pudo enviar la alerta completa. Por favor, llama al 911 directamente.', 'danger');
-                    btn.innerHTML = orig; btn.disabled = false;
-                }
-            }
-            closeEmergencyModal() { const m = document.getElementById('emergencyModal'); if (m) m.style.display = 'none'; this.location = null; }
-            closeConfirmationModal() { const m = document.getElementById('confirmationModal'); if (m) m.style.display = 'none'; }
-            navigateTo(url) { window.location.href = url; }
-            static get instance() { if (!window._satInstance) window._satInstance = new SATBolivia(); return window._satInstance; }
-        }
-
-        class NotificationSystem {
-            static async requestPermission() {
-                try {
-                    document.getElementById('pushPermission').style.display = 'none';
-                    const perm = await Notification.requestPermission();
-                    localStorage.setItem('pushPermission', perm);
-                    localStorage.setItem('pushPermissionAsked', 'true');
-                    if (perm === 'granted') SAT.showNotification('🔔 Notificaciones Activadas', 'Ahora recibirás alertas importantes sobre desastres naturales.', 'success');
-                    else if (perm === 'denied') SAT.showNotification('⚠️ Notificaciones Desactivadas', 'No recibirás alertas importantes. Puedes activarlas en Configuración del navegador.', 'warning');
-                } catch (e) { localStorage.setItem('pushPermissionAsked', 'true'); }
-            }
-            static hidePermission() {
-                document.getElementById('pushPermission').style.display = 'none';
-                localStorage.setItem('pushPermissionAsked', 'true');
-                localStorage.setItem('pushPermission', 'dismissed');
-                SAT.showNotification('ℹ️ Recordatorio', 'Puedes activar las notificaciones más tarde en Configuración.', 'info');
-            }
-            static checkNotificationStatus() {
-                return { asked: localStorage.getItem('pushPermissionAsked') === 'true', savedStatus: localStorage.getItem('pushPermission'), browserStatus: Notification.permission };
-            }
-            static resetPermissions() {
-                localStorage.removeItem('pushPermission'); localStorage.removeItem('pushPermissionAsked');
-                SAT.showNotification('🔄 Permisos Reseteados', 'Los permisos de notificación han sido reiniciados.', 'info');
-            }
-        }
-
-        window.SAT = SATBolivia.instance;
-
+        // Inicializar SAT
         document.addEventListener('DOMContentLoaded', () => {
             SAT.init();
             window.showEmergencyModal = () => SAT.showEmergencyModal();
@@ -1332,4 +2357,5 @@ REGLA DE ORO: Una respuesta imperfecta a tiempo vale más que una respuesta perf
         window.addEventListener('offline', () => SAT.showNotification('⚠️ Sin Conexión', 'Estás trabajando en modo offline. Algunas funciones pueden estar limitadas.', 'warning'));
     </script>
 </body>
+
 </html>
