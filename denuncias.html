@@ -1,1142 +1,1085 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Denuncias - Alerta Bolivia</title>
-    <meta name="theme-color" content="#E6F7FF">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="description" content="Sistema de Denuncias del Alerta Bolivia - Reporta incidentes y emergencias">
-    <link rel="icon" type="image/png" href="logo-192x192.png">
-    <link rel="apple-touch-icon" href="logo-192x192.png">
-    <link rel="manifest" href="./manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Denuncias - Alerta Bolivia</title>
+  <meta name="theme-color" content="#E6F7FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Sistema de Denuncias del Alerta Bolivia - Reporta incidentes y emergencias" />
+  <link rel="icon" type="image/png" href="logo-192x192.png" />
+  <link rel="apple-touch-icon" href="logo-192x192.png" />
+  <link rel="manifest" href="./manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-    <!-- CSS COMÚN -->
-    <link rel="stylesheet" href="common.css">
+  <!-- CSS COMÚN (debe estar en la raíz) -->
+  <link rel="stylesheet" href="common.css" />
 
-    <!-- CSS ESPECÍFICO DE denuncias.html -->
-    <style>
-        .main {
-            padding: 8rem 2rem 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .page-title {
-            text-align: center;
-            color: var(--dark);
-            margin-bottom: 1rem;
-            font-size: 2.5rem;
-            font-weight: 800;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .page-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            margin: 1rem auto;
-            border-radius: 2px;
-            box-shadow: var(--neon-glow);
-        }
-        
-        .last-update {
-            text-align: center;
-            color: var(--gray);
-            font-size: 0.95rem;
-            margin-bottom: 3rem;
-        }
-        
-        .last-update .highlight {
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        .stat-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            text-align: center;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow-lg);
-            background: white;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-            display: block;
-            line-height: 1;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-        
-        .form-container {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius-lg);
-            padding: 2.5rem;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 3rem;
-        }
-        
-        .form-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1rem;
-        }
-        
-        .form-input,
-        .form-select,
-        .form-textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius-sm);
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--dark);
-            transition: var(--transition-smooth);
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .form-input:focus,
-        .form-select:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: var(--neon-glow);
-            background: white;
-        }
-        
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-            line-height: 1.5;
-        }
-        
-        .coordinates-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        
-        .location-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .location-accuracy {
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-top: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .accuracy-high {
-            color: var(--success);
-        }
-        
-        .accuracy-medium {
-            color: var(--warning);
-        }
-        
-        .accuracy-low {
-            color: var(--danger);
-        }
-        
-        .reports-section {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius-lg);
-            padding: 2.5rem;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            margin-bottom: 2rem;
-        }
-        
-        .reports-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(90deg, var(--danger), var(--accent-dark));
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .section-title {
-            color: var(--dark);
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .filter-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .filter-select {
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius-sm);
-            background: rgba(255, 255, 255, 0.9);
-            font-size: 0.9rem;
-            color: var(--dark);
-        }
-        
-        .reports-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .report-item {
-            background: rgba(255, 255, 255, 0.5);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: var(--border-radius);
-            border-left: 4px solid var(--primary);
-            transition: var(--transition-smooth);
-            border: 1px solid var(--glass-border);
-        }
-        
-        .report-item:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary);
-            background: white;
-        }
-        
-        .report-item.emergency {
-            border-left-color: var(--danger);
-            background: rgba(255, 107, 107, 0.05);
-        }
-        
-        .report-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .report-type {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        
-        .report-type.emergency {
-            background: linear-gradient(135deg, var(--danger), var(--accent-dark));
-        }
-        
-        .report-location {
-            color: var(--gray);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        
-        .report-description {
-            color: var(--dark-light);
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
-        }
-        
-        .report-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-top: 0.5rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .report-priority {
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        
-        .priority-high {
-            background: rgba(255, 107, 107, 0.1);
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-        
-        .priority-medium {
-            background: rgba(255, 179, 71, 0.1);
-            color: var(--warning);
-            border: 1px solid var(--warning);
-        }
-        
-        .priority-low {
-            background: rgba(76, 217, 100, 0.1);
-            color: var(--success);
-            border: 1px solid var(--success);
-        }
-        
-        .empty-state {
-            text-align: center;
-            color: var(--gray);
-            padding: 3rem;
-            font-style: italic;
-            grid-column: 1 / -1;
-        }
-        
-        .map-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(5, 21, 37, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 3000;
-            padding: 20px;
-        }
-        
-        .map-modal-content {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--border-radius-lg);
-            border: 1px solid var(--glass-border);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .map-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        
-        .map-container {
-            flex: 1;
-            min-height: 0;
-            position: relative;
-        }
-        
-        #map {
-            width: 100%;
-            height: 100%;
-            border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
-        }
-        
-        .map-footer {
-            padding: 1rem 1.5rem;
-            border-top: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.5);
-            flex-shrink: 0;
-        }
-        
-        .location-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .location-text {
-            flex: 1;
-        }
-        
-        #selectedLocation {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(5, 21, 37, 0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 4000;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.2);
-            border-top: 5px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        
-        .loading-overlay p {
-            color: var(--light);
-            font-size: 1.1rem;
-        }
-        
-        .loading-overlay .sub {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        .leaflet-container {
-            background: rgba(255, 255, 255, 0.9) !important;
-        }
-        
-        .leaflet-popup-content-wrapper {
-            background: rgba(255, 255, 255, 0.95) !important;
-            color: var(--dark) !important;
-            border: 1px solid var(--glass-border) !important;
-            border-radius: var(--border-radius-sm) !important;
-        }
-        
-        .leaflet-popup-tip {
-            background: rgba(255, 255, 255, 0.95) !important;
-        }
-        
-        .alert-banner {
-            background: rgba(255, 179, 71, 0.1);
-            border: 1px solid rgba(255, 179, 71, 0.3);
-            color: var(--warning-dark);
-            padding: 1.25rem 2rem;
-            margin: 2rem auto 3rem;
-            border-radius: var(--border-radius-sm);
-            max-width: 1200px;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.8);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .alert-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--warning);
-        }
-        
-        .alert-banner.hidden {
-            display: none;
-        }
-        
-        .confirm-btn {
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: var(--border-radius-sm);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-        
-        .confirm-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        @media (max-width: 768px) {
-            .main {
-                padding: 6rem 1rem 2rem;
-            }
-            .form-container,
-            .reports-section {
-                padding: 2rem 1.5rem;
-            }
-            .coordinates-group {
-                grid-template-columns: 1fr;
-            }
-            .section-header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .filter-controls {
-                justify-content: space-between;
-            }
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-            .location-actions {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .filter-controls {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            .report-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
+  <!-- CSS específico de denuncias -->
+  <style>
+    .main {
+      padding: 8rem 2rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .last-update {
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 3rem;
+    }
+    .last-update .highlight {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      text-align: center;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+      background: white;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      display: block;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    .form-container {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 1rem;
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-sm);
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--dark);
+      transition: var(--transition-smooth);
+      font-family: 'Inter', sans-serif;
+    }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: var(--neon-glow);
+      background: white;
+    }
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    .coordinates-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .location-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .location-accuracy {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .accuracy-high {
+      color: var(--success);
+    }
+    .accuracy-medium {
+      color: var(--warning);
+    }
+    .accuracy-low {
+      color: var(--danger);
+    }
+    .reports-section {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .reports-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--danger), var(--accent-dark));
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .section-title {
+      color: var(--dark);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    .filter-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-select {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-sm);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+    .reports-list {
+      list-style: none;
+      padding: 0;
+    }
+    .report-item {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--primary);
+      transition: var(--transition-smooth);
+      border: 1px solid var(--glass-border);
+    }
+    .report-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+      background: white;
+    }
+    .report-item.emergency {
+      border-left-color: var(--danger);
+      background: rgba(255, 107, 107, 0.05);
+    }
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .report-type {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .report-type.emergency {
+      background: linear-gradient(135deg, var(--danger), var(--accent-dark));
+    }
+    .report-location {
+      color: var(--gray);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .report-description {
+      color: var(--dark-light);
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+    .report-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .report-priority {
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .priority-high {
+      background: rgba(255, 107, 107, 0.1);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+    .priority-medium {
+      background: rgba(255, 179, 71, 0.1);
+      color: var(--warning);
+      border: 1px solid var(--warning);
+    }
+    .priority-low {
+      background: rgba(76, 217, 100, 0.1);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+    .empty-state {
+      text-align: center;
+      color: var(--gray);
+      padding: 3rem;
+      font-style: italic;
+      grid-column: 1 / -1;
+    }
+    .map-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 21, 37, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 3000;
+      padding: 20px;
+    }
+    .map-modal-content {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: var(--border-radius-lg);
+      border: 1px solid var(--glass-border);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .map-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .map-container {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+      border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+    }
+    .map-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.5);
+      flex-shrink: 0;
+    }
+    .location-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .location-text {
+      flex: 1;
+    }
+    #selectedLocation {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 21, 37, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 4000;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      border-top: 5px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    .loading-overlay p {
+      color: var(--light);
+      font-size: 1.1rem;
+    }
+    .loading-overlay .sub {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    .leaflet-container {
+      background: rgba(255, 255, 255, 0.9) !important;
+    }
+    .leaflet-popup-content-wrapper {
+      background: rgba(255, 255, 255, 0.95) !important;
+      color: var(--dark) !important;
+      border: 1px solid var(--glass-border) !important;
+      border-radius: var(--border-radius-sm) !important;
+    }
+    .leaflet-popup-tip {
+      background: rgba(255, 255, 255, 0.95) !important;
+    }
+    .confirm-btn {
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: var(--border-radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .confirm-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    @media (max-width: 768px) {
+      .main {
+        padding: 6rem 1rem 2rem;
+      }
+      .form-container,
+      .reports-section {
+        padding: 2rem 1.5rem;
+      }
+      .coordinates-group {
+        grid-template-columns: 1fr;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-controls {
+        justify-content: space-between;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      .location-actions {
+        flex-direction: column;
+      }
+    }
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .filter-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .report-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-    <header class="header" id="header">
-        <div class="logo-container" onclick="window.location.href='index.html'">
-            <div class="logo-img"><img src="logo.jpg" alt="Alerta Bolivia"></div>
-            <div class="logo-text">
-                <div class="logo-title">Alerta Bolivia</div>
-                <div class="logo-subtitle">Sistema de Denuncias</div>
-            </div>
-        </div>
-        <nav class="nav-menu">
-            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
-            <a href="educacion.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Educación</a>
-            <a href="denuncias.html" class="nav-link active"><i class="fas fa-exclamation-triangle"></i> Denuncias</a>
-            <a href="mapa.html" class="nav-link"><i class="fas fa-map-marked-alt"></i> Mapa</a>
-            <a href="contactos.html" class="nav-link"><i class="fas fa-phone-alt"></i> Contactos</a>
-        </nav>
-    </header>
-
-    <!-- NOTIFICACIONES -->
-    <div class="notification-toast" id="notificationToast">
-        <div class="notification-title" id="toastTitle">Reporte Enviado</div>
-        <div class="notification-message" id="toastMessage">Tu reporte ha sido registrado correctamente</div>
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="logo-container" onclick="window.location.href='index.html'">
+      <div class="logo-img"><img src="logo.jpg" alt="Alerta Bolivia" /></div>
+      <div class="logo-text">
+        <div class="logo-title">Alerta Bolivia</div>
+        <div class="logo-subtitle">Sistema de Denuncias</div>
+      </div>
     </div>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+      <a href="educacion.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Educación</a>
+      <a href="denuncias.html" class="nav-link active"><i class="fas fa-exclamation-triangle"></i> Denuncias</a>
+      <a href="mapa.html" class="nav-link"><i class="fas fa-map-marked-alt"></i> Mapa</a>
+      <a href="contactos.html" class="nav-link"><i class="fas fa-phone-alt"></i> Contactos</a>
+    </nav>
+  </header>
 
-    <main class="main">
-        <!-- Título animado -->
-        <<section class="animated-title-section">
-    <article class="animated-title-container">
+  <!-- TOAST DE NOTIFICACIONES -->
+  <div class="notification-toast" id="notificationToast">
+    <div class="notification-title" id="toastTitle">Reporte Enviado</div>
+    <div class="notification-message" id="toastMessage">Tu reporte ha sido registrado correctamente</div>
+  </div>
+
+  <main class="main">
+
+    <!-- TÍTULO ANIMADO (USANDO common.css) -->
+    <section class="animated-title-section">
+      <article class="animated-title-container">
         <h1 class="animated-title">
-            <span data-text="Sistema de Denuncias"></span>
-            <span data-text="Sistema de Denuncias"></span>
+          <span data-text="Sistema de Denuncias"></span>
+          <span data-text="Sistema de Denuncias"></span>
         </h1>
-    </article>
-</section>
+      </article>
+    </section>
 
-        <div class="last-update"><i class="fas fa-sync-alt"></i> Última actualización: <span class="highlight" id="lastUpdateTime">Cargando...</span></div>
-
-        <div class="stats-grid">
-            <div class="stat-card"><span class="stat-number" id="total-reports">0</span><span class="stat-label">Reportes Totales</span></div>
-            <div class="stat-card"><span class="stat-number" id="today-reports">0</span><span class="stat-label">Reportes Hoy</span></div>
-            <div class="stat-card"><span class="stat-number" id="emergency-reports">0</span><span class="stat-label">Emergencias</span></div>
-            <div class="stat-card"><span class="stat-number" id="response-time">30min</span><span class="stat-label">Tiempo Respuesta</span></div>
-        </div>
-
-        <!-- FORMULARIO -->
-        <section class="form-container">
-            <form id="report-form">
-                <div class="form-group"><label class="form-label"><i class="fas fa-user"></i> Nombre completo</label><input type="text" name="nombre" class="form-input" placeholder="Ingresa tu nombre completo" required></div>
-                <div class="form-group"><label class="form-label"><i class="fas fa-envelope"></i> Correo electrónico</label><input type="email" name="_replyto" class="form-input" placeholder="tu.correo@ejemplo.com" required></div>
-                <div class="form-group"><label class="form-label"><i class="fas fa-exclamation-circle"></i> Tipo de incidente</label><select name="tipo" class="form-select" required><option value="">Selecciona el tipo de incidente</option><option value="sismo">Sismo / Terremoto</option><option value="inundacion">Inundación</option><option value="deslizamiento">Deslizamiento de tierra</option><option value="incendio">Incendio forestal o urbano</option><option value="emergencia">Emergencia médica</option><option value="otro">Otro tipo de emergencia</option></select></div>
-                <div class="form-group"><label class="form-label"><i class="fas fa-bell"></i> Nivel de urgencia</label><select name="urgencia" class="form-select" required><option value="baja">Baja - Situación controlada</option><option value="media" selected>Media - Requiere atención</option><option value="alta">Alta - Necesita intervención inmediata</option></select></div>
-                <div class="form-group"><label class="form-label"><i class="fas fa-map-marker-alt"></i> Ubicación del incidente</label><input type="text" name="lugar" class="form-input" placeholder="Ej: La Paz - Zona Sur, Calle Principal #123" required id="lugar-input">
-                    <div
-                        class="location-actions"><button type="button" class="btn btn-secondary" onclick="obtenerUbicacionActual()"><i class="fas fa-location-arrow"></i> Obtener ubicación actual</button><button type="button" class="btn btn-secondary" onclick="abrirMapa()"><i class="fas fa-map"></i> Seleccionar en mapa</button></div>
-                <div
-                    class="location-accuracy" id="locationAccuracy" style="display:none;"><span>Precisión: </span><span id="accuracyValue">-</span><span> metros</span></div>
-                    </div>
-                    <div class="form-group coordinates-group">
-                        <div><label class="form-label"><i class="fas fa-globe-americas"></i> Latitud</label><input type="number" step="0.000001" name="lat" class="form-input" placeholder="-16.500000" id="lat-input"></div>
-                        <div><label class="form-label"><i class="fas fa-globe-americas"></i> Longitud</label><input type="number" step="0.000001" name="lon" class="form-input" placeholder="-68.150000" id="lon-input"></div>
-                    </div>
-                    <div class="form-group"><label class="form-label"><i class="fas fa-file-alt"></i> Descripción detallada</label><textarea name="descripcion" class="form-textarea" placeholder="Describe con detalle lo sucedido..." required></textarea></div>
-                    <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-paper-plane"></i> Enviar Reporte</button>
-            </form>
-        </section>
-
-        <!-- LISTA DE REPORTES -->
-        <section class="reports-section">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-history"></i> Reportes Recientes</h2>
-                <div class="filter-controls"><select class="filter-select" id="type-filter"><option value="all">Todos los tipos</option><option value="sismo">Sismos</option><option value="inundacion">Inundaciones</option><option value="deslizamiento">Deslizamientos</option><option value="incendio">Incendios</option><option value="emergencia">Emergencias</option></select>
-                    <select
-                        class="filter-select" id="urgency-filter">
-                        <option value="all">Todas las urgencias</option>
-                        <option value="alta">Alta urgencia</option>
-                        <option value="media">Media urgencia</option>
-                        <option value="baja">Baja urgencia</option>
-                        </select>
-                </div>
-            </div>
-            <ul class="reports-list" id="report-list">
-                <li class="empty-state">No hay reportes guardados localmente</li>
-            </ul>
-        </section>
-    </main>
-
-    <!-- MODAL DE EMERGENCIA -->
-    <div class="modal" id="emergencyModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="document.getElementById('emergencyModal').classList.remove('active')">&times;</button>
-            <div class="modal-header">
-                <h3 class="modal-title">🚨 ALERTA RÁPIDA DE EMERGENCIA</h3>
-                <p class="modal-subtitle">Solo usar en situaciones reales de peligro</p>
-            </div>
-            <div class="modal-body">
-                <p class="modal-text">Esta alerta notificará inmediatamente a los servicios de emergencia. Solo úsala en caso de peligro real.</p>
-                <div class="location-status" id="locationStatus">
-                    <p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p>
-                </div>
-                <div class="emergency-info" style="background:rgba(255,255,255,0.5);padding:1rem;border-radius:var(--border-radius-sm);border-left:4px solid var(--danger);margin:1rem 0;text-align:left;">
-                    <h4 style="color:var(--danger);margin-bottom:0.5rem;"><i class="fas fa-info-circle"></i> Información que se enviará:</h4>
-                    <ul style="color:var(--dark-light);font-size:0.9rem;padding-left:1rem;list-style:disc;">
-                        <li><strong>Tipo:</strong> EMERGENCIA CRÍTICA</li>
-                        <li><strong>Gravedad:</strong> ROJO</li>
-                        <li><strong>Descripción:</strong> "🚨 EMERGENCIA - Se requiere auxilio inmediato"</li>
-                        <li><strong>Ubicación:</strong> <span id="locationPreview">Tu ubicación actual</span></li>
-                        <li><strong>Destinos:</strong> Formspree + WhatsApp con Google Maps</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-danger btn-full" id="sendEmergencyBtn" onclick="enviarAlertaRapida()" disabled><i class="fas fa-paper-plane"></i> ENVIAR ALERTA DE EMERGENCIA</button>
-                <button class="btn btn-secondary btn-full" onclick="closeEmergencyModal()" style="margin-top:1rem;">Cancelar</button>
-            </div>
-        </div>
+    <div class="last-update">
+      <i class="fas fa-sync-alt"></i> Última actualización:
+      <span class="highlight" id="lastUpdateTime">Cargando...</span>
     </div>
 
-    <!-- FORMSPREE OCULTO -->
-    <form id="emergencyFormspreeForm" action="https://formspree.io/f/xblzaejj" method="POST" style="display:none;">
-        <input type="hidden" name="_subject" value="🚨 ALERTA RÁPIDA - Alerta Bolivia">
-        <input type="hidden" name="tipo" value="EMERGENCIA CRÍTICA">
-        <input type="hidden" name="gravedad" value="CRITICA">
-        <input type="hidden" name="descripcion" value="🚨 ALERTA: Situación de emergencia que requiere intervención inmediata de servicios de emergencia">
-        <input type="hidden" name="ubicacion" id="formspreeUbicacion" value="">
-        <input type="hidden" name="timestamp" id="formspreeTimestamp" value="">
-        <input type="hidden" name="fuente" value="Alerta Bolivia Web App">
-    </form>
-
-    <!-- BOTÓN DE EMERGENCIA FLOTANTE -->
-    <button class="emergency-btn"><i class="fas fa-exclamation-triangle"></i></button>
-
-    <!-- MAPA MODAL -->
-    <div class="map-modal" id="mapModal">
-        <div class="map-modal-content">
-            <div class="map-header">
-                <h3 style="margin:0;color:var(--dark);font-size:1.5rem;"><i class="fas fa-map"></i> Seleccionar Ubicación</h3><button type="button" class="btn btn-danger" onclick="cerrarMapa()" style="padding:0.7rem 1.5rem;"><i class="fas fa-times"></i> Cerrar</button></div>
-            <div class="map-container">
-                <div id="map"></div>
-            </div>
-            <div class="map-footer">
-                <div class="location-info">
-                    <div class="location-text">
-                        <div class="form-label">Ubicación seleccionada:</div>
-                        <div id="selectedLocation">Haz clic en el mapa para seleccionar una ubicación</div>
-                    </div><button type="button" class="confirm-btn" onclick="confirmarUbicacion()" id="confirmBtn" disabled><i class="fas fa-check"></i> Confirmar</button></div>
-            </div>
-        </div>
+    <!-- ESTADÍSTICAS -->
+    <div class="stats-grid">
+      <div class="stat-card"><span class="stat-number" id="total-reports">0</span><span class="stat-label">Reportes Totales</span></div>
+      <div class="stat-card"><span class="stat-number" id="today-reports">0</span><span class="stat-label">Reportes Hoy</span></div>
+      <div class="stat-card"><span class="stat-number" id="emergency-reports">0</span><span class="stat-label">Emergencias</span></div>
+      <div class="stat-card"><span class="stat-number" id="response-time">30min</span><span class="stat-label">Tiempo Respuesta</span></div>
     </div>
 
-    <!-- LOADING -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <p>Obteniendo ubicación precisa...</p>
-        <p class="sub">Esto puede tomar unos segundos</p>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>© 2026 SAT Bolivia - Sistema de Alerta Temprana. Todos los derechos reservados.</p>
-            <p>Desarrollado con <i class="fas fa-heart" style="color:var(--danger);"></i> para proteger a Bolivia</p>
+    <!-- FORMULARIO DE DENUNCIA -->
+    <section class="form-container">
+      <form id="report-form">
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-user"></i> Nombre completo</label>
+          <input type="text" name="nombre" class="form-input" placeholder="Ingresa tu nombre completo" required />
         </div>
-    </footer>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-envelope"></i> Correo electrónico</label>
+          <input type="email" name="_replyto" class="form-input" placeholder="tu.correo@ejemplo.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-exclamation-circle"></i> Tipo de incidente</label>
+          <select name="tipo" class="form-select" required>
+            <option value="">Selecciona el tipo de incidente</option>
+            <option value="sismo">Sismo / Terremoto</option>
+            <option value="inundacion">Inundación</option>
+            <option value="deslizamiento">Deslizamiento de tierra</option>
+            <option value="incendio">Incendio forestal o urbano</option>
+            <option value="emergencia">Emergencia médica</option>
+            <option value="otro">Otro tipo de emergencia</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-bell"></i> Nivel de urgencia</label>
+          <select name="urgencia" class="form-select" required>
+            <option value="baja">Baja - Situación controlada</option>
+            <option value="media" selected>Media - Requiere atención</option>
+            <option value="alta">Alta - Necesita intervención inmediata</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-map-marker-alt"></i> Ubicación del incidente</label>
+          <input type="text" name="lugar" class="form-input" placeholder="Ej: La Paz - Zona Sur, Calle Principal #123" required id="lugar-input" />
+          <div class="location-actions">
+            <button type="button" class="btn btn-secondary" onclick="obtenerUbicacionActual()"><i class="fas fa-location-arrow"></i> Obtener ubicación actual</button>
+            <button type="button" class="btn btn-secondary" onclick="abrirMapa()"><i class="fas fa-map"></i> Seleccionar en mapa</button>
+          </div>
+          <div class="location-accuracy" id="locationAccuracy" style="display:none;">
+            <span>Precisión: </span><span id="accuracyValue">-</span><span> metros</span>
+          </div>
+        </div>
+        <div class="form-group coordinates-group">
+          <div>
+            <label class="form-label"><i class="fas fa-globe-americas"></i> Latitud</label>
+            <input type="number" step="0.000001" name="lat" class="form-input" placeholder="-16.500000" id="lat-input" />
+          </div>
+          <div>
+            <label class="form-label"><i class="fas fa-globe-americas"></i> Longitud</label>
+            <input type="number" step="0.000001" name="lon" class="form-input" placeholder="-68.150000" id="lon-input" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-file-alt"></i> Descripción detallada</label>
+          <textarea name="descripcion" class="form-textarea" placeholder="Describe con detalle lo sucedido..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-paper-plane"></i> Enviar Reporte</button>
+      </form>
+    </section>
 
-    <!-- SCRIPTS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('ServiceWorker registration failed: ', err));
-            });
-        }
-    </script>
-    <!-- JS COMÚN -->
-    <script src="common.js"></script>
-    <!-- JS ESPECÍFICO -->
-    <script>
-        let mapa = null;
-        let marcador = null;
-        let coordenadasSeleccionadas = null;
-        let direccionSeleccionada = '';
-        let ubicacionUsuario = null;
+    <!-- LISTA DE REPORTES RECIENTES -->
+    <section class="reports-section">
+      <div class="section-header">
+        <h2 class="section-title"><i class="fas fa-history"></i> Reportes Recientes</h2>
+        <div class="filter-controls">
+          <select class="filter-select" id="type-filter">
+            <option value="all">Todos los tipos</option>
+            <option value="sismo">Sismos</option>
+            <option value="inundacion">Inundaciones</option>
+            <option value="deslizamiento">Deslizamientos</option>
+            <option value="incendio">Incendios</option>
+            <option value="emergencia">Emergencias</option>
+          </select>
+          <select class="filter-select" id="urgency-filter">
+            <option value="all">Todas las urgencias</option>
+            <option value="alta">Alta urgencia</option>
+            <option value="media">Media urgencia</option>
+            <option value="baja">Baja urgencia</option>
+          </select>
+        </div>
+      </div>
+      <ul class="reports-list" id="report-list">
+        <li class="empty-state">No hay reportes guardados localmente</li>
+      </ul>
+    </section>
 
-        class SistemaDenuncias {
-            constructor() {
-                this.reports = [];
-                this.filters = {
-                    type: 'all',
-                    urgency: 'all'
-                };
-                this.cargarReportes();
-                this.inicializar();
-            }
-            cargarReportes() {
-                this.reports = JSON.parse(localStorage.getItem('sat_denuncias')) || [];
-            }
-            guardarReportes() {
-                localStorage.setItem('sat_denuncias', JSON.stringify(this.reports));
-            }
-            inicializar() {
-                this.actualizarEstadisticas();
-                this.configurarFormulario();
-                this.configurarFiltros();
-                this.cargarReportesLista();
-                // actualizarFecha ahora lo maneja common.js, pero lo llamamos para el id específico
-                AlertaBolivia.actualizarFecha('lastUpdateTime');
-                setInterval(() => AlertaBolivia.actualizarFecha('lastUpdateTime'), 60000);
-            }
-            actualizarEstadisticas() {
-                const total = this.reports.length;
-                const hoy = this.reports.filter(r => this.esHoy(r.timestamp)).length;
-                const emergencias = this.reports.filter(r => r.urgencia === 'alta').length;
-                document.getElementById('total-reports').textContent = total;
-                document.getElementById('today-reports').textContent = hoy;
-                document.getElementById('emergency-reports').textContent = emergencias;
-            }
-            esHoy(timestamp) {
-                return new Date(timestamp).toDateString() === new Date().toDateString();
-            }
-            configurarFormulario() {
-                document.getElementById('report-form').addEventListener('submit', (e) => this.enviarReporte(e));
-            }
-            configurarFiltros() {
-                document.getElementById('type-filter').addEventListener('change', (e) => {
-                    this.filters.type = e.target.value;
-                    this.cargarReportesLista();
-                });
-                document.getElementById('urgency-filter').addEventListener('change', (e) => {
-                    this.filters.urgency = e.target.value;
-                    this.cargarReportesLista();
-                });
-            }
-            async enviarReporte(e) {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const reporte = {
-                    nombre: formData.get('nombre'),
-                    tipo: formData.get('tipo'),
-                    urgencia: formData.get('urgencia'),
-                    lugar: formData.get('lugar'),
-                    lat: formData.get('lat'),
-                    lon: formData.get('lon'),
-                    descripcion: formData.get('descripcion'),
-                    timestamp: new Date().toISOString(),
-                    id: Date.now().toString()
-                };
-                this.reports.push(reporte);
-                this.guardarReportes();
-                try {
-                    await fetch('http://localhost:3000/api/reportes', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(reporte)
-                    });
-                } catch (err) {
-                    console.warn('Backend no disponible:', err);
-                }
-                AlertaBolivia.mostrarNotificacion('✅ Reporte Enviado', 'Tu reporte ha sido registrado correctamente');
-                this.actualizarEstadisticas();
-                this.cargarReportesLista();
-                e.target.reset();
-            }
-            agregarDenunciaRapida(alertaData) {
-                const reporte = {
-                    nombre: alertaData.usuario || "Usuario Anónimo",
-                    tipo: "emergencia",
-                    urgencia: "alta",
-                    lugar: alertaData.ubicacion.lat ? `Lat: ${alertaData.ubicacion.lat.toFixed(4)}, Lon: ${alertaData.ubicacion.lng.toFixed(4)}` : "Ubicación no disponible",
-                    lat: alertaData.ubicacion.lat || "",
-                    lon: alertaData.ubicacion.lng || "",
-                    descripcion: "🚨 ALERTA RÁPIDA: Situación de emergencia que requiere intervención inmediata",
-                    timestamp: new Date().toISOString(),
-                    id: Date.now().toString(),
-                    fuente: "Alerta Rápida"
-                };
-                this.reports.push(reporte);
-                this.guardarReportes();
-                this.actualizarEstadisticas();
-                this.cargarReportesLista();
-                AlertaBolivia.mostrarNotificacion('🚨 Alerta Rápida', 'La denuncia de emergencia ha sido agregada a los reportes');
-            }
-            cargarReportesLista() {
-                const reportList = document.getElementById('report-list');
-                let reportesFiltrados = this.reports;
-                if (this.filters.type !== 'all') reportesFiltrados = reportesFiltrados.filter(r => r.tipo === this.filters.type);
-                if (this.filters.urgency !== 'all') reportesFiltrados = reportesFiltrados.filter(r => r.urgencia === this.filters.urgency);
-                reportesFiltrados = reportesFiltrados.slice(-10).reverse();
-                if (reportesFiltrados.length === 0) {
-                    reportList.innerHTML = '<li class="empty-state">No hay reportes que coincidan con los filtros</li>';
-                    return;
-                }
-                reportList.innerHTML = reportesFiltrados.map(report => this.crearElementoReporte(report)).join('');
-            }
-            crearElementoReporte(report) {
-                const typeLabels = {
-                    sismo: 'Sismo',
-                    inundacion: 'Inundación',
-                    deslizamiento: 'Deslizamiento',
-                    incendio: 'Incendio',
-                    emergencia: 'Emergencia',
-                    otro: 'Otro'
-                };
-                const urgencyLabels = {
-                    alta: 'Alta',
-                    media: 'Media',
-                    baja: 'Baja'
-                };
-                const urgencyClasses = {
-                    alta: 'priority-high',
-                    media: 'priority-medium',
-                    baja: 'priority-low'
-                };
-                const isEmergency = report.urgencia === 'alta';
-                const emergencyClass = isEmergency ? 'emergency' : '';
-                const badge = report.fuente === 'Alerta Rápida' ? ' <span style="color:var(--danger);font-size:0.7em;">🚨 RÁPIDA</span>' : '';
-                return `<li class="report-item ${emergencyClass}"><div class="report-header"><span class="report-type ${isEmergency ? 'emergency' : ''}">${typeLabels[report.tipo] || report.tipo}${badge}</span><span class="report-location">${report.lugar}</span></div><p class="report-description">${report.descripcion}</p><div class="report-meta"><span>Por: ${report.nombre}</span><div><span class="report-priority ${urgencyClasses[report.urgencia]}">${urgencyLabels[report.urgencia]} prioridad</span><span>${new Date(report.timestamp).toLocaleDateString()}</span></div></div></li>`;
-            }
-        }
+  </main>
 
-        // Funciones de alerta rápida (sobrescriben el comportamiento del botón)
-        window.mostrarAlertaRapida = async function() {
-            const modal = document.getElementById('emergencyModal');
-            const status = document.getElementById('locationStatus');
-            const sendBtn = document.getElementById('sendEmergencyBtn');
-            modal.classList.add('active');
-            sendBtn.disabled = true;
-            status.innerHTML = '<p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p>';
-            try {
-                const position = await AlertaBolivia.obtenerUbicacion();
-                ubicacionUsuario = position;
-                status.innerHTML = `<p style="color:var(--success);"><i class="fas fa-check-circle"></i> Ubicación confirmada<br><small>Lat: ${position.coords.latitude.toFixed(4)}, Lon: ${position.coords.longitude.toFixed(4)}</small></p>`;
-                document.getElementById('locationPreview').textContent = `Lat: ${position.coords.latitude.toFixed(4)}, Lon: ${position.coords.longitude.toFixed(4)}`;
-                sendBtn.disabled = false;
-            } catch (error) {
-                status.innerHTML = `<p style="color:var(--warning);"><i class="fas fa-exclamation-triangle"></i> Ubicación aproximada<br><small>Se usará ubicación por red. Activa GPS para mayor precisión.</small></p>`;
-                document.getElementById('locationPreview').textContent = 'Ubicación aproximada por IP';
-                ubicacionUsuario = {
-                    coords: {
-                        latitude: -16.5000,
-                        longitude: -68.1500,
-                        accuracy: 50000
-                    }
-                };
-                sendBtn.disabled = false;
-            }
-        };
+  <!-- MODAL DE EMERGENCIA (unificado) -->
+  <div class="modal" id="emergencyModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="document.getElementById('emergencyModal').classList.remove('active')">&times;</button>
+      <div class="modal-header">
+        <h3 class="modal-title">🚨 ALERTA RÁPIDA DE EMERGENCIA</h3>
+        <p class="modal-subtitle">Solo usar en situaciones reales de peligro</p>
+      </div>
+      <div class="modal-body">
+        <p class="modal-text">Esta alerta notificará inmediatamente a los servicios de emergencia. Solo úsala en caso de peligro real.</p>
+        <div class="location-status" id="locationStatus">
+          <p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p>
+        </div>
+        <div class="emergency-info" style="background:rgba(255,255,255,0.5);padding:1rem;border-radius:var(--border-radius-sm);border-left:4px solid var(--danger);margin:1rem 0;text-align:left;">
+          <h4 style="color:var(--danger);margin-bottom:0.5rem;"><i class="fas fa-info-circle"></i> Información que se enviará:</h4>
+          <ul style="color:var(--dark-light);font-size:0.9rem;padding-left:1rem;list-style:disc;">
+            <li><strong>Tipo:</strong> EMERGENCIA CRÍTICA</li>
+            <li><strong>Gravedad:</strong> ROJO</li>
+            <li><strong>Descripción:</strong> "🚨 EMERGENCIA - Se requiere auxilio inmediato"</li>
+            <li><strong>Ubicación:</strong> <span id="locationPreview">Tu ubicación actual</span></li>
+            <li><strong>Destinos:</strong> Formspree + WhatsApp con Google Maps</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-danger btn-full" id="sendEmergencyBtn" disabled><i class="fas fa-paper-plane"></i> ENVIAR ALERTA DE EMERGENCIA</button>
+        <button class="btn btn-secondary btn-full" onclick="closeEmergencyModal()" style="margin-top:1rem;">Cancelar</button>
+      </div>
+    </div>
+  </div>
 
-        window.enviarAlertaRapida = async function() {
-            const sendBtn = document.getElementById('sendEmergencyBtn');
-            const originalText = sendBtn.innerHTML;
-            sendBtn.disabled = true;
-            sendBtn.innerHTML = '<span class="loading-spinner" style="width:20px;height:20px;display:inline-block;"></span> ENVIANDO ALERTA...';
-            try {
-                const alertaData = {
-                    tipo: "EMERGENCIA_INMEDIATA",
-                    gravedad: "CRITICA",
-                    descripcion: "🚨 EMERGENCIA - Se requiere auxilio inmediato",
-                    timestamp: new Date().toISOString(),
-                    ubicacion: ubicacionUsuario ? {
-                        lat: ubicacionUsuario.coords.latitude,
-                        lng: ubicacionUsuario.coords.longitude,
-                        precision: ubicacionUsuario.coords.accuracy
-                    } : "Ubicación no disponible",
-                    usuario: "Usuario SAT Denuncias",
-                    fuente: "Alerta Bolivia - Sistema de Denuncias"
-                };
-                // Enviar a Formspree
-                document.getElementById('formspreeUbicacion').value = alertaData.ubicacion.lat ? `Lat: ${alertaData.ubicacion.lat}, Lon: ${alertaData.ubicacion.lng}` : 'Ubicación no disponible';
-                document.getElementById('formspreeTimestamp').value = alertaData.timestamp;
-                const form = document.getElementById('emergencyFormspreeForm');
-                await fetch(form.action, {
-                    method: 'POST',
-                    body: new FormData(form),
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                }).catch(() => {});
-                // WhatsApp
-                if (alertaData.ubicacion.lat) {
-                    const enlaceMaps = `https://www.google.com/maps?q=${alertaData.ubicacion.lat},${alertaData.ubicacion.lng}`;
-                    const mensaje = `🚨 EMERGENCIA\n\n📍 ${enlaceMaps}\n\n⌚ ${new Date().toLocaleTimeString('es-BO')}\n\n⚠️ Se requiere auxilio inmediato`;
-                    window.open(`https://wa.me/59162679441?text=${encodeURIComponent(mensaje)}`, '_blank');
-                }
-                if (window.sistemaDenuncias) window.sistemaDenuncias.agregarDenunciaRapida(alertaData);
-                AlertaBolivia.mostrarNotificacion('🚨 Alerta Enviada', 'La alerta ha sido enviada a los servicios de emergencia.', 5000);
-                setTimeout(() => {
-                    closeEmergencyModal();
-                    sendBtn.innerHTML = originalText;
-                    sendBtn.disabled = false;
-                }, 2000);
-            } catch (error) {
-                AlertaBolivia.mostrarNotificacion('❌ Error', 'No se pudo enviar la alerta completa. Llama al 911.', 5000);
-                sendBtn.innerHTML = originalText;
-                sendBtn.disabled = false;
-            }
-        };
+  <!-- FORMULARIO OCULTO PARA FORMSPREE -->
+  <form id="emergencyFormspreeForm" action="https://formspree.io/f/xblzaejj" method="POST" style="display:none;">
+    <input type="hidden" name="_subject" value="🚨 ALERTA RÁPIDA - Alerta Bolivia" />
+    <input type="hidden" name="tipo" value="EMERGENCIA CRÍTICA" />
+    <input type="hidden" name="gravedad" value="CRITICA" />
+    <input type="hidden" name="descripcion" value="🚨 ALERTA: Situación de emergencia que requiere intervención inmediata de servicios de emergencia" />
+    <input type="hidden" name="ubicacion" id="formspreeUbicacion" value="" />
+    <input type="hidden" name="timestamp" id="formspreeTimestamp" value="" />
+    <input type="hidden" name="fuente" value="Alerta Bolivia Web App" />
+  </form>
 
-        function closeEmergencyModal() {
-            document.getElementById('emergencyModal').classList.remove('active');
-            ubicacionUsuario = null;
-        }
+  <!-- BOTÓN DE EMERGENCIA FLOTANTE (sin onclick, manejado por common.js) -->
+  <button class="emergency-btn"><i class="fas fa-exclamation-triangle"></i></button>
 
-        // Mapa
-        function abrirMapa() {
-            document.getElementById('mapModal').style.display = 'block';
-            setTimeout(inicializarMapa, 100);
-        }
+  <!-- MODAL DEL MAPA -->
+  <div class="map-modal" id="mapModal">
+    <div class="map-modal-content">
+      <div class="map-header">
+        <h3 style="margin:0;color:var(--dark);font-size:1.5rem;"><i class="fas fa-map"></i> Seleccionar Ubicación</h3>
+        <button type="button" class="btn btn-danger" onclick="cerrarMapa()" style="padding:0.7rem 1.5rem;"><i class="fas fa-times"></i> Cerrar</button>
+      </div>
+      <div class="map-container">
+        <div id="map"></div>
+      </div>
+      <div class="map-footer">
+        <div class="location-info">
+          <div class="location-text">
+            <div class="form-label">Ubicación seleccionada:</div>
+            <div id="selectedLocation">Haz clic en el mapa para seleccionar una ubicación</div>
+          </div>
+          <button type="button" class="confirm-btn" onclick="confirmarUbicacion()" id="confirmBtn" disabled><i class="fas fa-check"></i> Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        function cerrarMapa() {
-            document.getElementById('mapModal').style.display = 'none';
-            if (mapa) {
-                mapa.remove();
-                mapa = null;
-            }
-            coordenadasSeleccionadas = null;
-        }
+  <!-- LOADING OVERLAY -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <p>Obteniendo ubicación precisa...</p>
+    <p class="sub">Esto puede tomar unos segundos</p>
+  </div>
 
-        function inicializarMapa() {
-            if (mapa) mapa.remove();
-            mapa = L.map('map').setView([-16.5000, -68.1500], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(mapa);
-            mapa.on('click', function(e) {
-                agregarMarcador(e.latlng.lat, e.latlng.lng);
-            });
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const lat = position.coords.latitude,
-                            lng = position.coords.longitude;
-                        mapa.setView([lat, lng], 16);
-                        agregarMarcador(lat, lng);
-                        obtenerDireccion(lat, lng);
-                    },
-                    () => agregarMarcador(-16.5000, -68.1500), {
-                        enableHighAccuracy: true,
-                        timeout: 10000
-                    }
-                );
-            } else {
-                agregarMarcador(-16.5000, -68.1500);
-            }
-        }
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2026 SAT Bolivia - Sistema de Alerta Temprana. Todos los derechos reservados.</p>
+      <p>Desarrollado con <i class="fas fa-heart" style="color:var(--danger);"></i> para proteger a Bolivia</p>
+    </div>
+  </footer>
 
-        function agregarMarcador(lat, lng) {
-            if (marcador) mapa.removeLayer(marcador);
-            coordenadasSeleccionadas = {
-                lat,
-                lng
-            };
-            marcador = L.marker([lat, lng]).addTo(mapa);
-            mapa.setView([lat, lng], Math.max(mapa.getZoom(), 16));
-            document.getElementById('selectedLocation').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-            document.getElementById('confirmBtn').disabled = false;
-            obtenerDireccion(lat, lng);
-        }
-        async function obtenerDireccion(lat, lng) {
-            try {
-                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
-                const data = await res.json();
-                if (data.display_name) {
-                    direccionSeleccionada = data.display_name;
-                    document.getElementById('selectedLocation').textContent = direccionSeleccionada;
-                }
-            } catch (e) {}
-        }
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => console.log('ServiceWorker registration failed: ', err));
+      });
+    }
+  </script>
+  <!-- JS COMÚN -->
+  <script src="common.js"></script>
+  <!-- JS ESPECÍFICO DE DENUNCIAS -->
+  <script>
+    // ============================================================
+    // DENUNCIAS - LÓGICA ESPECÍFICA
+    // ============================================================
 
-        function confirmarUbicacion() {
-            if (!coordenadasSeleccionadas) {
-                AlertaBolivia.mostrarNotificacion('📍 Selecciona ubicación', 'Por favor, selecciona una ubicación en el mapa primero');
-                return;
-            }
-            document.getElementById('lat-input').value = coordenadasSeleccionadas.lat.toFixed(6);
-            document.getElementById('lon-input').value = coordenadasSeleccionadas.lng.toFixed(6);
-            if (document.getElementById('lugar-input') && direccionSeleccionada) document.getElementById('lugar-input').value = direccionSeleccionada;
-            else if (document.getElementById('lugar-input')) document.getElementById('lugar-input').value = `Ubicación: ${coordenadasSeleccionadas.lat.toFixed(6)}, ${coordenadasSeleccionadas.lng.toFixed(6)}`;
-            AlertaBolivia.mostrarNotificacion('📍 Ubicación Confirmada', 'La ubicación ha sido seleccionada correctamente');
-            cerrarMapa();
-        }
+    let mapa = null;
+    let marcador = null;
+    let coordenadasSeleccionadas = null;
+    let direccionSeleccionada = '';
+    let ubicacionUsuario = null;
 
-        // Obtener ubicación actual
-        window.obtenerUbicacionActual = function() {
-            if (!navigator.geolocation) {
-                AlertaBolivia.mostrarNotificacion('📍 Geolocalización', 'La geolocalización no es soportada por tu navegador');
-                return;
-            }
-            document.getElementById('loadingOverlay').style.display = 'flex';
-            AlertaBolivia.obtenerUbicacion({
-                    enableHighAccuracy: true,
-                    timeout: 15000,
-                    maximumAge: 0
-                })
-                .then(position => {
-                    const lat = position.coords.latitude,
-                        lng = position.coords.longitude,
-                        accuracy = position.coords.accuracy;
-                    document.getElementById('lat-input').value = lat.toFixed(6);
-                    document.getElementById('lon-input').value = lng.toFixed(6);
-                    const accEl = document.getElementById('locationAccuracy');
-                    accEl.style.display = 'flex';
-                    document.getElementById('accuracyValue').textContent = Math.round(accuracy);
-                    accEl.className = `location-accuracy ${accuracy < 20 ? 'accuracy-high' : accuracy < 100 ? 'accuracy-medium' : 'accuracy-low'}`;
-                    obtenerDireccionParaFormulario(lat, lng);
-                    AlertaBolivia.mostrarNotificacion('📍 Ubicación Obtenida', `Coordenadas actualizadas (precisión: ${Math.round(accuracy)}m)`);
-                })
-                .catch(error => {
-                    let msg = 'Error obteniendo ubicación';
-                    if (error.code === 1) msg = 'Permiso denegado. Habilita la ubicación.';
-                    else if (error.code === 2) msg = 'Información de ubicación no disponible.';
-                    else if (error.code === 3) msg = 'Tiempo de espera agotado.';
-                    AlertaBolivia.mostrarNotificacion('❌ Error de Ubicación', msg, 5000);
-                })
-                .finally(() => {
-                    document.getElementById('loadingOverlay').style.display = 'none';
-                });
-        };
+    class SistemaDenuncias {
+      constructor() {
+        this.reports = [];
+        this.filters = { type: 'all', urgency: 'all' };
+        this.cargarReportes();
+        this.inicializar();
+      }
 
-        async function obtenerDireccionParaFormulario(lat, lng) {
-            try {
-                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
-                const data = await res.json();
-                if (data.display_name) {
-                    const lugarInput = document.getElementById('lugar-input');
-                    if (lugarInput) {
-                        const partes = data.display_name.split(',');
-                        lugarInput.value = partes.slice(0, 3).join(', ');
-                    }
-                }
-            } catch (e) {}
-        }
+      cargarReportes() {
+        this.reports = JSON.parse(localStorage.getItem('sat_denuncias')) || [];
+      }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            window.sistemaDenuncias = new SistemaDenuncias();
-            // El título animado se maneja con CSS, pero podemos agregar efecto de entrada
-            const titleSection = document.querySelector('.animated-title-section');
-            if (titleSection) {
-                titleSection.style.opacity = '0';
-                titleSection.style.transform = 'translateY(30px)';
-                titleSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                setTimeout(() => {
-                    titleSection.style.opacity = '1';
-                    titleSection.style.transform = 'translateY(0)';
-                }, 300);
-            }
-            console.log('%c🚨 Sistema de Denuncias Alerta Bolivia', 'font-size:24px;font-weight:bold;color:#00B4D4;');
+      guardarReportes() {
+        localStorage.setItem('sat_denuncias', JSON.stringify(this.reports));
+      }
+
+      inicializar() {
+        this.actualizarEstadisticas();
+        this.configurarFormulario();
+        this.configurarFiltros();
+        this.cargarReportesLista();
+        // Actualizar la hora con common.js
+        AlertaBolivia.actualizarFecha('lastUpdateTime');
+        setInterval(() => AlertaBolivia.actualizarFecha('lastUpdateTime'), 60000);
+      }
+
+      actualizarEstadisticas() {
+        const total = this.reports.length;
+        const hoy = this.reports.filter(r => this.esHoy(r.timestamp)).length;
+        const emergencias = this.reports.filter(r => r.urgencia === 'alta').length;
+        document.getElementById('total-reports').textContent = total;
+        document.getElementById('today-reports').textContent = hoy;
+        document.getElementById('emergency-reports').textContent = emergencias;
+      }
+
+      esHoy(timestamp) {
+        return new Date(timestamp).toDateString() === new Date().toDateString();
+      }
+
+      configurarFormulario() {
+        document.getElementById('report-form').addEventListener('submit', (e) => this.enviarReporte(e));
+      }
+
+      configurarFiltros() {
+        document.getElementById('type-filter').addEventListener('change', (e) => {
+          this.filters.type = e.target.value;
+          this.cargarReportesLista();
         });
-    </script>
-</body>
+        document.getElementById('urgency-filter').addEventListener('change', (e) => {
+          this.filters.urgency = e.target.value;
+          this.cargarReportesLista();
+        });
+      }
 
+      async enviarReporte(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const reporte = {
+          nombre: formData.get('nombre'),
+          tipo: formData.get('tipo'),
+          urgencia: formData.get('urgencia'),
+          lugar: formData.get('lugar'),
+          lat: formData.get('lat'),
+          lon: formData.get('lon'),
+          descripcion: formData.get('descripcion'),
+          timestamp: new Date().toISOString(),
+          id: Date.now().toString()
+        };
+        this.reports.push(reporte);
+        this.guardarReportes();
+
+        // Enviar a backend (opcional)
+        try {
+          await fetch('http://localhost:3000/api/reportes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reporte)
+          });
+        } catch (err) {
+          console.warn('Backend no disponible:', err);
+        }
+
+        AlertaBolivia.mostrarNotificacion('✅ Reporte Enviado', 'Tu reporte ha sido registrado correctamente');
+        this.actualizarEstadisticas();
+        this.cargarReportesLista();
+        e.target.reset();
+      }
+
+      agregarDenunciaRapida(alertaData) {
+        const reporte = {
+          nombre: alertaData.usuario || "Usuario Anónimo",
+          tipo: "emergencia",
+          urgencia: "alta",
+          lugar: alertaData.ubicacion.lat ? `Lat: ${alertaData.ubicacion.lat.toFixed(4)}, Lon: ${alertaData.ubicacion.lng.toFixed(4)}` : "Ubicación no disponible",
+          lat: alertaData.ubicacion.lat || "",
+          lon: alertaData.ubicacion.lng || "",
+          descripcion: "🚨 ALERTA RÁPIDA: Situación de emergencia que requiere intervención inmediata",
+          timestamp: new Date().toISOString(),
+          id: Date.now().toString(),
+          fuente: "Alerta Rápida"
+        };
+        this.reports.push(reporte);
+        this.guardarReportes();
+        this.actualizarEstadisticas();
+        this.cargarReportesLista();
+        AlertaBolivia.mostrarNotificacion('🚨 Alerta Rápida', 'La denuncia de emergencia ha sido agregada a los reportes');
+      }
+
+      cargarReportesLista() {
+        const reportList = document.getElementById('report-list');
+        let reportesFiltrados = this.reports;
+        if (this.filters.type !== 'all') reportesFiltrados = reportesFiltrados.filter(r => r.tipo === this.filters.type);
+        if (this.filters.urgency !== 'all') reportesFiltrados = reportesFiltrados.filter(r => r.urgencia === this.filters.urgency);
+        reportesFiltrados = reportesFiltrados.slice(-10).reverse();
+
+        if (reportesFiltrados.length === 0) {
+          reportList.innerHTML = '<li class="empty-state">No hay reportes que coincidan con los filtros</li>';
+          return;
+        }
+        reportList.innerHTML = reportesFiltrados.map(report => this.crearElementoReporte(report)).join('');
+      }
+
+      crearElementoReporte(report) {
+        const typeLabels = { sismo: 'Sismo', inundacion: 'Inundación', deslizamiento: 'Deslizamiento', incendio: 'Incendio', emergencia: 'Emergencia', otro: 'Otro' };
+        const urgencyLabels = { alta: 'Alta', media: 'Media', baja: 'Baja' };
+        const urgencyClasses = { alta: 'priority-high', media: 'priority-medium', baja: 'priority-low' };
+        const isEmergency = report.urgencia === 'alta';
+        const emergencyClass = isEmergency ? 'emergency' : '';
+        const badge = report.fuente === 'Alerta Rápida' ? ' <span style="color:var(--danger);font-size:0.7em;">🚨 RÁPIDA</span>' : '';
+        return `<li class="report-item ${emergencyClass}">
+          <div class="report-header">
+            <span class="report-type ${isEmergency ? 'emergency' : ''}">${typeLabels[report.tipo] || report.tipo}${badge}</span>
+            <span class="report-location">${report.lugar}</span>
+          </div>
+          <p class="report-description">${report.descripcion}</p>
+          <div class="report-meta">
+            <span>Por: ${report.nombre}</span>
+            <div>
+              <span class="report-priority ${urgencyClasses[report.urgencia]}">${urgencyLabels[report.urgencia]} prioridad</span>
+              <span>${new Date(report.timestamp).toLocaleDateString()}</span>
+            </div>
+          </div>
+        </li>`;
+      }
+    }
+
+    // ============================================================
+    // FUNCIONES DE ALERTA RÁPIDA (sobrescriben el comportamiento global)
+    // ============================================================
+
+    window.mostrarAlertaRapida = async function() {
+      const modal = document.getElementById('emergencyModal');
+      const status = document.getElementById('locationStatus');
+      const sendBtn = document.getElementById('sendEmergencyBtn');
+      modal.classList.add('active');
+      sendBtn.disabled = true;
+      status.innerHTML = '<p><i class="fas fa-map-marker-alt"></i> Obteniendo tu ubicación...</p>';
+      try {
+        const position = await AlertaBolivia.obtenerUbicacion();
+        ubicacionUsuario = position;
+        status.innerHTML = `<p style="color:var(--success);"><i class="fas fa-check-circle"></i> Ubicación confirmada<br><small>Lat: ${position.coords.latitude.toFixed(4)}, Lon: ${position.coords.longitude.toFixed(4)}</small></p>`;
+        document.getElementById('locationPreview').textContent = `Lat: ${position.coords.latitude.toFixed(4)}, Lon: ${position.coords.longitude.toFixed(4)}`;
+        sendBtn.disabled = false;
+        sendBtn.onclick = enviarAlertaRapida;
+      } catch (error) {
+        status.innerHTML = `<p style="color:var(--warning);"><i class="fas fa-exclamation-triangle"></i> Ubicación aproximada<br><small>Se usará ubicación por red. Activa GPS para mayor precisión.</small></p>`;
+        document.getElementById('locationPreview').textContent = 'Ubicación aproximada por IP';
+        ubicacionUsuario = { coords: { latitude: -16.5000, longitude: -68.1500, accuracy: 50000 } };
+        sendBtn.disabled = false;
+        sendBtn.onclick = enviarAlertaRapida;
+      }
+    };
+
+    async function enviarAlertaRapida() {
+      const sendBtn = document.getElementById('sendEmergencyBtn');
+      const originalText = sendBtn.innerHTML;
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<span class="loading-spinner" style="width:20px;height:20px;display:inline-block;"></span> ENVIANDO ALERTA...';
+      try {
+        const alertaData = {
+          tipo: "EMERGENCIA_INMEDIATA",
+          gravedad: "CRITICA",
+          descripcion: "🚨 EMERGENCIA - Se requiere auxilio inmediato",
+          timestamp: new Date().toISOString(),
+          ubicacion: ubicacionUsuario ? { lat: ubicacionUsuario.coords.latitude, lng: ubicacionUsuario.coords.longitude, precision: ubicacionUsuario.coords.accuracy } : "Ubicación no disponible",
+          usuario: "Usuario SAT Denuncias",
+          fuente: "Alerta Bolivia - Sistema de Denuncias"
+        };
+        // Formspree
+        document.getElementById('formspreeUbicacion').value = alertaData.ubicacion.lat ? `Lat: ${alertaData.ubicacion.lat}, Lon: ${alertaData.ubicacion.lng}` : 'Ubicación no disponible';
+        document.getElementById('formspreeTimestamp').value = alertaData.timestamp;
+        const form = document.getElementById('emergencyFormspreeForm');
+        await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } }).catch(() => {});
+        // WhatsApp con Maps
+        if (alertaData.ubicacion.lat) {
+          const enlaceMaps = `https://www.google.com/maps?q=${alertaData.ubicacion.lat},${alertaData.ubicacion.lng}`;
+          const mensaje = `🚨 EMERGENCIA\n\n📍 ${enlaceMaps}\n\n⌚ ${new Date().toLocaleTimeString('es-BO')}\n\n⚠️ Se requiere auxilio inmediato`;
+          window.open(`https://wa.me/59162679441?text=${encodeURIComponent(mensaje)}`, '_blank');
+        }
+        if (window.sistemaDenuncias) window.sistemaDenuncias.agregarDenunciaRapida(alertaData);
+        AlertaBolivia.mostrarNotificacion('🚨 Alerta Enviada', 'La alerta ha sido enviada a los servicios de emergencia.', 5000);
+        setTimeout(() => {
+          closeEmergencyModal();
+          sendBtn.innerHTML = originalText;
+          sendBtn.disabled = false;
+        }, 2000);
+      } catch (error) {
+        AlertaBolivia.mostrarNotificacion('❌ Error', 'No se pudo enviar la alerta completa. Llama al 911.', 5000);
+        sendBtn.innerHTML = originalText;
+        sendBtn.disabled = false;
+      }
+    }
+
+    function closeEmergencyModal() {
+      document.getElementById('emergencyModal').classList.remove('active');
+      ubicacionUsuario = null;
+      const sendBtn = document.getElementById('sendEmergencyBtn');
+      if (sendBtn) {
+        sendBtn.onclick = null;
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> ENVIAR ALERTA DE EMERGENCIA';
+      }
+    }
+
+    // ============================================================
+    // MAPA
+    // ============================================================
+
+    function abrirMapa() {
+      document.getElementById('mapModal').style.display = 'block';
+      setTimeout(inicializarMapa, 100);
+    }
+
+    function cerrarMapa() {
+      document.getElementById('mapModal').style.display = 'none';
+      if (mapa) { mapa.remove(); mapa = null; }
+      coordenadasSeleccionadas = null;
+    }
+
+    function inicializarMapa() {
+      if (mapa) mapa.remove();
+      mapa = L.map('map').setView([-16.5000, -68.1500], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(mapa);
+      mapa.on('click', function(e) {
+        agregarMarcador(e.latlng.lat, e.latlng.lng);
+      });
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude,
+              lng = position.coords.longitude;
+            mapa.setView([lat, lng], 16);
+            agregarMarcador(lat, lng);
+            obtenerDireccion(lat, lng);
+          },
+          () => agregarMarcador(-16.5000, -68.1500),
+          { enableHighAccuracy: true, timeout: 10000 }
+        );
+      } else {
+        agregarMarcador(-16.5000, -68.1500);
+      }
+    }
+
+    function agregarMarcador(lat, lng) {
+      if (marcador) mapa.removeLayer(marcador);
+      coordenadasSeleccionadas = { lat, lng };
+      marcador = L.marker([lat, lng]).addTo(mapa);
+      mapa.setView([lat, lng], Math.max(mapa.getZoom(), 16));
+      document.getElementById('selectedLocation').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+      document.getElementById('confirmBtn').disabled = false;
+      obtenerDireccion(lat, lng);
+    }
+
+    async function obtenerDireccion(lat, lng) {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+        const data = await res.json();
+        if (data.display_name) {
+          direccionSeleccionada = data.display_name;
+          document.getElementById('selectedLocation').textContent = direccionSeleccionada;
+        }
+      } catch (e) {}
+    }
+
+    function confirmarUbicacion() {
+      if (!coordenadasSeleccionadas) {
+        AlertaBolivia.mostrarNotificacion('📍 Selecciona ubicación', 'Por favor, selecciona una ubicación en el mapa primero');
+        return;
+      }
+      document.getElementById('lat-input').value = coordenadasSeleccionadas.lat.toFixed(6);
+      document.getElementById('lon-input').value = coordenadasSeleccionadas.lng.toFixed(6);
+      if (document.getElementById('lugar-input') && direccionSeleccionada) {
+        document.getElementById('lugar-input').value = direccionSeleccionada;
+      } else if (document.getElementById('lugar-input')) {
+        document.getElementById('lugar-input').value = `Ubicación: ${coordenadasSeleccionadas.lat.toFixed(6)}, ${coordenadasSeleccionadas.lng.toFixed(6)}`;
+      }
+      AlertaBolivia.mostrarNotificacion('📍 Ubicación Confirmada', 'La ubicación ha sido seleccionada correctamente');
+      cerrarMapa();
+    }
+
+    // Obtener ubicación actual
+    window.obtenerUbicacionActual = function() {
+      if (!navigator.geolocation) {
+        AlertaBolivia.mostrarNotificacion('📍 Geolocalización', 'La geolocalización no es soportada por tu navegador');
+        return;
+      }
+      document.getElementById('loadingOverlay').style.display = 'flex';
+      AlertaBolivia.obtenerUbicacion({ enableHighAccuracy: true, timeout: 15000, maximumAge: 0 })
+        .then(position => {
+          const lat = position.coords.latitude,
+            lng = position.coords.longitude,
+            accuracy = position.coords.accuracy;
+          document.getElementById('lat-input').value = lat.toFixed(6);
+          document.getElementById('lon-input').value = lng.toFixed(6);
+          const accEl = document.getElementById('locationAccuracy');
+          accEl.style.display = 'flex';
+          document.getElementById('accuracyValue').textContent = Math.round(accuracy);
+          accEl.className = `location-accuracy ${accuracy < 20 ? 'accuracy-high' : accuracy < 100 ? 'accuracy-medium' : 'accuracy-low'}`;
+          obtenerDireccionParaFormulario(lat, lng);
+          AlertaBolivia.mostrarNotificacion('📍 Ubicación Obtenida', `Coordenadas actualizadas (precisión: ${Math.round(accuracy)}m)`);
+        })
+        .catch(error => {
+          let msg = 'Error obteniendo ubicación';
+          if (error.code === 1) msg = 'Permiso denegado. Habilita la ubicación.';
+          else if (error.code === 2) msg = 'Información de ubicación no disponible.';
+          else if (error.code === 3) msg = 'Tiempo de espera agotado.';
+          AlertaBolivia.mostrarNotificacion('❌ Error de Ubicación', msg, 5000);
+        })
+        .finally(() => {
+          document.getElementById('loadingOverlay').style.display = 'none';
+        });
+    };
+
+    async function obtenerDireccionParaFormulario(lat, lng) {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+        const data = await res.json();
+        if (data.display_name) {
+          const lugarInput = document.getElementById('lugar-input');
+          if (lugarInput) {
+            const partes = data.display_name.split(',');
+            lugarInput.value = partes.slice(0, 3).join(', ');
+          }
+        }
+      } catch (e) {}
+    }
+
+    // ============================================================
+    // INICIALIZAR
+    // ============================================================
+
+    document.addEventListener('DOMContentLoaded', function() {
+      window.sistemaDenuncias = new SistemaDenuncias();
+      // Efecto de entrada del título
+      const titleSection = document.querySelector('.animated-title-section');
+      if (titleSection) {
+        titleSection.style.opacity = '0';
+        titleSection.style.transform = 'translateY(30px)';
+        titleSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        setTimeout(() => {
+          titleSection.style.opacity = '1';
+          titleSection.style.transform = 'translateY(0)';
+        }, 300);
+      }
+      console.log('%c🚨 Sistema de Denuncias Alerta Bolivia', 'font-size:24px;font-weight:bold;color:#00B4D4;');
+    });
+  </script>
+</body>
 </html>
