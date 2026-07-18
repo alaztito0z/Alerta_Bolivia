@@ -1,6 +1,5 @@
 /* ============================================================
-   css/common.css - Estilos Base del SAT Bolivia
-   Versión unificada para todas las páginas
+   common.css - Estilos Completos del SAT Bolivia
    ============================================================ */
 
 /* ---------- VARIABLES GLOBALES ---------- */
@@ -82,21 +81,9 @@ body::before {
   100% { opacity: 0.8; }
 }
 
-/* ---------- TIPOGRAFÍA ---------- */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-}
-
 /* ---------- SCROLLBAR ---------- */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #E6F7FF;
-}
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #E6F7FF; }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   border-radius: 5px;
@@ -123,6 +110,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 4px 30px rgba(0, 20, 40, 0.1);
   transition: var(--transition-smooth);
 }
+
 .header.scrolled {
   padding: 0.75rem 2rem;
   background: rgba(255, 255, 255, 0.98);
@@ -135,6 +123,7 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   transition: var(--transition-smooth);
 }
+
 .logo-container:hover {
   transform: translateX(5px);
 }
@@ -148,6 +137,7 @@ h1, h2, h3, h4, h5, h6 {
   animation: logoFloat 6s ease-in-out infinite;
   flex-shrink: 0;
 }
+
 .logo-img img {
   width: 100%;
   height: 100%;
@@ -164,6 +154,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
 }
+
 .logo-title {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
@@ -173,6 +164,7 @@ h1, h2, h3, h4, h5, h6 {
   background-clip: text;
   color: transparent;
 }
+
 .logo-subtitle {
   font-size: 0.8rem;
   color: var(--gray);
@@ -203,6 +195,7 @@ h1, h2, h3, h4, h5, h6 {
   gap: 0.5rem;
   font-size: 0.95rem;
 }
+
 .nav-link::before {
   content: '';
   position: absolute;
@@ -213,21 +206,25 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(90deg, transparent, rgba(0, 180, 212, 0.1), transparent);
   transition: left 0.6s ease;
 }
+
 .nav-link:hover::before {
   left: 100%;
 }
+
 .nav-link:hover {
   border-color: var(--primary);
   box-shadow: var(--neon-glow);
   transform: translateY(-2px);
   background: var(--glass-light);
 }
+
 .nav-link.active {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   box-shadow: var(--neon-glow);
   border: none;
 }
+
 .nav-link i {
   font-size: 1.1rem;
 }
@@ -250,6 +247,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   overflow: hidden;
 }
+
 .btn::before {
   content: '';
   position: absolute;
@@ -260,9 +258,11 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.6s ease;
 }
+
 .btn:hover::before {
   left: 100%;
 }
+
 .btn:hover {
   transform: translateY(-3px);
 }
@@ -272,6 +272,7 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
   box-shadow: 0 4px 15px rgba(0, 180, 212, 0.3);
 }
+
 .btn-primary:hover {
   box-shadow: 0 8px 25px rgba(0, 180, 212, 0.4);
 }
@@ -282,6 +283,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--glass-border);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+
 .btn-secondary:hover {
   background: white;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
@@ -292,6 +294,7 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
   box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }
+
 .btn-danger:hover {
   box-shadow: var(--neon-glow-danger);
 }
@@ -301,6 +304,7 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
   box-shadow: 0 4px 15px rgba(76, 217, 100, 0.3);
 }
+
 .btn-success:hover {
   box-shadow: var(--neon-glow-success);
 }
@@ -309,10 +313,12 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   justify-content: center;
 }
+
 .btn-lg {
   padding: 1.25rem 2.5rem;
   font-size: 1.1rem;
 }
+
 .btn-sm {
   padding: 0.5rem 1rem;
   font-size: 0.85rem;
@@ -334,6 +340,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   padding: 1rem;
 }
+
 .modal.active,
 .modal-overlay.active {
   display: flex;
@@ -354,6 +361,7 @@ h1, h2, h3, h4, h5, h6 {
   max-height: 90vh;
   overflow-y: auto;
 }
+
 @keyframes modalAppear {
   from { opacity: 0; transform: scale(0.8) translateY(50px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
@@ -371,6 +379,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: -1;
   animation: modalBorderGlow 3s linear infinite;
 }
+
 @keyframes modalBorderGlow {
   0% { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
@@ -380,29 +389,35 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1.5rem;
   text-align: center;
 }
+
 .modal-title {
   font-size: 1.8rem;
   color: var(--dark);
   margin-bottom: 0.5rem;
   font-family: 'Poppins', sans-serif;
 }
+
 .modal-subtitle {
   color: var(--gray);
   font-size: 1rem;
 }
+
 .modal-body {
   margin-bottom: 2rem;
 }
+
 .modal-text {
   color: var(--dark-light);
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
+
 .modal-actions {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
+
 .modal-close {
   background: none;
   border: none;
@@ -415,40 +430,9 @@ h1, h2, h3, h4, h5, h6 {
   top: 1rem;
   right: 1.5rem;
 }
+
 .modal-close:hover {
   color: var(--dark);
-}
-
-/* Estilos para info de emergencia dentro del modal */
-.emergency-info {
-  background: rgba(255, 255, 255, 0.5);
-  padding: 1rem;
-  border-radius: var(--border-radius-sm);
-  margin: 1rem 0;
-  border-left: 4px solid var(--danger);
-  text-align: left;
-}
-.emergency-info h4 {
-  color: var(--danger);
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-}
-.emergency-info ul {
-  color: var(--dark-light);
-  font-size: 0.9rem;
-  padding-left: 1rem;
-  list-style: disc;
-}
-.emergency-info ul li {
-  margin-bottom: 0.3rem;
-}
-
-.location-status {
-  background: rgba(255, 255, 255, 0.5);
-  padding: 1rem;
-  border-radius: var(--border-radius-sm);
-  margin: 1rem 0;
-  border: 1px solid var(--glass-border);
 }
 
 /* ---------- NOTIFICACIONES (Toast) ---------- */
@@ -467,110 +451,21 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 350px;
   backdrop-filter: blur(10px);
 }
+
 .notification-toast.show {
   transform: translateX(0);
 }
+
 .notification-title {
   font-weight: 700;
   color: var(--dark);
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
 }
+
 .notification-message {
   color: var(--dark-light);
   font-size: 0.95rem;
-}
-
-/* ---------- CONTENEDOR DE NOTIFICACIONES (para SATBolivia) ---------- */
-.notification-container {
-  position: fixed;
-  top: 100px;
-  right: 20px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 400px;
-  width: 100%;
-}
-.notification {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 180, 212, 0.2);
-  border-radius: var(--border-radius-sm);
-  padding: 1.25rem;
-  box-shadow: var(--shadow-lg);
-  animation: notificationSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  backdrop-filter: blur(20px);
-  transform: translateX(0);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-@keyframes notificationSlideIn {
-  from { opacity: 0; transform: translateX(100%); }
-  to { opacity: 1; transform: translateX(0); }
-}
-.notification.hiding {
-  transform: translateX(100%);
-  opacity: 0;
-}
-.notification::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-}
-.notification.info::before { background: var(--primary); }
-.notification.success::before { background: var(--success); }
-.notification.warning::before { background: var(--warning); }
-.notification.danger::before { background: var(--danger); }
-
-.notification-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
-}
-.notification-title {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--dark);
-}
-.notification-close {
-  background: none;
-  border: none;
-  color: var(--gray);
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 5px;
-  transition: var(--transition-fast);
-}
-.notification-close:hover {
-  color: var(--dark);
-  background: rgba(0, 0, 0, 0.05);
-}
-.notification-body {
-  color: var(--dark-light);
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-.notification-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  animation: progressBar linear forwards;
-}
-@keyframes progressBar {
-  from { width: 100%; }
-  to { width: 0%; }
 }
 
 /* ---------- BOTÓN DE EMERGENCIA FLOTANTE ---------- */
@@ -594,6 +489,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   animation: emergencyPulse 2s infinite;
 }
+
 @keyframes emergencyPulse {
   0%, 100% {
     transform: scale(1);
@@ -604,6 +500,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4), 0 0 60px rgba(255, 107, 107, 0.3);
   }
 }
+
 .emergency-btn:hover {
   transform: scale(1.2) rotate(15deg);
   animation: none;
@@ -616,15 +513,18 @@ h1, h2, h3, h4, h5, h6 {
   padding: 3rem 2rem 2rem;
   margin-top: 4rem;
 }
+
 .footer-content {
   max-width: 1400px;
   margin: 0 auto;
   text-align: center;
 }
+
 .footer p {
   color: var(--dark);
   margin-bottom: 0.5rem;
 }
+
 .footer p:last-child {
   opacity: 0.8;
   font-size: 0.9rem;
@@ -638,25 +538,7 @@ h1, h2, h3, h4, h5, h6 {
 .mb-2 { margin-bottom: 2rem; }
 .hidden { display: none !important; }
 
-/* ---------- LOADING SPINNER ---------- */
-.loading {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(0, 180, 212, 0.3);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
 /* ---------- RESPONSIVE ---------- */
-@media (max-width: 1200px) {
-  .main { padding: 7rem 2rem 3rem; }
-}
-
 @media (max-width: 992px) {
   .header {
     flex-direction: column;
@@ -681,11 +563,6 @@ h1, h2, h3, h4, h5, h6 {
     left: 20px;
     max-width: none;
   }
-  .notification-container {
-    right: 10px;
-    left: 10px;
-    max-width: none;
-  }
   .modal-content {
     padding: 2rem;
   }
@@ -698,9 +575,6 @@ h1, h2, h3, h4, h5, h6 {
   .modal-content {
     padding: 1.5rem;
   }
-  .modal-title {
-    font-size: 1.4rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -709,20 +583,4 @@ h1, h2, h3, h4, h5, h6 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/* ---------- FOCUS VISIBLE ---------- */
-:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 4px;
-}
-
-/* ---------- SELECTION ---------- */
-::selection {
-  background: var(--primary);
-  color: white;
-}
-::-moz-selection {
-  background: var(--primary);
-  color: white;
 }
