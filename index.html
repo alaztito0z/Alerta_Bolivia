@@ -15,12 +15,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- CSS COMÚN (compartido con todas las páginas) -->
     <link rel="stylesheet" href="common.css">
 
-    <!-- CSS ESPECÍFICO DE index.html -->
     <style>
-        /* ===== ESTILOS EXCLUSIVOS DE LA PÁGINA DE INICIO ===== */
         
         h1,
         h2,
@@ -1325,16 +1322,13 @@
         </nav>
     </header>
 
-    <!-- NOTIFICACIONES (TOAST) -->
     <div class="notification-toast" id="notificationToast">
         <div class="notification-title" id="toastTitle">Notificación</div>
         <div class="notification-message" id="toastMessage">Mensaje del sistema</div>
     </div>
 
-    <!-- CONTENEDOR DE NOTIFICACIONES (para SATBolivia) -->
     <div class="notification-container" id="notificationContainer"></div>
 
-    <!-- HERO -->
     <section class="hero">
         <div class="hero-background"></div>
         <div class="hero-content">
@@ -1349,7 +1343,6 @@
         </div>
     </section>
 
-    <!-- DESASTRES -->
     <section class="section" id="desastres">
         <h2 class="section-title">🌋 Desastres Naturales en Bolivia</h2>
         <div class="disaster-cards">
@@ -1596,9 +1589,9 @@
         </div>
     </div>
 
-    <!-- BOTÓN DE EMERGENCIA FLOTANTE (sin onclick, manejado por common.js)
+    <!-- BOTÓN DE EMERGENCIA FLOTANTE (sin onclick, manejado por common.js)-->
     <button class="emergency-btn"><i class="fas fa-exclamation-triangle"></i></button>
-        <p class="push-text">Permite que Alerta Bolivia te envíe alertas importantes sobre desastres naturales en tu área.</p>
+        <!--<p class="push-text">Permite que Alerta Bolivia te envíe alertas importantes sobre desastres naturales en tu área.</p>
         <div class="push-buttons">
             <button class="push-btn allow" onclick="NotificationSystem.requestPermission()"><i class="fas fa-check"></i> Permitir</button>
             <button class="push-btn deny" onclick="NotificationSystem.hidePermission()"><i class="fas fa-times"></i> Ahora no</button>-->
@@ -1917,9 +1910,6 @@
         window.SAT = SATBolivia.instance;
         window.NotificationSystem = NotificationSystem;
 
-        // ============================================================
-        // ASIBOT - CHATBOT (index.html)
-        // ============================================================
         const SYSTEM_PROMPT = `Eres ASIBOT, el Asistente Inteligente del Sistema de Alerta Temprana Bolivia (SAT Bolivia). Tu propósito principal es salvar vidas.
 
 IDENTIDAD:
