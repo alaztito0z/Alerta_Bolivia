@@ -1596,18 +1596,14 @@
         </div>
     </div>
 
-    <!-- BOTÓN DE EMERGENCIA FLOTANTE (sin onclick, manejado por common.js) -->
+    <!-- BOTÓN DE EMERGENCIA FLOTANTE (sin onclick, manejado por common.js)
     <button class="emergency-btn"><i class="fas fa-exclamation-triangle"></i></button>
-
-    <!-- PUSH PERMISSION -->
         <p class="push-text">Permite que Alerta Bolivia te envíe alertas importantes sobre desastres naturales en tu área.</p>
         <div class="push-buttons">
             <button class="push-btn allow" onclick="NotificationSystem.requestPermission()"><i class="fas fa-check"></i> Permitir</button>
-            <button class="push-btn deny" onclick="NotificationSystem.hidePermission()"><i class="fas fa-times"></i> Ahora no</button>
+            <button class="push-btn deny" onclick="NotificationSystem.hidePermission()"><i class="fas fa-times"></i> Ahora no</button>-->
         </div>
     </div>
-
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
             <p>© 2026 SAT Bolivia - Sistema de Alerta Temprana. Todos los derechos reservados.</p>
@@ -1615,15 +1611,10 @@
         </div>
     </footer>
 
-    <!-- ===== SCRIPTS ===== -->
-    <!-- JS COMÚN (compartido) -->
     <script src="common.js"></script>
-
-    <!-- JS ESPECÍFICO DE index.html -->
+ 
     <script>
-        // ============================================================
-        // SAT BOLIVIA - CLASE PRINCIPAL (index.html)
-        // ============================================================
+
         class SATBolivia {
             constructor() {
                 this.stats = {
