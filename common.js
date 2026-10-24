@@ -1,13 +1,8 @@
-/* ============================================================
-   common.js - Utilidades y Lógica Compartida del SAT Bolivia
-   ============================================================ */
 
 const AlertaBolivia = (function() {
   'use strict';
 
-  // ============================================================
-  // NOTIFICACIONES (Toast)
-  // ============================================================
+  
   function mostrarNotificacion(titulo, mensaje, duracion = 4000) {
     const toast = document.getElementById('notificationToast');
     const titleElem = document.getElementById('toastTitle');
@@ -29,9 +24,7 @@ const AlertaBolivia = (function() {
     }, duracion);
   }
 
-  // ============================================================
-  // GEOLOCALIZACIÓN
-  // ============================================================
+
   function obtenerUbicacion(opciones = { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }) {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
@@ -42,13 +35,11 @@ const AlertaBolivia = (function() {
     });
   }
 
-  // ============================================================
-  // ENVÍO DE ALERTA (Backend + n8n)
-  // ============================================================
+  
   async function enviarAlerta(data) {
     const resultados = { backend: null, n8n: null };
 
-    // 1. Enviar al Backend (Node.js + SQLite) si existe
+   
     try {
       const respBackend = await fetch('http://localhost:3000/api/reportes', {
         method: 'POST',
@@ -62,7 +53,7 @@ const AlertaBolivia = (function() {
       resultados.backend = { error: err.message };
     }
 
-    // 2. Enviar a n8n (Webhook) si está configurado
+  
     try {
       const respN8n = await fetch('http://localhost:5678/webhook/emergencia', {
         method: 'POST',
@@ -79,9 +70,7 @@ const AlertaBolivia = (function() {
     return resultados;
   }
 
-  // ============================================================
-  // ACTUALIZAR FECHA/HORA
-  // ============================================================
+
   function actualizarFecha(elementId = 'lastUpdateTime') {
     const el = document.getElementById(elementId);
     if (!el) return;
@@ -100,9 +89,7 @@ const AlertaBolivia = (function() {
     el.textContent = `${dateString} ${timeString}`;
   }
 
-  // ============================================================
-  // HEADER SCROLL
-  // ============================================================
+  
   function gestionarHeader() {
     const header = document.getElementById('header');
     if (!header) return;
@@ -113,15 +100,13 @@ const AlertaBolivia = (function() {
     }
   }
 
-  // ============================================================
-  // ALERTA DE EMERGENCIA - COMPORTAMIENTO UNIFICADO
-  // ============================================================
+  
   let ubicacionEmergencia = null;
 
   window.mostrarAlertaRapida = async function() {
     const modal = document.getElementById('emergencyModal');
 
-    // Si no hay modal, usar fallback con confirm
+    
     if (!modal) {
       if (confirm('🚨 ALERTA DE EMERGENCIA\n\n¿Enviar alerta a los servicios de emergencia?')) {
         mostrarNotificacion('🚨 Alerta Enviada', 'Servicios de emergencia notificados.');
@@ -129,13 +114,13 @@ const AlertaBolivia = (function() {
       return;
     }
 
-    // Si existe el modal, mostrarlo con geolocalización
+  
     const status = document.getElementById('locationStatus') || document.createElement('div');
     const sendBtn = document.getElementById('sendEmergencyBtn');
     const locPrev = document.getElementById('locationPreview');
     const userPrev = document.getElementById('userPreview');
 
-    // Resetear y mostrar modal
+    
     modal.classList.add('active');
 
     if (sendBtn) {
@@ -176,7 +161,7 @@ const AlertaBolivia = (function() {
       }
 
     } catch (error) {
-      // Fallback: ubicación aproximada por IP
+     
       ubicacionEmergencia = {
         lat: -16.290154,
         lng: -63.588653,
@@ -202,7 +187,7 @@ const AlertaBolivia = (function() {
     }
   };
 
-  // Función unificada para enviar la alerta
+ 
   async function enviarAlertaEmergencia(ubicacion) {
     const sendBtn = document.getElementById('sendEmergencyBtn');
     const originalText = sendBtn ? sendBtn.innerHTML : 'Enviando...';
@@ -215,7 +200,7 @@ const AlertaBolivia = (function() {
     try {
       const id = `SAT-${Date.now().toString().slice(-6)}-${Math.random().toString(36).substr(2,3).toUpperCase()}`;
 
-      // Guardar en localStorage
+     
       try {
         const reports = JSON.parse(localStorage.getItem('sat_emergency_reports') || '[]');
         reports.unshift({
@@ -227,7 +212,7 @@ const AlertaBolivia = (function() {
         localStorage.setItem('sat_emergency_reports', JSON.stringify(reports));
       } catch (e) { /* ignore */ }
 
-      // Enviar a backend y n8n (opcional)
+     
       await enviarAlerta({
         tipo: 'emergencia',
         urgencia: 'alta',
@@ -238,7 +223,7 @@ const AlertaBolivia = (function() {
         nombre: 'Usuario SAT'
       });
 
-      // Mostrar confirmación
+      
       const modal = document.getElementById('confirmationModal');
       const reportNum = document.getElementById('reportNumber');
       const reportTime = document.getElementById('reportTime');
@@ -255,7 +240,7 @@ const AlertaBolivia = (function() {
 
       mostrarNotificacion('🚨 ALERTA ENVIADA', `Emergencia reportada con código ${id}.`, 8000);
 
-      // Cerrar modal de emergencia
+     
       const emergencyModal = document.getElementById('emergencyModal');
       if (emergencyModal) emergencyModal.classList.remove('active');
 
@@ -272,18 +257,16 @@ const AlertaBolivia = (function() {
   // Exponer la función globalmente
   window.enviarAlertaEmergencia = enviarAlertaEmergencia;
 
-  // ============================================================
-  // INICIALIZAR ELEMENTOS COMUNES
-  // ============================================================
+
   function inicializar() {
-    // Header scroll
+  
     window.addEventListener('scroll', gestionarHeader);
 
-    // Actualizar fecha cada minuto
+   
     actualizarFecha();
     setInterval(() => actualizarFecha(), 60000);
 
-    // Cerrar modales con ESC
+  
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal.active, .modal-overlay.active').forEach(el => {
@@ -292,14 +275,14 @@ const AlertaBolivia = (function() {
       }
     });
 
-    // Cerrar modales haciendo clic fuera
+   
     document.addEventListener('click', function(e) {
       if (e.target.classList.contains('modal') || e.target.classList.contains('modal-overlay')) {
         e.target.classList.remove('active');
       }
     });
 
-    // Botón de emergencia (delegación de eventos)
+  
     document.addEventListener('click', function(e) {
       const target = e.target.closest('.emergency-btn');
       if (target) {
@@ -307,7 +290,7 @@ const AlertaBolivia = (function() {
         if (typeof window.mostrarAlertaRapida === 'function') {
           window.mostrarAlertaRapida();
         } else {
-          // Fallback si no está definida
+        
           if (confirm('🚨 ALERTA DE EMERGENCIA\n\n¿Enviar alerta a los servicios de emergencia?')) {
             mostrarNotificacion('🚨 Alerta Enviada', 'Servicios de emergencia notificados.');
           }
@@ -319,9 +302,7 @@ const AlertaBolivia = (function() {
     console.log('%cUtilidades compartidas cargadas correctamente.', 'color:#80D0FF;');
   }
 
-  // ============================================================
-  // EXPOSICIÓN PÚBLICA
-  // ============================================================
+ 
   return {
     mostrarNotificacion,
     obtenerUbicacion,
@@ -333,10 +314,10 @@ const AlertaBolivia = (function() {
 
 })();
 
-// Exponer globalmente
+
 window.AlertaBolivia = AlertaBolivia;
 
-// Inicializar automáticamente cuando el DOM esté listo
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', AlertaBolivia.inicializar);
 } else {
