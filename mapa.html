@@ -728,8 +728,8 @@
 
         <!-- ÚLTIMA ACTUALIZACIÓN -->
         <div class="last-update">
-            <i class="fas fa-sync-alt"></i> Última actualización:
-            <span class="highlight" id="lastUpdateTime">Cargando...</span>
+            <i class="fas fa-sync-alt"></i> Última consulta:
+            <span class="highlight" id="lastUpdateTime">Abre un mapa para consultar su fuente</span>
         </div>
 
         <!-- ESTADÍSTICAS -->
@@ -738,26 +738,26 @@
                 <div class="stat-icon">🗺️</div>
                 <span class="stat-number" id="total-maps">8</span>
                 <span class="stat-label">Sistemas de Mapa</span>
-                <div class="stat-trend trend-up"><i class="fas fa-arrow-up"></i><span>+2 activos</span></div>
+                <div class="stat-trend trend-up"><i class="fas fa-arrow-up"></i><span>Ver todos</span></div>
             </div>
             <div class="stat-card" data-filter="online">
                 <div class="stat-icon">🔄</div>
-                <span class="stat-number" id="live-maps">6</span>
-                <span class="stat-label">En Tiempo Real</span>
-                <div class="stat-trend trend-neutral"><i class="fas fa-bolt"></i><span>Estable</span></div>
+                <span class="stat-number" id="live-maps">0</span>
+                <span class="stat-label">Fuentes consultadas</span>
+                <div class="stat-trend trend-neutral"><i class="fas fa-bolt"></i><span>Durante esta visita</span></div>
             </div>
             <div class="stat-card" data-filter="warning">
                 <div class="stat-icon">🚨</div>
-                <span class="stat-number" id="active-alerts">12</span>
-                <span class="stat-label">Alertas Activas</span>
-                <div class="stat-trend trend-up"><i class="fas fa-exclamation-triangle"></i><span>+2 nuevas</span></div>
-                <div class="alert-badge">2</div>
+                <span class="stat-number" id="active-alerts">0</span>
+                <span class="stat-label">Fuentes con problemas</span>
+                <div class="stat-trend trend-up"><i class="fas fa-exclamation-triangle"></i><span>Estado de las consultas</span></div>
+                <div class="alert-badge">0</div>
             </div>
             <div class="stat-card" data-filter="response">
                 <div class="stat-icon">⚡</div>
-                <span class="stat-number" id="response-time">30s</span>
-                <span class="stat-label">Respuesta Rápida</span>
-                <div class="stat-trend trend-down"><i class="fas fa-arrow-down"></i><span>-15s</span></div>
+                <span class="stat-number" id="response-time">Local</span>
+                <span class="stat-label">Reportes ciudadanos</span>
+                <div class="stat-trend trend-down"><i class="fas fa-arrow-down"></i><span>Guardados en este navegador</span></div>
             </div>
         </div>
 
@@ -768,21 +768,21 @@
                 <div class="map-card-header">
                     <div class="map-card-icon"><i class="fas fa-cloud-sun-rain"></i></div>
                     <div class="map-card-title">
-                        <h3>Radar Meteorológico <span class="map-card-badge">EN VIVO</span></h3>
+                        <h3>Mapa Meteorológico <span class="map-card-badge">PRONÓSTICO</span></h3>
                     </div>
                 </div>
                 <div class="map-card-content">
-                    <p>Seguimiento en tiempo real de sistemas climáticos y patrones de viento en Bolivia</p>
+                    <p>Pronóstico de sistemas climáticos y patrones de viento en Bolivia mediante Windy</p>
                     <div class="map-card-stats">
                         <div class="map-stat"><i class="fas fa-satellite"></i><span class="map-status status-online">Transmisión Activa</span></div>
-                        <div class="map-stat"><i class="fas fa-clock"></i><span>Actualizado hace 2min</span></div>
+                        <div class="map-stat"><i class="fas fa-clock"></i><span>Fecha visible en el mapa</span></div>
                     </div>
                 </div>
                 <div class="map-card-footer">
                     <div class="map-card-actions">
                         <button class="btn" onclick="abrirMapa('weather')"><i class="fas fa-external-link-alt"></i> Abrir Mapa</button>
                     </div>
-                    <div class="map-stat"><i class="fas fa-thermometer-half"></i> 22°C • <i class="fas fa-wind"></i> 15km/h</div>
+                    <div class="map-stat"><i class="fas fa-thermometer-half"></i> Windy • <i class="fas fa-wind"></i> Pronóstico</div>
                 </div>
             </div>
 
@@ -798,14 +798,14 @@
                     <p>Imágenes de alta resolución para monitoreo territorial y análisis ambiental en Bolivia</p>
                     <div class="map-card-stats">
                         <div class="map-stat"><i class="fas fa-signal"></i><span class="map-status status-online">Conexión Estable</span></div>
-                        <div class="map-stat"><i class="fas fa-calendar-day"></i><span>Actualizado hoy</span></div>
+                        <div class="map-stat"><i class="fas fa-calendar-day"></i><span>Fecha variable según zona</span></div>
                     </div>
                 </div>
                 <div class="map-card-footer">
                     <div class="map-card-actions">
                         <button class="btn" onclick="abrirMapa('satellite')"><i class="fas fa-external-link-alt"></i> Explorar</button>
                     </div>
-                    <div class="map-stat"><i class="fas fa-ruler-combined"></i> Resolución 10m</div>
+                    <div class="map-stat"><i class="fas fa-ruler-combined"></i> Esri World Imagery</div>
                 </div>
             </div>
 
@@ -818,17 +818,17 @@
                     </div>
                 </div>
                 <div class="map-card-content">
-                    <p>Sistema oficial de alertas meteorológicas y avisos de emergencia nacional del SENAMHI</p>
+                    <p>Mapa de lluvias previstas y acceso a los avisos oficiales del SENAMHI</p>
                     <div class="map-card-stats">
-                        <div class="map-stat"><i class="fas fa-bell"></i><span class="map-status status-warning">3 Alertas Activas</span></div>
-                        <div class="map-stat"><i class="fas fa-map-marker-alt"></i><span>5 Departamentos</span></div>
+                        <div class="map-stat"><i class="fas fa-bell"></i><span class="map-status status-warning">Consultar fuente oficial</span></div>
+                        <div class="map-stat"><i class="fas fa-map-marker-alt"></i><span>Cobertura Bolivia</span></div>
                     </div>
                 </div>
                 <div class="map-card-footer">
                     <div class="map-card-actions">
                         <button class="btn btn-danger" onclick="abrirMapa('alerts')"><i class="fas fa-external-link-alt"></i> Ver Alertas</button>
                     </div>
-                    <div class="map-stat"><i class="fas fa-shield-alt"></i> Meteoblue</div>
+                    <div class="map-stat"><i class="fas fa-shield-alt"></i> SENAMHI / Windy</div>
                 </div>
             </div>
 
@@ -837,21 +837,21 @@
                 <div class="map-card-header">
                     <div class="map-card-icon"><i class="fas fa-hospital"></i></div>
                     <div class="map-card-title">
-                        <h3>Red de Emergencias <span class="map-card-badge">24/7</span></h3>
+                        <h3>Red de Emergencias <span class="map-card-badge">MAPA</span></h3>
                     </div>
                 </div>
                 <div class="map-card-content">
                     <p>Localización de hospitales, centros de salud y servicios de emergencia en todo Bolivia</p>
                     <div class="map-card-stats">
                         <div class="map-stat"><i class="fas fa-phone-alt"></i><span class="map-status status-online">Disponible</span></div>
-                        <div class="map-stat"><i class="fas fa-hospital-alt"></i><span>247 Centros</span></div>
+                        <div class="map-stat"><i class="fas fa-hospital-alt"></i><span>Consultar por zona</span></div>
                     </div>
                 </div>
                 <div class="map-card-footer">
                     <div class="map-card-actions">
                         <button class="btn" onclick="abrirMapa('health')"><i class="fas fa-external-link-alt"></i> Ver Mapa</button>
                     </div>
-                    <div class="map-stat"><i class="fas fa-tools"></i> En mantenimiento</div>
+                    <div class="map-stat"><i class="fas fa-tools"></i> Google Maps</div>
                 </div>
             </div>
 
@@ -864,17 +864,17 @@
                     </div>
                 </div>
                 <div class="map-card-content">
-                    <p>Detección de focos de calor y actividad de incendios forestales en tiempo real vía satélite</p>
+                    <p>Focos de calor detectados por satélite en Bolivia y alrededores, con fecha de observación</p>
                     <div class="map-card-stats">
                         <div class="map-stat"><i class="fas fa-satellite-dish"></i><span class="map-status status-online">Satélite Activo</span></div>
-                        <div class="map-stat"><i class="fas fa-fire"></i><span>6 Focos Activos</span></div>
+                        <div class="map-stat"><i class="fas fa-fire"></i><span>Consultar detecciones recientes</span></div>
                     </div>
                 </div>
                 <div class="map-card-footer">
                     <div class="map-card-actions">
                         <button class="btn" onclick="abrirMapa('fires')"><i class="fas fa-external-link-alt"></i> Monitorear</button>
                     </div>
-                    <div class="map-stat"><i class="fas fa-tools"></i> En mantenimiento</div>
+                    <div class="map-stat"><i class="fas fa-tools"></i> NASA GIBS / FIRMS</div>
                 </div>
             </div>
 
@@ -887,17 +887,17 @@
                     </div>
                 </div>
                 <div class="map-card-content">
-                    <p>Monitoreo de actividad sísmica y registro de sismos en tiempo real en territorio boliviano</p>
+                    <p>Sismos registrados por USGS durante los últimos 30 días en Bolivia y alrededores</p>
                     <div class="map-card-stats">
                         <div class="map-stat"><i class="fas fa-chart-line"></i><span class="map-status status-online">Operacional</span></div>
-                        <div class="map-stat"><i class="fas fa-globe"></i><span>3 Sismos Hoy</span></div>
+                        <div class="map-stat"><i class="fas fa-globe"></i><span>Últimos 30 días</span></div>
                     </div>
                 </div>
                 <div class="map-card-footer">
                     <div class="map-card-actions">
                         <button class="btn" onclick="abrirMapa('seismic')"><i class="fas fa-external-link-alt"></i> Ver Sismos</button>
                     </div>
-                    <div class="map-stat"><i class="fas fa-tools"></i> En mantenimiento</div>
+                    <div class="map-stat"><i class="fas fa-tools"></i> USGS</div>
                 </div>
             </div>
 
@@ -910,15 +910,15 @@
                     </div>
                 </div>
                 <div class="map-card-content">
-                    <p>Mapa interactivo con reportes ciudadanos de incidentes y emergencias en tiempo real</p>
+                    <p>Ubicaciones de reportes ciudadanos guardados en este navegador</p>
                     <div class="map-card-stats">
                         <div class="map-stat"><i class="fas fa-users"></i><span class="map-status status-online">Comunidad Activa</span></div>
-                        <div class="map-stat"><i class="fas fa-comment-dots"></i><span>45 Reportes Hoy</span></div>
+                        <div class="map-stat"><i class="fas fa-comment-dots"></i><span>Solo reportes con coordenadas</span></div>
                     </div>
                 </div>
                 <div class="map-card-footer">
                     <div class="map-card-actions">
-                        <button class="btn" onclick="window.location.href='denuncias.html'"><i class="fas fa-plus-circle"></i> Agregar Reporte</button>
+                        <button class="btn" onclick="abrirMapa('reports')"><i class="fas fa-plus-circle"></i> Ver Reportes</button>
                     </div>
                     <div class="map-stat"><i class="fas fa-user-check"></i> Sistema SAT</div>
                 </div>
@@ -933,17 +933,17 @@
                     </div>
                 </div>
                 <div class="map-card-content">
-                    <p>Monitoreo de infraestructura crítica: puentes, carreteras, represas y servicios básicos</p>
+                    <p>Ubicación de puentes, carreteras, represas y subestaciones, con búsqueda por ciudad</p>
                     <div class="map-card-stats">
                         <div class="map-stat"><i class="fas fa-clipboard-check"></i><span class="map-status status-online">Monitoreando</span></div>
-                        <div class="map-stat"><i class="fas fa-hard-hat"></i><span>189 Sitios</span></div>
+                        <div class="map-stat"><i class="fas fa-hard-hat"></i><span>Consultar por zona</span></div>
                     </div>
                 </div>
                 <div class="map-card-footer">
                     <div class="map-card-actions">
                         <button class="btn" onclick="abrirMapa('infrastructure')"><i class="fas fa-external-link-alt"></i> Ver Mapa</button>
                     </div>
-                    <div class="map-stat"><i class="fas fa-tools"></i> En mantenimiento</div>
+                    <div class="map-stat"><i class="fas fa-tools"></i> Google Maps</div>
                 </div>
             </div>
         </div>
@@ -966,7 +966,7 @@
                     <p>Cargando mapa interactivo...</p>
                     <p style="color:var(--gray);font-size:0.9rem;">Por favor espera unos segundos</p>
                 </div>
-                <iframe id="mapIframe" style="display:none;"></iframe>
+                <iframe id="mapIframe" title="Mapa interactivo de Bolivia" style="display:none;"></iframe>
             </div>
             <div class="map-modal-footer">
                 <div class="map-modal-info" id="mapModalInfo">🌍 Mapa cargando... Mantén la conexión a internet para mejor experiencia</div>
@@ -990,118 +990,193 @@
 
     <!-- ========== SCRIPTS ========== -->
     <script src="common.js"></script>
+    <script>
+const documentosMapas = {"vista":"\u003c!DOCTYPE html>\n\u003chtml lang=\"es\">\n\u003chead>\n    \u003cmeta charset=\"UTF-8\">\n    \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    \u003ctitle>Mapa — Alerta Bolivia\u003c/title>\n    \u003clink rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.css\">\n    \u003cstyle>\n        * { box-sizing: border-box; }\n        body { margin: 0; font: 14px system-ui, sans-serif; color: #0a1e32; background: #f0f9ff; height: 100dvh; display: flex; flex-direction: column; }\n        header { padding: 10px 14px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }\n        h1 { font-size: 16px; margin: 0; flex: 1; }\n        button, select, a { font: inherit; padding: 8px 10px; border-radius: 7px; }\n        button, select { border: 1px solid #9acbd4; background: white; color: #0a1e32; }\n        button { cursor: pointer; }\n        button:disabled { opacity: .6; cursor: wait; }\n        a { color: #00586c; }\n        [hidden] { display: none !important; }\n        #map { flex: 1; min-height: 180px; background: #dce9eb; }\n        #status { margin: 0; padding: 10px 14px; min-height: 40px; }\n        #status[data-state=\"warning\"] { color: #8b3216; background: #fff1d8; }\n        .leaflet-popup-content { max-width: 260px; overflow-wrap: anywhere; }\n        .leaflet-popup-content p { margin: 7px 0; }\n    \u003c/style>\n\u003c/head>\n\u003cbody>\n    \u003cheader>\n        \u003ch1 id=\"title\">Mapa de Bolivia\u003c/h1>\n        \u003clabel id=\"dateControl\" hidden>Observación \u003cselect id=\"date\">\u003c/select>\u003c/label>\n        \u003cbutton id=\"retry\" hidden>Reintentar\u003c/button>\n        \u003ca id=\"source\" target=\"_blank\" rel=\"noopener noreferrer\" hidden>Fuente\u003c/a>\n    \u003c/header>\n    \u003cdiv id=\"map\" aria-label=\"Mapa interactivo\">\u003c/div>\n    \u003cp id=\"status\" role=\"status\" aria-live=\"polite\">Cargando el mapa… Si la conexión falla, usa Reintentar.\u003c/p>\n    \u003cscript src=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.js\">\u003c/script>\n    \u003cscript>\n(() => {\n    const parametros = new URLSearchParams(window.parametrosMapa ?? location.search);\n    const tipo = parametros.get('tipo');\n    const opciones = {\n        satellite: ['Vista satelital', 'https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9'],\n        seismic: ['Sismos de los últimos 30 días', 'https://earthquake.usgs.gov/earthquakes/map/'],\n        fires: ['Observaciones térmicas NASA', 'https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@-64.7,-16.3,5z'],\n        reports: ['Reportes guardados en este navegador', 'denuncias.html']\n    };\n    const estado = document.getElementById('status');\n    const reintentar = document.getElementById('retry');\n    const peticiones = new Set();\n    let revision = 0;\n    let cerrado = false;\n    let datosListos = false;\n    let baseLista = false;\n    let mensajeDatos = '';\n    let mapa;\n    let puntos;\n    let capaFuego;\n    let falloBase = false;\n\n    function informar(texto, nivel = 'loading') {\n        if (cerrado) return;\n        estado.textContent = texto;\n        estado.dataset.state = nivel;\n        reintentar.hidden = nivel !== 'warning';\n        if (window.parent !== window && ['online', 'warning'].includes(nivel)) {\n            window.parent.postMessage({ canal: 'alerta-mapas', tipo, carga: parametros.get('carga'), estado: nivel, texto }, window.origenMapa || location.origin);\n        }\n    }\n\n    function completar(texto) {\n        datosListos = true;\n        mensajeDatos = texto;\n        informar(falloBase ? `${texto} No se pudo cargar el fondo del mapa; reintenta.` : baseLista ? texto : `${texto} Cargando cartografía…`, falloBase ? 'warning' : baseLista ? 'online' : 'loading');\n    }\n\n    function cancelar() {\n        peticiones.forEach(control => control.abort());\n        peticiones.clear();\n    }\n\n    async function obtenerJSON(url, clave, forzar = false) {\n        const cacheKey = `alerta-mapa:${clave}`;\n        if (!forzar) {\n            try {\n                const guardado = JSON.parse(sessionStorage.getItem(cacheKey));\n                if (guardado && Date.now() - guardado.fecha \u003c 600000) return guardado.datos;\n            } catch {}\n        }\n        const control = new AbortController();\n        peticiones.add(control);\n        const timeout = setTimeout(() => control.abort(), 18000);\n        try {\n            const respuesta = await fetch(url, { signal: control.signal });\n            if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);\n            const datos = await respuesta.json();\n            if (datos.remark || (clave === 'sismos' && !Array.isArray(datos.features))) throw new Error('Respuesta incompleta');\n            try {\n                const claves = Object.keys(sessionStorage).filter(valor => valor.startsWith('alerta-mapa:'));\n                if (claves.length >= 16 && !sessionStorage.getItem(cacheKey)) sessionStorage.removeItem(claves[0]);\n                sessionStorage.setItem(cacheKey, JSON.stringify({ fecha: Date.now(), datos }));\n            } catch {}\n            return datos;\n        } finally {\n            clearTimeout(timeout);\n            peticiones.delete(control);\n        }\n    }\n\n    function popup(titulo, lineas, enlace) {\n        const caja = document.createElement('div');\n        const cabecera = document.createElement('strong');\n        cabecera.textContent = titulo;\n        caja.append(cabecera);\n        lineas.filter(Boolean).forEach(texto => {\n            const linea = document.createElement('p');\n            linea.textContent = texto;\n            caja.append(linea);\n        });\n        if (enlace) {\n            try {\n                const url = new URL(enlace);\n                if (url.protocol === 'https:') {\n                    const link = document.createElement('a');\n                    link.href = url.href;\n                    link.target = '_blank';\n                    link.rel = 'noopener noreferrer';\n                    link.textContent = 'Ver fuente';\n                    caja.append(link);\n                }\n            } catch {}\n        }\n        return caja;\n    }\n\n    function coordenadas(latitud, longitud) {\n        if (latitud === null || longitud === null || latitud === undefined || longitud === undefined || String(latitud).trim() === '' || String(longitud).trim() === '') return null;\n        const lat = Number(latitud);\n        const lon = Number(longitud);\n        return Number.isFinite(lat) && Number.isFinite(lon) && lat >= -23 && lat \u003c= -9 && lon >= -70 && lon \u003c= -57 ? [lat, lon] : null;\n    }\n\n    function punto(posicion, titulo, lineas, color, enlace) {\n        return L.circleMarker(posicion, { radius: 7, color, weight: 2, fillOpacity: .75 }).bindPopup(popup(titulo, lineas, enlace)).addTo(puntos);\n    }\n\n    async function cargarSismos(forzar, turno) {\n        const inicio = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10);\n        const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${inicio}&minlatitude=-23&maxlatitude=-9&minlongitude=-70&maxlongitude=-57&orderby=time&limit=1000`;\n        const datos = await obtenerJSON(url, 'sismos', forzar);\n        if (cerrado || turno !== revision) return;\n        puntos.clearLayers();\n        datos.features.forEach(sismo => {\n            const coord = sismo.geometry?.coordinates;\n            const pos = coord && coordenadas(coord[1], coord[0]);\n            if (!pos) return;\n            const info = sismo.properties || {};\n            punto(pos, `Magnitud ${info.mag ?? 'sin dato'}`, [info.place, new Date(info.time).toLocaleString('es-BO'), `Profundidad: ${coord[2]} km`], '#c24432', info.url);\n        });\n        const cantidad = puntos.getLayers().length;\n        completar(`${cantidad} sismos registrados por USGS desde ${inicio} en Bolivia y alrededores.${cantidad === 0 ? ' No hay registros en este período.' : ' Selecciona un punto para ver fecha y magnitud.'}`);\n    }\n\n    function cargarReportes() {\n        puntos.clearLayers();\n        let omitidos = 0;\n        let invalidos = false;\n        for (const clave of ['sat_denuncias', 'sat_emergency_reports']) {\n            let reportes;\n            try {\n                reportes = JSON.parse(localStorage.getItem(clave) || '[]');\n                if (!Array.isArray(reportes)) throw new Error('Formato inválido');\n            } catch { invalidos = true; continue; }\n            for (const reporte of reportes) {\n                if (!reporte || typeof reporte !== 'object') { omitidos++; continue; }\n                const pos = coordenadas(reporte.lat ?? reporte.location?.lat, reporte.lon ?? reporte.location?.lng);\n                if (!pos) { omitidos++; continue; }\n                const fecha = reporte.timestamp || reporte.savedAt;\n                punto(pos, reporte.tipo || 'Emergencia reportada', [reporte.lugar, reporte.descripcion, fecha && new Date(fecha).toLocaleString('es-BO'), 'Reporte local no verificado'], '#b36d00');\n            }\n        }\n        const cantidad = puntos.getLayers().length;\n        if (cantidad) mapa.fitBounds(puntos.getBounds(), { padding: [30, 30], maxZoom: 13 });\n        completar(`${cantidad} reportes locales con ubicación.${omitidos ? ` ${omitidos} sin coordenadas válidas.` : ''}${invalidos ? ' Algunos datos guardados no se pudieron leer.' : ''}${cantidad ? ' No se han enviado datos a ningún servicio.' : ' Agrega un reporte con ubicación en Denuncias para verlo aquí.'}`);\n    }\n\n    async function cargar(forzar = false) {\n        const turno = ++revision;\n        cancelar();\n        datosListos = false;\n        informar('Consultando la fuente…');\n        try {\n            if (tipo === 'seismic') await cargarSismos(forzar, turno);\n            else if (tipo === 'reports') cargarReportes();\n            else if (tipo === 'satellite') completar('Imágenes Esri World Imagery. La fecha y resolución varían según la zona; no son imágenes en vivo.');\n            else if (tipo === 'fires') cargarFuego();\n        } catch (error) {\n            if (!cerrado && turno === revision) informar('No se pudo consultar la fuente. Reintenta o abre Fuente. Los datos anteriores, si existen, se conservan y pueden estar desactualizados.', 'warning');\n        }\n    }\n\n    function cargarFuego() {\n        if (capaFuego) mapa.removeLayer(capaFuego);\n        const fecha = document.getElementById('date').value;\n        capaFuego = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi', {\n            layers: 'VIIRS_SNPP_Thermal_Anomalies_375m_All', format: 'image/png', transparent: true,\n            version: '1.3.0', time: fecha, maxZoom: 12, maxNativeZoom: 7,\n            attribution: 'NASA EOSDIS GIBS / VIIRS', bounds: [[-23, -70], [-9, -57]]\n        });\n        let errores = 0;\n        capaFuego.on('tileerror', () => { errores++; });\n        capaFuego.on('load', () => {\n            if (cerrado || capaFuego.options.time !== fecha) return;\n            if (errores) informar('La capa térmica no está disponible para esta fecha. Prueba otra fecha o consulta FIRMS en Fuente.', 'warning');\n            else completar(`NASA VIIRS · observación ${fecha} UTC. Los puntos indican anomalías térmicas; la falta de puntos no descarta incendios ni garantiza cobertura.`);\n        });\n        capaFuego.addTo(mapa);\n    }\n\n    reintentar.addEventListener('click', () => { if (!mapa || falloBase) location.reload(); else cargar(true); });\n    if (!opciones[tipo]) { informar('Tipo de mapa no reconocido. Vuelve a la sección Mapas.', 'warning'); return; }\n    document.getElementById('title').textContent = opciones[tipo][0];\n    document.title = `${opciones[tipo][0]} — Alerta Bolivia`;\n    const fuente = document.getElementById('source');\n    fuente.href = opciones[tipo][1];\n    fuente.hidden = false;\n    if (tipo === 'reports') fuente.textContent = 'Agregar reporte';\n    if (typeof L === 'undefined') { informar('No se pudo cargar la cartografía. Comprueba tu conexión y reintenta.', 'warning'); return; }\n    mapa = L.map('map', { preferCanvas: true }).setView([-16.3, -64.7], 5);\n    puntos = L.featureGroup().addTo(mapa);\n    const satelite = tipo === 'satellite';\n    const base = L.tileLayer(satelite\n        ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'\n        : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {\n        maxZoom: 19, maxNativeZoom: satelite ? 18 : 19,\n        attribution: satelite ? 'Tiles © Esri, Maxar, Earthstar Geographics, GIS User Community' : '© \u003ca href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap\u003c/a> contributors'\n    });\n    let erroresBase = 0;\n    const esperaBase = setTimeout(() => { if (!baseLista) { falloBase = true; informar('La cartografía tarda en responder. Reintenta o abre Fuente.', 'warning'); } }, 20000);\n    base.on('loading', () => { erroresBase = 0; });\n    base.on('tileload', () => { baseLista = true; });\n    base.on('tileerror', () => { erroresBase++; });\n    base.on('load', () => {\n        clearTimeout(esperaBase);\n        falloBase = erroresBase > 0;\n        if (falloBase) informar('No se pudo cargar parte de la cartografía. Comprueba tu conexión y reintenta.', 'warning');\n        else if (datosListos) completar(mensajeDatos);\n    });\n    base.addTo(mapa);\n    if (tipo === 'fires') {\n        document.getElementById('dateControl').hidden = false;\n        const selector = document.getElementById('date');\n        for (let dia = 1; dia \u003c= 7; dia++) {\n            const fecha = new Date(Date.now() - dia * 86400000).toISOString().slice(0, 10);\n            selector.add(new Option(`${fecha} UTC`, fecha));\n        }\n        selector.addEventListener('change', () => cargar());\n    }\n    window.addEventListener('pagehide', () => { cerrado = true; ++revision; clearTimeout(esperaBase); cancelar(); mapa.remove(); });\n    window.addEventListener('keydown', event => {\n        if (event.key === 'Escape' && window.parent !== window) window.parent.document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));\n    });\n    cargar(parametros.get('actualizar') === '1');\n})();\n\n\u003c/script>\n\u003c/body>\n\u003c/html>\n","lugares":"\u003c!DOCTYPE html>\n\u003chtml lang=\"es\">\n\u003chead>\n    \u003cmeta charset=\"UTF-8\">\n    \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    \u003ctitle>Lugares — Alerta Bolivia\u003c/title>\n    \u003cstyle>\n        * { box-sizing: border-box; }\n        body { margin: 0; height: 100dvh; display: flex; flex-direction: column; font: 14px system-ui, sans-serif; color: #0a1e32; background: #f0f9ff; }\n        header { padding: 10px 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }\n        label { display: flex; align-items: center; gap: 5px; }\n        select, button { font: inherit; padding: 8px; border: 1px solid #9acbd4; border-radius: 7px; background: white; color: #0a1e32; }\n        button { cursor: pointer; }\n        a { color: #00586c; }\n        iframe { flex: 1; min-height: 180px; width: 100%; border: 0; }\n        #status { padding: 10px 14px; margin: 0; }\n    \u003c/style>\n\u003c/head>\n\u003cbody>\n    \u003cheader>\n        \u003clabel>Ciudad \u003cselect id=\"city\">\u003coption>La Paz\u003c/option>\u003coption>Santa Cruz de la Sierra\u003c/option>\u003coption>Cochabamba\u003c/option>\u003coption>Sucre\u003c/option>\u003coption>Oruro\u003c/option>\u003coption>Potosí\u003c/option>\u003coption>Tarija\u003c/option>\u003coption>Trinidad\u003c/option>\u003coption>Cobija\u003c/option>\u003c/select>\u003c/label>\n        \u003clabel>Buscar \u003cselect id=\"category\">\u003c/select>\u003c/label>\n        \u003cbutton id=\"search\" type=\"button\">Buscar\u003c/button>\n        \u003ca id=\"source\" target=\"_blank\" rel=\"noopener noreferrer\">Abrir en Google Maps\u003c/a>\n    \u003c/header>\n    \u003ciframe id=\"places\" title=\"Lugares de Bolivia\" referrerpolicy=\"no-referrer-when-downgrade\" allowfullscreen>\u003c/iframe>\n    \u003cp id=\"status\" role=\"status\" aria-live=\"polite\">Selecciona una ciudad y una categoría.\u003c/p>\n    \u003cscript>\n        const parametros = new URLSearchParams(window.parametrosMapa ?? location.search);\n        const tipo = parametros.get('tipo');\n        const categorias = tipo === 'health' ? ['Hospitales', 'Clínicas', 'Bomberos'] : ['Puentes', 'Carreteras', 'Represas', 'Subestaciones eléctricas'];\n        const selector = document.getElementById('category');\n        categorias.forEach(texto => selector.add(new Option(texto, texto)));\n        const visor = document.getElementById('places');\n        const estado = document.getElementById('status');\n        let espera;\n        let consulta = 0;\n        function informar(texto, nivel) {\n            estado.textContent = texto;\n            estado.dataset.state = nivel;\n            if (window.parent !== window) window.parent.postMessage({ canal: 'alerta-mapas', tipo, carga: parametros.get('carga'), estado: nivel, texto }, window.origenMapa || location.origin);\n        }\n        function buscar() {\n            clearTimeout(espera);\n            const actual = ++consulta;\n            const ciudad = document.getElementById('city').value;\n            const consultaLugar = `${selector.value} ${ciudad} Bolivia`;\n            document.title = `${consultaLugar} — Alerta Bolivia`;\n            visor.title = consultaLugar;\n            document.getElementById('source').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(consultaLugar)}`;\n            informar('Cargando búsqueda en Google Maps…', 'loading');\n            visor.onload = () => {\n                if (actual !== consulta) return;\n                clearTimeout(espera);\n                informar(`${consultaLugar}. Selecciona un lugar para ver su información. Si el proveedor no muestra resultados, abre Google Maps o cambia la búsqueda.`, 'embedded');\n            };\n            visor.onerror = () => { clearTimeout(espera); informar('No se pudo cargar el visor. Reintenta con Buscar o abre Google Maps.', 'warning'); };\n            espera = setTimeout(() => informar('La fuente tarda en responder. Reintenta con Buscar o abre Google Maps.', 'warning'), 20000);\n            visor.src = `https://maps.google.com/maps?q=${encodeURIComponent(consultaLugar)}&output=embed&z=12&hl=es`;\n        }\n        document.getElementById('search').addEventListener('click', buscar);\n        window.addEventListener('pagehide', () => { ++consulta; clearTimeout(espera); visor.onload = null; });\n        if (['health', 'infrastructure'].includes(tipo)) buscar();\n        else informar('Tipo de mapa no reconocido.', 'warning');\n    \u003c/script>\n\u003c/body>\n\u003c/html>\n"};
+
+function crearDocumentoMapa(tipo, carga, recargar) {
+    const parametros = new URLSearchParams({ tipo, carga: String(carga) });
+    if (recargar) parametros.set('actualizar', '1');
+    const base = document.baseURI.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    const preparacion = '<base href="' + base + '"><script>window.parametrosMapa=' + JSON.stringify(parametros.toString()) + ';window.origenMapa=' + JSON.stringify(location.origin) + ';<\/script>';
+    return documentosMapas[mapasConfig[tipo].documento].replace('<head>', '<head>' + preparacion);
+}
+
+const vientoURL = 'https://embed.windy.com/embed2.html?lat=-16.3&lon=-64.7&zoom=5&level=surface&overlay=wind&calendar=now&product=ecmwf&metricWind=km%2Fh&metricTemp=%C2%B0C';
+const mapasConfig = {
+    weather: { url: vientoURL, titulo: 'Pronóstico de viento — Bolivia', info: 'Windy: pronóstico meteorológico; consulta la fecha en el mapa.', fuente: 'https://www.windy.com/?-16.3,-64.7,5', proveedor: 'Windy' },
+    alerts: { url: vientoURL.replace('overlay=wind', 'overlay=rain'), titulo: 'Lluvias previstas y avisos oficiales', info: 'El mapa muestra un pronóstico de lluvia. Nueva Pestaña abre los avisos oficiales de SENAMHI.', fuente: 'https://senamhi.gob.bo/', proveedor: 'SENAMHI / Windy' },
+    satellite: { titulo: 'Vista satelital de Bolivia', info: 'Esri World Imagery: la fecha y resolución de las imágenes varían por zona.', fuente: 'https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9', proveedor: 'Esri World Imagery' },
+    health: { url: 'mapa-lugares.html?tipo=health', titulo: 'Hospitales y emergencias', info: 'Busca hospitales, clínicas y bomberos por ciudad; verifica sus horarios con el establecimiento.', fuente: 'https://www.google.com/maps/search/hospitales+Bolivia/', proveedor: 'Google Maps' },
+    fires: { titulo: 'Detecciones térmicas por satélite', info: 'NASA GIBS: focos de calor observados por satélite. No equivalen a incendios activos confirmados.', fuente: 'https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@-64.7,-16.3,5z', proveedor: 'NASA GIBS / FIRMS' },
+    seismic: { titulo: 'Actividad sísmica — últimos 30 días', info: 'USGS: sismos registrados en Bolivia y alrededores; no es una predicción.', fuente: 'https://earthquake.usgs.gov/earthquakes/map/', proveedor: 'USGS' },
+    infrastructure: { url: 'mapa-lugares.html?tipo=infrastructure', titulo: 'Infraestructura registrada', info: 'Busca puentes, carreteras, represas y subestaciones por ciudad; el mapa no informa su estado operativo.', fuente: 'https://www.google.com/maps/search/puentes+Bolivia/', proveedor: 'Google Maps' },
+    reports: { titulo: 'Reportes ciudadanos locales', info: 'Solo reportes con coordenadas guardados en este navegador; no son reportes verificados.', fuente: 'denuncias.html', proveedor: 'Almacenamiento local' }
+};
+for (const [tipo, config] of Object.entries(mapasConfig)) {
+    if (!['weather', 'alerts'].includes(tipo)) config.documento = ['health', 'infrastructure'].includes(tipo) ? 'lugares' : 'vista';
+}
+
+let mapaActual = null;
+let cargaMapa = 0;
+let esperaMapa;
+let focoAnterior;
+let scrollAnterior = '';
+const estadosMapas = new Map();
+
+function actualizarEstadoMapa(tipo, estado, texto) {
+    estadosMapas.set(tipo, estado);
+    const tarjeta = document.querySelector(`[data-map="${tipo}"]`);
+    tarjeta.dataset.status = estado;
+    const etiqueta = tarjeta.querySelector('.map-status');
+    etiqueta.textContent = texto;
+    etiqueta.className = `map-status ${estado === 'warning' || (tipo === 'alerts' && estado === 'idle') ? 'status-warning' : 'status-online'}`;
+    document.getElementById('live-maps').textContent = [...estadosMapas.values()].filter(valor => valor === 'online').length;
+    document.getElementById('active-alerts').textContent = [...estadosMapas.values()].filter(valor => valor === 'warning').length;
+    document.querySelector('.alert-badge').textContent = document.getElementById('active-alerts').textContent;
+    if (estado === 'online') document.getElementById('lastUpdateTime').textContent = new Date().toLocaleString('es-BO');
+}
+
+function abrirMapa(tipo, recargar = false) {
+    const config = mapasConfig[tipo];
+    if (!config) return;
+    if (!mapaActual) {
+        focoAnterior = document.activeElement;
+        scrollAnterior = document.body.style.overflow;
+    }
+    mapaActual = tipo;
+    const carga = ++cargaMapa;
+    clearTimeout(esperaMapa);
+    const modal = document.getElementById('mapModal');
+    const iframe = document.getElementById('mapIframe');
+    const loading = document.getElementById('mapLoading');
+    document.getElementById('mapModalTitle').textContent = config.titulo;
+    document.getElementById('mapModalInfo').textContent = config.info;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    loading.replaceChildren();
+    const spinner = document.createElement('div');
+    spinner.className = 'loading-spinner';
+    const mensaje = document.createElement('p');
+    mensaje.textContent = 'Cargando mapa interactivo…';
+    loading.append(spinner, mensaje);
+    loading.style.display = 'block';
+    iframe.style.display = 'none';
+    iframe.title = config.titulo;
+    actualizarEstadoMapa(tipo, 'loading', 'Consultando…');
+    const terminar = () => {
+        if (carga !== cargaMapa) return;
+        clearTimeout(esperaMapa);
+        loading.style.display = 'none';
+        iframe.style.display = 'block';
+    };
+    iframe.onload = () => {
+        terminar();
+        if (carga === cargaMapa && ['weather', 'alerts'].includes(tipo)) {
+            actualizarEstadoMapa(tipo, 'embedded', 'Visor externo abierto');
+        }
+    };
+    iframe.onerror = () => {
+        if (carga !== cargaMapa) return;
+        terminar();
+        actualizarEstadoMapa(tipo, 'warning', 'No se pudo cargar');
+        document.getElementById('mapModalInfo').textContent = 'No se pudo cargar el visor. Puedes reintentar o abrir la fuente.';
+    };
+    esperaMapa = setTimeout(() => {
+        if (carga !== cargaMapa) return;
+        terminar();
+        actualizarEstadoMapa(tipo, 'warning', 'Carga demorada');
+        document.getElementById('mapModalInfo').textContent = 'La fuente tarda en responder. Puedes recargar o abrir la fuente.';
+    }, 25000);
+    iframe.removeAttribute('srcdoc');
+    if (config.documento) {
+        iframe.removeAttribute('src');
+        iframe.srcdoc = crearDocumentoMapa(tipo, carga, recargar);
+    } else {
+        iframe.src = config.url;
+    }
+    modal.querySelector('button').focus();
+}
+
+function cerrarMapa() {
+    ++cargaMapa;
+    clearTimeout(esperaMapa);
+    const iframe = document.getElementById('mapIframe');
+    iframe.onload = null;
+    iframe.onerror = null;
+    iframe.removeAttribute('srcdoc');
+    iframe.src = 'about:blank';
+    document.getElementById('mapModal').style.display = 'none';
+    document.body.style.overflow = scrollAnterior;
+    if (estadosMapas.get(mapaActual) === 'loading') actualizarEstadoMapa(mapaActual, 'idle', 'Consulta al abrir');
+    mapaActual = null;
+    focoAnterior?.focus();
+}
+
+function recargarMapa() {
+    if (mapaActual) abrirMapa(mapaActual, true);
+}
+
+function abrirEnNuevaPestana() {
+    if (!mapaActual) return;
+    const config = mapasConfig[mapaActual];
+    if (!config.documento) {
+        window.open(mapaActual === 'alerts' ? config.fuente : config.url, '_blank', 'noopener,noreferrer');
+        return;
+    }
+    const url = URL.createObjectURL(new Blob([crearDocumentoMapa(mapaActual, 0, false)], { type: 'text/html' }));
+    window.open(url, '_blank', 'noopener,noreferrer');
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+window.addEventListener('message', event => {
+    const iframe = document.getElementById('mapIframe');
+    const dato = event.data;
+    if (event.origin !== location.origin || event.source !== iframe.contentWindow || dato?.canal !== 'alerta-mapas' || dato.tipo !== mapaActual || dato.carga !== String(cargaMapa)) return;
+    if (!['online', 'warning', 'embedded'].includes(dato.estado) || typeof dato.texto !== 'string') return;
+    actualizarEstadoMapa(dato.tipo, dato.estado, dato.estado === 'online' ? 'Fuente consultada' : dato.estado === 'embedded' ? 'Visor externo abierto' : 'Consulta no disponible');
+    document.getElementById('mapModalInfo').textContent = dato.texto;
+});
+
+document.addEventListener('keydown', event => {
+    if (!mapaActual) return;
+    if (event.key === 'Escape') cerrarMapa();
+    if (event.key === 'Tab') {
+        const controles = [...document.querySelectorAll('#mapModal button, #mapModal a, #mapModal iframe')];
+        const primero = controles[0];
+        const ultimo = controles.at(-1);
+        if (event.shiftKey && document.activeElement === primero) { event.preventDefault(); ultimo.focus(); }
+        else if (!event.shiftKey && document.activeElement === ultimo) { event.preventDefault(); primero.focus(); }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('mapModal');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'mapModalTitle');
+    for (const [tipo, config] of Object.entries(mapasConfig)) {
+        actualizarEstadoMapa(tipo, 'idle', tipo === 'reports' ? 'Datos locales' : 'Consulta al abrir');
+    }
+    document.querySelectorAll('.stat-card[data-filter]').forEach(tarjeta => {
+        const filtrar = () => {
+            const filtro = tarjeta.dataset.filter;
+            const tarjetas = [...document.querySelectorAll('.map-card')];
+            const coincide = el => filtro === 'all' || (filtro === 'response' ? el.dataset.map === 'reports' : el.dataset.status === filtro);
+            const encontradas = tarjetas.filter(coincide);
+            tarjetas.forEach(el => { el.hidden = encontradas.length > 0 && !coincide(el); el.style.display = el.hidden ? 'none' : ''; });
+            if (!encontradas.length) AlertaBolivia.mostrarNotificacion('Mapas', 'Aún no hay fuentes en este estado. Se muestran todos los mapas.');
+            document.querySelectorAll('.stat-card').forEach(el => el.classList.toggle('active', el === tarjeta));
+        };
+        tarjeta.tabIndex = 0;
+        tarjeta.setAttribute('role', 'button');
+        tarjeta.addEventListener('click', filtrar);
+        tarjeta.addEventListener('keydown', event => { if (['Enter', ' '].includes(event.key)) { event.preventDefault(); filtrar(); } });
+    });
+});
+
+</script>
 
     <script>
-        // ============================================================
-        // MAPAS - LÓGICA ESPECÍFICA DE mapa.html
-        // ============================================================
-
-        const mapasConfig = {
-            'weather': {
-                url: 'https://embed.windy.com/embed2.html?lat=-16.5&lon=-68.15&zoom=5&level=surface&overlay=wind&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&detailLat=-16.5&detailLon=-68.15&metricWind=default&metricTemp=default&radarRange=-1',
-                titulo: 'Radar Meteorológico SAT Bolivia',
-                info: 'Vientos y clima en tiempo real'
-            },
-            'satellite': {
-                url: 'https://www.openstreetmap.org/export/embed.html?bbox=-69.6,-22.9,-57.5,-9.4&layer=mapnik&marker=-16.5,-68.15',
-                titulo: 'Mapa Satelital Bolivia',
-                info: 'Mapa completo de Bolivia'
-            },
-            'alerts': {
-                url: 'https://www.meteoblue.com/en/weather/maps/widget?windAnimation=1&satellite=1&temperature=1&geoloc=detect',
-                titulo: 'Alertas Meteorológicas',
-                info: 'Pronóstico y alertas del tiempo'
-            },
-            'health': {
-                url: 'proxy-mapa-hospitales.html',
-                titulo: 'Hospitales y Emergencias',
-                info: 'Ubicación de servicios médicos'
-            },
-            'fires': {
-                url: 'proxy-incendios.html',
-                titulo: 'Incendios Forestales',
-                info: 'Focos de calor detectados'
-            },
-            'seismic': {
-                url: 'proxy-sismos.html',
-                titulo: 'Actividad Sísmica',
-                info: 'Sismos registrados en Bolivia'
-            },
-            'infrastructure': {
-                url: 'proxy-infraestructura.html',
-                titulo: 'Infraestructura',
-                info: 'Carreteras y servicios'
-            }
-        };
-
-        let mapaActual = null;
-
-        function abrirMapa(tipoMapa) {
-            const config = mapasConfig[tipoMapa];
-            if (!config) {
-                AlertaBolivia.mostrarNotificacion('Error', 'Mapa no disponible');
-                return;
-            }
-
-            mapaActual = tipoMapa;
-            const modal = document.getElementById('mapModal');
-            const tituloElem = document.getElementById('mapModalTitle');
-            const infoElem = document.getElementById('mapModalInfo');
-            const iframe = document.getElementById('mapIframe');
-            const loading = document.getElementById('mapLoading');
-
-            tituloElem.textContent = config.titulo;
-            infoElem.textContent = config.info;
-            modal.style.display = 'block';
-            loading.style.display = 'block';
-            iframe.style.display = 'none';
-
-            iframe.src = config.url;
-
-            iframe.onload = function() {
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                    iframe.style.display = 'block';
-                    AlertaBolivia.mostrarNotificacion('Mapa Cargado', config.titulo);
-                }, 1000);
-            };
-
-            iframe.onerror = function() {
-                loading.innerHTML = `
-          <div style="text-align:center;color:var(--danger);padding:2rem;">
-            <div style="font-size:3rem;">❌</div>
-            <p>Error al cargar el mapa</p>
-            <button class="btn" onclick="window.open('${config.url}','_blank')">Abrir en nueva pestaña</button>
-          </div>
-        `;
-            };
-        }
-
-        function cerrarMapa() {
-            const modal = document.getElementById('mapModal');
-            const iframe = document.getElementById('mapIframe');
-            modal.style.display = 'none';
-            iframe.src = '';
-            mapaActual = null;
-        }
-
-        function recargarMapa() {
-            if (mapaActual) {
-                const iframe = document.getElementById('mapIframe');
-                const loading = document.getElementById('mapLoading');
-                loading.style.display = 'block';
-                iframe.style.display = 'none';
-                iframe.src = iframe.src;
-            }
-        }
-
-        function abrirEnNuevaPestana() {
-            if (mapaActual) {
-                const config = mapasConfig[mapaActual];
-                window.open(config.url, '_blank');
-            }
-        }
-
         // ============================================================
         // ALERTA RÁPIDA (sobrescribe el comportamiento por defecto)
         // ============================================================
@@ -1156,3 +1231,4 @@
 </body>
 
 </html>
+
