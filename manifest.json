@@ -1,10 +1,10 @@
 {
-  "id": "/",
+  "id": "./",
   "name": "Alerta Bolivia - SAT",
   "short_name": "Alerta Bolivia",
   "description": "Sistema de Alerta Temprana de Bolivia",
-  "scope": "/",
-  "start_url": "./index.html",
+  "scope": "./",
+  "start_url": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "portrait",
@@ -41,7 +41,7 @@
       "name": "Reportar Emergencia",
       "short_name": "Emergencia",
       "description": "Enviar alerta de emergencia",
-      "url": "./denuncias.html?emergency=true",
+      "url": "denuncias.html?emergency=true",
       "icons": [
         {
           "src": "logo-192x192.png",
@@ -54,7 +54,7 @@
       "name": "Ver Mapa",
       "short_name": "Mapa",
       "description": "Mapa interactivo de alertas",
-      "url": "./mapa.html",
+      "url": "mapa.html",
       "icons": [
         {
           "src": "logo-192x192.png",
@@ -67,7 +67,7 @@
       "name": "Contactos Emergencia",
       "short_name": "Contactos",
       "description": "Números de emergencia",
-      "url": "./contactos.html",
+      "url": "contactos.html",
       "icons": [
         {
           "src": "logo-192x192.png",
