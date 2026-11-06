@@ -1,7 +1,6 @@
 const AlertaBolivia = (function() {
   'use strict';
 
-
   function mostrarNotificacion(titulo, mensaje, duracion = 4000) {
     const toast = document.getElementById('notificationToast');
     const titleElem = document.getElementById('toastTitle');
@@ -23,7 +22,6 @@ const AlertaBolivia = (function() {
     }, duracion);
   }
 
-
   function obtenerUbicacion(opciones = { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }) {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
@@ -33,7 +31,6 @@ const AlertaBolivia = (function() {
       navigator.geolocation.getCurrentPosition(resolve, reject, opciones);
     });
   }
-
 
   async function enviarAlerta(data) {
     const resultados = { backend: null, n8n: null };
@@ -67,7 +64,6 @@ const AlertaBolivia = (function() {
     return resultados;
   }
 
-
   function actualizarFecha(elementId = 'lastUpdateTime') {
     const el = document.getElementById(elementId);
     if (!el) return;
@@ -86,7 +82,6 @@ const AlertaBolivia = (function() {
     el.textContent = `${dateString} ${timeString}`;
   }
 
-
   function gestionarHeader() {
     const header = document.getElementById('header');
     if (!header) return;
@@ -96,7 +91,6 @@ const AlertaBolivia = (function() {
       header.classList.remove('scrolled');
     }
   }
-
 
   let ubicacionEmergencia = null;
 
@@ -155,7 +149,6 @@ const AlertaBolivia = (function() {
       }
 
     } catch (error) {
-
       ubicacionEmergencia = {
         lat: -16.290154,
         lng: -63.588653,
@@ -181,7 +174,6 @@ const AlertaBolivia = (function() {
     }
   };
 
-
   async function enviarAlertaEmergencia(ubicacion) {
     const sendBtn = document.getElementById('sendEmergencyBtn');
     const originalText = sendBtn ? sendBtn.innerHTML : 'Enviando...';
@@ -203,7 +195,7 @@ const AlertaBolivia = (function() {
         });
         if (reports.length > 50) reports.pop();
         localStorage.setItem('sat_emergency_reports', JSON.stringify(reports));
-      } catch (e) { /* ignore */ }
+      } catch (e) {}
 
       await enviarAlerta({
         tipo: 'emergencia',
@@ -246,7 +238,6 @@ const AlertaBolivia = (function() {
 
   window.enviarAlertaEmergencia = enviarAlertaEmergencia;
 
-
   function inicializar() {
 
     window.addEventListener('scroll', gestionarHeader);
@@ -286,7 +277,6 @@ const AlertaBolivia = (function() {
     console.log('%cUtilidades compartidas cargadas correctamente.', 'color:#80D0FF;');
   }
 
-
   return {
     mostrarNotificacion,
     obtenerUbicacion,
@@ -298,9 +288,7 @@ const AlertaBolivia = (function() {
 
 })();
 
-
 window.AlertaBolivia = AlertaBolivia;
-
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', AlertaBolivia.inicializar);
@@ -310,7 +298,8 @@ if (document.readyState === 'loading') {
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
+    const swUrl = new URL('sw.js', document.baseURI).href;
+    navigator.serviceWorker.register(swUrl, { scope: './' })
       .then(reg => console.log('✅ Service Worker registrado. Scope:', reg.scope))
       .catch(err => console.error('❌ Error registrando Service Worker:', err));
   });
