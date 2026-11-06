@@ -1,8 +1,3 @@
-/* ============================================================
-   common.css - Estilos Completos del SAT Bolivia
-   ============================================================ */
-
-/* ---------- VARIABLES GLOBALES ---------- */
 :root {
   --primary: #00B4D4;
   --primary-dark: #0096B4;
@@ -39,7 +34,6 @@
   --border-radius-sm: 12px;
 }
 
-/* ---------- RESET Y BASE ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -81,7 +75,7 @@ body::before {
   100% { opacity: 0.8; }
 }
 
-/* ---------- SCROLLBAR ---------- */
+
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #E6F7FF; }
 ::-webkit-scrollbar-thumb {
@@ -229,7 +223,7 @@ body::before {
   font-size: 1.1rem;
 }
 
-/* ---------- BOTONES ---------- */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -324,7 +318,7 @@ body::before {
   font-size: 0.85rem;
 }
 
-/* ---------- MODALES ---------- */
+
 .modal,
 .modal-overlay {
   display: none;
@@ -468,7 +462,6 @@ body::before {
   font-size: 0.95rem;
 }
 
-/* ---------- BOTÓN DE EMERGENCIA FLOTANTE ---------- */
 .emergency-btn {
   position: fixed;
   bottom: 2rem;
@@ -506,7 +499,6 @@ body::before {
   animation: none;
 }
 
-/* ---------- FOOTER ---------- */
 .footer {
   background: linear-gradient(135deg, #E6F7FF, #D1E8F2);
   border-top: 1px solid rgba(0, 180, 212, 0.2);
@@ -538,7 +530,6 @@ body::before {
 .mb-2 { margin-bottom: 2rem; }
 .hidden { display: none !important; }
 
-/* ---------- RESPONSIVE ---------- */
 @media (max-width: 992px) {
   .header {
     flex-direction: column;
