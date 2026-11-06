@@ -4,7 +4,7 @@
   "short_name": "Alerta Bolivia",
   "description": "Sistema de Alerta Temprana de Bolivia",
   "scope": "/",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "portrait",
@@ -15,9 +15,9 @@
   "categories": ["weather", "navigation", "maps", "emergency"],
   "icons": [
     {
-      "src": "logo.jpg",
+      "src": "logo-192x192.png",
       "sizes": "192x192",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any"
     },
     {
@@ -25,18 +25,6 @@
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any"
-    },
-    {
-      "src": "logo.jpg",
-      "sizes": "192x192",
-      "type": "image/jpeg",
-      "purpose": "maskable"
-    },
-    {
-      "src": "logo.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "maskable"
     }
   ],
   "screenshots": [
@@ -53,12 +41,12 @@
       "name": "Reportar Emergencia",
       "short_name": "Emergencia",
       "description": "Enviar alerta de emergencia",
-      "url": "/denuncias.html?emergency=true",
+      "url": "./denuncias.html?emergency=true",
       "icons": [
         {
-          "src": "logo.jpg",
+          "src": "logo-192x192.png",
           "sizes": "96x96",
-          "type": "image/jpeg"
+          "type": "image/png"
         }
       ]
     },
@@ -66,12 +54,12 @@
       "name": "Ver Mapa",
       "short_name": "Mapa",
       "description": "Mapa interactivo de alertas",
-      "url": "/mapa.html",
+      "url": "./mapa.html",
       "icons": [
         {
-          "src": "logo.jpg",
+          "src": "logo-192x192.png",
           "sizes": "96x96",
-          "type": "image/jpeg"
+          "type": "image/png"
         }
       ]
     },
@@ -79,12 +67,12 @@
       "name": "Contactos Emergencia",
       "short_name": "Contactos",
       "description": "Números de emergencia",
-      "url": "/contactos.html",
+      "url": "./contactos.html",
       "icons": [
         {
-          "src": "logo.jpg",
+          "src": "logo-192x192.png",
           "sizes": "96x96",
-          "type": "image/jpeg"
+          "type": "image/png"
         }
       ]
     }
